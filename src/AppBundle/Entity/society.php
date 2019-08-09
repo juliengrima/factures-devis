@@ -8,6 +8,13 @@ namespace AppBundle\Entity;
 class society
 {
 
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->societyName;
+    }
+
+
     /**
      * @var integer
      */

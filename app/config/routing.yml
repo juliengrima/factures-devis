@@ -1,3 +1,11 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+    
+app_society:
+    resource: "@AppBundle/Resources/config/routing/society.yml"
+    prefix:   /society
+
+app_contact:
+    resource: "@AppBundle/Resources/config/routing/contact.yml"
+    prefix:   /contact
