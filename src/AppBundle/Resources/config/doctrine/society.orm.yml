@@ -22,4 +22,9 @@ AppBundle\Entity\society:
         city:
             type: string
             length: '40'
+            
+    oneToMany:
+        contact:
+            targetEntity: AppBundle\Entity\Contact
+            mappedBy: society
     lifecycleCallbacks: {  }

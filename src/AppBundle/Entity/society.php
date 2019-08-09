@@ -33,6 +33,18 @@ class society
      */
     private $city;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $contact;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->contact = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -138,5 +150,39 @@ class society
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Add contact
+     *
+     * @param \AppBundle\Entity\Contact $contact
+     *
+     * @return society
+     */
+    public function addContact(\AppBundle\Entity\Contact $contact)
+    {
+        $this->contact[] = $contact;
+
+        return $this;
+    }
+
+    /**
+     * Remove contact
+     *
+     * @param \AppBundle\Entity\Contact $contact
+     */
+    public function removeContact(\AppBundle\Entity\Contact $contact)
+    {
+        $this->contact->removeElement($contact);
+    }
+
+    /**
+     * Get contact
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContact()
+    {
+        return $this->contact;
     }
 }
