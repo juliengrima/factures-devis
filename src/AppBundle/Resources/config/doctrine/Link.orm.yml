@@ -1,0 +1,29 @@
+AppBundle\Entity\Link:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\LinkRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        fileName:
+            type: string
+            length: 255
+            nullable: true
+            column: file_name
+        link:
+            type: string
+            length: 255
+            
+    manyToOne:
+        society:
+            targetEntity: AppBundle\Entity\society
+            inversedBy: link
+            joinColumn:
+                name: society_id
+                referencedColumnName: id
+
+    lifecycleCallbacks: {  }
