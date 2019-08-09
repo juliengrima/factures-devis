@@ -1,0 +1,24 @@
+society_index:
+    path:     /
+    defaults: { _controller: "AppBundle:society:index" }
+    methods:  GET
+
+society_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:society:show" }
+    methods:  GET
+
+society_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:society:new" }
+    methods:  [GET, POST]
+
+society_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:society:edit" }
+    methods:  [GET, POST]
+
+society_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:society:delete" }
+    methods:  DELETE
