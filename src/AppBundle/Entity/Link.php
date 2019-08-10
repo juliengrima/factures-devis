@@ -109,4 +109,33 @@ class Link
     {
         return $this->society;
     }
+    /**
+     * @var boolean
+     */
+    private $order;
+
+
+    /**
+     * Set order
+     *
+     * @param boolean $order
+     *
+     * @return Link
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return boolean
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
 }

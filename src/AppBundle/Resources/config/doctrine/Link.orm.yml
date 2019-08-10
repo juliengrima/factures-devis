@@ -17,6 +17,9 @@ AppBundle\Entity\Link:
         link:
             type: string
             length: 255
+        order:
+            type: boolean
+            nullable: true
             
     manyToOne:
         society:
