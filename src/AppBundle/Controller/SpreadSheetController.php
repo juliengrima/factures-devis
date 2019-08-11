@@ -28,8 +28,9 @@ class SpreadSheetController extends Controller
 
         /* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Hello World !');
         $sheet->setTitle("My First Worksheet");
+        $sheet->setCellValue('A1', 'Hello World !');
+
 
         // Create your Office 2007 Excel (XLSX Format)
         $writer = new Xlsx($spreadsheet);
@@ -43,7 +44,7 @@ class SpreadSheetController extends Controller
 
         // Redirect output to a client’s web browser (Xls)
         header('Content-Type: application/vnd.ms-excel');
-//        header('Content-Disposition: attachment;filename="01simple.xls"');
+//        header('Content-Disposition: attachment;filename='.$fileName);
 //        header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 //        header('Cache-Control: max-age=1');
