@@ -9,10 +9,6 @@ app_society:
 app_contact:
     resource: "@AppBundle/Resources/config/routing/contact.yml"
     prefix:   /contact
-    
-app_link:
-    resource: "@AppBundle/Resources/config/routing/link.yml"
-    prefix:   /link
 
 app_spread:
     path:     /spreadsheet

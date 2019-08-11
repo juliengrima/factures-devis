@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -18,7 +19,6 @@ class SpreadSheetController extends Controller
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getProperties()
                     ->setCreator("Société xxxx")
-                    ->setLastModifiedBy("Maarten Balliauw")
                     ->setTitle("Office 2007 XLSX Test Document")
                     ->setSubject("Office 2007 XLSX Test Document")
                     ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
@@ -33,16 +33,19 @@ class SpreadSheetController extends Controller
         // Create your Office 2007 Excel (XLSX Format)
         $writer = new Xlsx($spreadsheet);
 
-        // In this case, we want to write the file in the public directory
-        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web';
-        // e.g /var/www/project/public/my_first_excel_symfony4.xlsx
-        $excelFilepath =  $publicDirectory . '/medias/documents/Facture1.xlsx';
+        // Create a Temporary file in the system
+        $fileName = 'Facture 1.xlsx';
 
-        // Create the file
+        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
+        // e.g /var/www/project/public/my_first_excel_symfony4.xlsx
+        $excelFilepath =  $publicDirectory . '/'. $fileName;
         $writer->save($excelFilepath);
 
-        // Return a text response to the browser saying that the excel was succesfully created
-        return new Response("Excel generated succesfully");
+        $file = new \COM('excel.application', );
+        fopen($excelFilepath, 'r+');
+
+        // Return the excel file as an attachment
+//        return $this->file($excelFilepath, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
 
     }
 }
