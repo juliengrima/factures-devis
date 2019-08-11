@@ -14,3 +14,7 @@ app_link:
     resource: "@AppBundle/Resources/config/routing/link.yml"
     prefix:   /link
 
+app_spread:
+    path:     /spreadsheet
+    defaults: { _controller: "AppBundle:SpreadSheet:Spread" }
+    methods:  GET
