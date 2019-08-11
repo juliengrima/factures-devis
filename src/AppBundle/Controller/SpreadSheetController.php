@@ -41,11 +41,8 @@ class SpreadSheetController extends Controller
         $excelFilepath =  $publicDirectory . '/'. $fileName;
         $writer->save($excelFilepath);
 
-        $file = new \COM('excel.application', );
-        fopen($excelFilepath, 'r+');
-
         // Return the excel file as an attachment
-//        return $this->file($excelFilepath, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
+        return $this->file($excelFilepath, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
 
     }
 }
