@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Cache\Simple\FilesystemCache;
@@ -39,6 +40,21 @@ class SpreadSheetController extends Controller
         $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
         // e.g /var/www/project/public/my_first_excel_symfony4.xlsx
         $excelFilepath =  $publicDirectory . '/'. $fileName;
+
+        // Redirect output to a client’s web browser (Xls)
+        header('Content-Type: application/vnd.ms-excel');
+//        header('Content-Disposition: attachment;filename="01simple.xls"');
+//        header('Cache-Control: max-age=0');
+// If you're serving to IE 9, then the following may be needed
+//        header('Cache-Control: max-age=1');
+
+// If you're serving to IE over SSL, then the following may be needed
+//        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+//        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+//        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+//        header('Pragma: public'); // HTTP/1.0
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xls');
         $writer->save($excelFilepath);
 
         // Return the excel file as an attachment
