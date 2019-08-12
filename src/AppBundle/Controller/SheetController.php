@@ -2,9 +2,16 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Link;
 use AppBundle\Entity\Sheet;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Cache\Simple\FilesystemCache;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 
 /**
  * Sheet controller.
@@ -38,9 +45,49 @@ class SheetController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($sheet);
             $em->flush();
+
+//            GENERATING XLSX FILE
+//            USE ON CACHE
+            $cache = new FilesystemCache();
+            \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
+
+//            PROPERTIES OF THE XLSX DOCUMENT
+            $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+            $spreadsheet->getProperties()
+                ->setCreator("Société xxxx")
+                ->setTitle("Office 2007 XLSX Test Document")
+                ->setSubject("Office 2007 XLSX Test Document")
+                ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+                ->setKeywords("office 2007 openxml php")
+                ->setCategory("Test result file");
+
+//            TITLE OF PAGE AND BODY OF XLSX
+            /* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
+            $sheet = $spreadsheet->getActiveSheet();
+            $sheet->setTitle("My First Worksheet");
+            $sheet->setCellValue('A1', 'Hello World !');
+            $sheet->setCellValue('A2', 'Hello World !');
+            $sheet->setCellValue('A3', 'Hello World !');
+            $sheet->setCellValue('B1', 'Hello World !');
+            $sheet->setCellValue('B2', 'Hello World !');
+            $sheet->setCellValue('B3', 'Hello World !');
+
+//            Create your Office 2007 Excel (XLSX Format)
+            $writer = new Xlsx($spreadsheet);
+
+//            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
+            $fileName = 'Facture 1.xlsx';
+
+            $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
+            // e.g /var/www/project/public/my_first_excel_symfony4.xlsx
+            $excelFilepath = $publicDirectory . '/' . $fileName;
+
+            $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+            $writer->save($excelFilepath);
 
             return $this->redirectToRoute('sheet_show', array('id' => $sheet->getId()));
         }

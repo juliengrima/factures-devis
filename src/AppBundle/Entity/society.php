@@ -14,7 +14,6 @@ class society
         return $this->societyName;
     }
 
-
     /**
      * @var integer
      */
@@ -46,11 +45,17 @@ class society
     private $contact;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sheet;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->contact = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sheet = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -194,42 +199,36 @@ class society
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $link;
-
-
-    /**
-     * Add link
+     * Add sheet
      *
-     * @param \AppBundle\Entity\Link $link
+     * @param \AppBundle\Entity\Sheet $sheet
      *
      * @return society
      */
-    public function addLink(\AppBundle\Entity\Link $link)
+    public function addSheet(\AppBundle\Entity\Sheet $sheet)
     {
-        $this->link[] = $link;
+        $this->sheet[] = $sheet;
 
         return $this;
     }
 
     /**
-     * Remove link
+     * Remove sheet
      *
-     * @param \AppBundle\Entity\Link $link
+     * @param \AppBundle\Entity\Sheet $sheet
      */
-    public function removeLink(\AppBundle\Entity\Link $link)
+    public function removeSheet(\AppBundle\Entity\Sheet $sheet)
     {
-        $this->link->removeElement($link);
+        $this->sheet->removeElement($sheet);
     }
 
     /**
-     * Get link
+     * Get sheet
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getLink()
+    public function getSheet()
     {
-        return $this->link;
+        return $this->sheet;
     }
 }

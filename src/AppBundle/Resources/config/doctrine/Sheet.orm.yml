@@ -16,4 +16,17 @@ AppBundle\Entity\Sheet:
         price:
             type: integer
             nullable: true
+    manyToOne:
+        society:
+            targetEntity: AppBundle\Entity\society
+            inversedBy: sheet
+            joinColumn:
+                name: society_id
+                referencedColumnName: id
+                
+    oneToOne:
+        link:
+            targetEntity: AppBundle\Entity\Link
+            mappedBy: sheet
+
     lifecycleCallbacks: {  }

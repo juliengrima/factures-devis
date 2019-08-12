@@ -7,8 +7,9 @@ namespace AppBundle\Entity;
  */
 class Link
 {
+
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -22,11 +23,16 @@ class Link
      */
     private $link;
 
+    /**
+     * @var \AppBundle\Entity\Sheet
+     */
+    private $sheet;
+
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -80,33 +86,28 @@ class Link
     {
         return $this->link;
     }
-    /**
-     * @var \AppBundle\Entity\society
-     */
-    private $society;
-
 
     /**
-     * Set society
+     * Set sheet
      *
-     * @param \AppBundle\Entity\society $society
+     * @param \AppBundle\Entity\Sheet $sheet
      *
      * @return Link
      */
-    public function setSociety(\AppBundle\Entity\society $society = null)
+    public function setSheet(\AppBundle\Entity\Sheet $sheet = null)
     {
-        $this->society = $society;
+        $this->sheet = $sheet;
 
         return $this;
     }
 
     /**
-     * Get society
+     * Get sheet
      *
-     * @return \AppBundle\Entity\society
+     * @return \AppBundle\Entity\Sheet
      */
-    public function getSociety()
+    public function getSheet()
     {
-        return $this->society;
+        return $this->sheet;
     }
 }

@@ -17,12 +17,12 @@ AppBundle\Entity\Link:
             type: string
             length: 255
             
-    manyToOne:
-        society:
-            targetEntity: AppBundle\Entity\society
+    oneToOne:
+        sheet:
+            targetEntity: AppBundle\Entity\Sheet
             inversedBy: link
             joinColumn:
-                name: society_id
+                name: sheet_id
                 referencedColumnName: id
 
     lifecycleCallbacks: {  }

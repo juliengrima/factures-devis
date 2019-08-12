@@ -27,7 +27,7 @@ AppBundle\Entity\society:
         contact:
             targetEntity: AppBundle\Entity\Contact
             mappedBy: society
-        link:
-            targetEntity: AppBundle\Entity\Link
+        sheet:
+            targetEntity: AppBundle\Entity\Sheet
             mappedBy: society
     lifecycleCallbacks: {  }
