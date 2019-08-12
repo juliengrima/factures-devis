@@ -30,6 +30,11 @@ class SpreadSheetController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle("My First Worksheet");
         $sheet->setCellValue('A1', 'Hello World !');
+        $sheet->setCellValue('A2', 'Hello World !');
+        $sheet->setCellValue('A3', 'Hello World !');
+        $sheet->setCellValue('B1', 'Hello World !');
+        $sheet->setCellValue('B2', 'Hello World !');
+        $sheet->setCellValue('B3', 'Hello World !');
 
 
         // Create your Office 2007 Excel (XLSX Format)

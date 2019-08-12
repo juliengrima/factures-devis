@@ -193,4 +193,43 @@ class society
         return $this->contact;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $link;
+
+
+    /**
+     * Add link
+     *
+     * @param \AppBundle\Entity\Link $link
+     *
+     * @return society
+     */
+    public function addLink(\AppBundle\Entity\Link $link)
+    {
+        $this->link[] = $link;
+
+        return $this;
+    }
+
+    /**
+     * Remove link
+     *
+     * @param \AppBundle\Entity\Link $link
+     */
+    public function removeLink(\AppBundle\Entity\Link $link)
+    {
+        $this->link->removeElement($link);
+    }
+
+    /**
+     * Get link
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
 }
