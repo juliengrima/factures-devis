@@ -1,0 +1,19 @@
+AppBundle\Entity\Sheet:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\SheetRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        line:
+            type: string
+            length: 255
+            nullable: true
+        price:
+            type: integer
+            nullable: true
+    lifecycleCallbacks: {  }

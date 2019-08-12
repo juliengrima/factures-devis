@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sheets list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Line</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sheet in sheets %}
+            <tr>
+                <td><a href="{{ path('sheet_show', { 'id': sheet.id }) }}">{{ sheet.id }}</a></td>
+                <td>{{ sheet.line }}</td>
+                <td>{{ sheet.price }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('sheet_show', { 'id': sheet.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sheet_edit', { 'id': sheet.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sheet_new') }}">Create a new sheet</a>
+        </li>
+    </ul>
+{% endblock %}
