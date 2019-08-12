@@ -10,7 +10,7 @@ app_contact:
     resource: "@AppBundle/Resources/config/routing/contact.yml"
     prefix:   /contact
 
-app_spread:
-    path:     /spreadsheet
-    defaults: { _controller: "AppBundle:SpreadSheet:Spread" }
-    methods:  GET
+#app_spread:
+#    path:     /spreadsheet
+#    defaults: { _controller: "AppBundle:SpreadSheet:Spread" }
+#    methods:  GET
