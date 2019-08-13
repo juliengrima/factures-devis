@@ -11,7 +11,7 @@ sheet_show:
 sheet_spread:
     path:     /{id}/spread
     defaults: { _controller: "AppBundle:Sheet:spreadSheet" }
-    methods:  GET
+    methods:  [GET, POST]
 
 sheet_new:
     path:     /new

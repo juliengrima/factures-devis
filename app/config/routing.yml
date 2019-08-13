@@ -13,3 +13,7 @@ app_contact:
 app_sheet:
     resource: "@AppBundle/Resources/config/routing/sheet.yml"
     prefix:   /sheet
+
+app_link:
+    resource: "@AppBundle/Resources/config/routing/link.yml"
+    prefix:   /link

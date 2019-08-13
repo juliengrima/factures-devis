@@ -1,0 +1,24 @@
+link_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Link:index" }
+    methods:  GET
+
+link_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Link:show" }
+    methods:  GET
+
+link_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Link:new" }
+    methods:  [GET, POST]
+
+link_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Link:edit" }
+    methods:  [GET, POST]
+
+link_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Link:delete" }
+    methods:  DELETE

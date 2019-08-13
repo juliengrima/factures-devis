@@ -91,14 +91,14 @@ class SheetController extends Controller
         $sheet->setCellValue('A2', $societyAddress);
         $sheet->setCellValue('A3', $societyZipCode);
         $sheet->setCellValue('B1', $societyCity);
-        $sheet->setCellValue('B2', '');
+        $sheet->setCellValue('B2', $sheetId);
         $sheet->setCellValue('B3', "It's Working");
 
 //            Create your Office 2007 Excel (XLSX Format)
         $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-        $fileName = 'Facture'. $sheetId;
+        $fileName = 'Facture-'. $societyName. '-' . $sheetId;
 
         $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
         // e.g /var/www/project/public/my_first_excel_symfony4.xlsx
@@ -110,8 +110,13 @@ class SheetController extends Controller
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
-//        return $this->redirectToRoute('', array('id' => $sheet->getId()));
-        return $this->render('default/index.html.twig');
+        return $this->redirectToRoute('link_new', array(
+            'id' => $sheetId,
+            'excelFilepath' => $excelFilepath,
+            'fileName' => $fileName,
+            )
+        );
+//        return $this->render('default/index.html.twig');
 
     }
 
