@@ -86,7 +86,7 @@ class SheetController extends Controller
 //            TITLE OF PAGE AND BODY OF XLSX
         /* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setTitle("Facture". $sheetId);
+        $sheet->setTitle("Facture-". $societyName. '-' .$sheetId);
         $sheet->setCellValue('A1', $societyName);
         $sheet->setCellValue('A2', $societyAddress);
         $sheet->setCellValue('A3', $societyZipCode);
@@ -98,7 +98,7 @@ class SheetController extends Controller
         $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-        $fileName = 'Facture-'. $societyName. '-' . $sheetId.'.xlsx';
+        $fileName = 'Facture-'. $societyName. '-' .$sheetId.'.xlsx';
 
         $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
         // e.g /var/www/project/public/my_first_excel_symfony4.xlsx
