@@ -110,8 +110,8 @@ class SheetController extends Controller
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
-        return $this->redirectToRoute('', array('id' => $sheet->getId()));
-//        return $this->render('default/index.html.twig');
+//        return $this->redirectToRoute('', array('id' => $sheet->getId()));
+        return $this->render('default/index.html.twig');
 
     }
 
