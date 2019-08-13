@@ -98,7 +98,7 @@ class SheetController extends Controller
         $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-        $fileName = 'Facture-'. $societyName. '-' . $sheetId;
+        $fileName = 'Facture-'. $societyName. '-' . $sheetId.'.xlsx';
 
         $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
         // e.g /var/www/project/public/my_first_excel_symfony4.xlsx
@@ -116,8 +116,6 @@ class SheetController extends Controller
             'fileName' => $fileName,
             )
         );
-//        return $this->render('default/index.html.twig');
-
     }
 
     /**
