@@ -13,7 +13,9 @@ class SheetType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('line')->add('price');
+        $builder->add('line')
+                ->add('price')
+                ->add('society');
     }/**
      * {@inheritdoc}
      */

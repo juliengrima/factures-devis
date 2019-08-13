@@ -25,6 +25,8 @@
 /web/bundles/
 /web/images/downloads/
 /web/media/cache/
+/web/media/images/downloads/
+/web/media/documents/
 
 #### Fichiers temporaires
 *~

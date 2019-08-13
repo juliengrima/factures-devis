@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Link;
 use AppBundle\Entity\Sheet;
+use AppBundle\Entity\society;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 
 /**
  * Sheet controller.
@@ -45,12 +45,14 @@ class SheetController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($sheet);
             $em->flush();
 
-//            GENERATING XLSX FILE
+            $datas = $em->getRepository('AppBundle:Sheet')->findBy(array('id' => $sheet));
+
+
+            //            GENERATING XLSX FILE
 //            USE ON CACHE
             $cache = new FilesystemCache();
             \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
@@ -80,7 +82,7 @@ class SheetController extends Controller
             $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-            $fileName = 'Facture 1.xlsx';
+            $fileName = 'Facture';
 
             $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
             // e.g /var/www/project/public/my_first_excel_symfony4.xlsx
@@ -88,6 +90,9 @@ class SheetController extends Controller
 
             $writer = IOFactory::createWriter($spreadsheet, 'Xls');
             $writer->save($excelFilepath);
+
+            $spreadsheet->disconnectWorksheets();
+            unset($spreadsheet);
 
             return $this->redirectToRoute('sheet_show', array('id' => $sheet->getId()));
         }
