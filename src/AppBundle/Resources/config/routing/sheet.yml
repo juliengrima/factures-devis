@@ -8,6 +8,11 @@ sheet_show:
     defaults: { _controller: "AppBundle:Sheet:show" }
     methods:  GET
 
+sheet_spread:
+    path:     /{id}/spread
+    defaults: { _controller: "AppBundle:Sheet:spreadSheet" }
+    methods:  GET
+
 sheet_new:
     path:     /new
     defaults: { _controller: "AppBundle:Sheet:new" }
