@@ -24,9 +24,9 @@ AppBundle\Entity\Sheet:
                 name: society_id
                 referencedColumnName: id
                 
-    oneToOne:
-        link:
-            targetEntity: AppBundle\Entity\Link
-            mappedBy: sheet
+#    oneToOne:
+#        link:
+#            targetEntity: AppBundle\Entity\Link
+#            mappedBy: sheet
 
     lifecycleCallbacks: {  }

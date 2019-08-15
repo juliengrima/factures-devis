@@ -11,18 +11,20 @@ AppBundle\Entity\Link:
     fields:
         linkname:
             type: string
-            length: '70'
+            length: 70
             nullable: true
         link:
             type: string
             length: 255
-            
-    oneToOne:
         sheet:
-            targetEntity: AppBundle\Entity\Sheet
-            inversedBy: link
-            joinColumn:
-                name: sheet_id
-                referencedColumnName: id
+            type: integer
+            
+#    oneToOne:
+#        sheet:
+#            targetEntity: AppBundle\Entity\Sheet
+#            inversedBy: link
+#            joinColumn:
+#                name: sheet_id
+#                referencedColumnName: id
 
     lifecycleCallbacks: {  }

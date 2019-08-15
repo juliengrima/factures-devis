@@ -24,11 +24,6 @@ class Sheet
     private $price;
 
     /**
-     * @var \AppBundle\Entity\Link
-     */
-    private $link;
-
-    /**
      * @var \AppBundle\Entity\society
      */
     private $society;
@@ -90,30 +85,6 @@ class Sheet
     public function getPrice()
     {
         return $this->price;
-    }
-
-    /**
-     * Set link
-     *
-     * @param \AppBundle\Entity\Link $link
-     *
-     * @return Sheet
-     */
-    public function setLink(\AppBundle\Entity\Link $link = null)
-    {
-        $this->link = $link;
-
-        return $this;
-    }
-
-    /**
-     * Get link
-     *
-     * @return \AppBundle\Entity\Link
-     */
-    public function getLink()
-    {
-        return $this->link;
     }
 
     /**

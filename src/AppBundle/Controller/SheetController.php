@@ -4,13 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Link;
 use AppBundle\Entity\Sheet;
-use AppBundle\Entity\society;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Cache\Simple\FilesystemCache;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -110,26 +107,20 @@ class SheetController extends Controller
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
-        return $this->redirectToRoute('link_new', array(
+        $link = new Link();
+        $link->setLinkname($fileName);
+        $link->setLink('media/documents/'.$fileName);
+        $link->setSheet($sheetId);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($link);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('homepage', array(
             'id' => $sheetId,
             'excelFilepath' => $excelFilepath,
             'fileName' => $fileName,
             )
         );
-    }
-
-    /**
-     * Finds and displays a sheet entity.
-     *
-     */
-    public function showAction(Sheet $sheet)
-    {
-        $deleteForm = $this->createDeleteForm($sheet);
-
-        return $this->render('sheet/show.html.twig', array(
-            'sheet' => $sheet,
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Link;
-use AppBundle\Entity\Sheet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,42 +25,6 @@ class LinkController extends Controller
         return $this->render('link/index.html.twig', array(
             'links' => $links,
         ));
-    }
-
-    /**
-     * Creates a new link entity.
-     *
-     */
-    public function newAction(Request $request,sheet $sheet, $excelFilepath, $fileName)
-    {
-        var_dump($excelFilepath, $fileName, $sheet);
-
-        $link = new Link();
-        $link->setSheet($sheet);
-        $link->setLink($excelFilepath);
-        $link->setLinkname($fileName);
-
-//        $form = $this->createForm('AppBundle\Form\LinkType', $link);
-//        $form->handleRequest($request);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($link);
-        $em->flush();
-
-        return $this->redirectToRoute('link_show', array('id' => $link->getId()));
-
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($link);
-//            $em->flush();
-//
-//            return $this->redirectToRoute('link_show', array('id' => $link->getId()));
-//        }
-
-//        return $this->render('link/new.html.twig', array(
-//            'link' => $link,
-//            'form' => $form->createView(),
-//        ));
     }
 
     /**

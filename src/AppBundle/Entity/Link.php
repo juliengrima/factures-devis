@@ -24,7 +24,7 @@ class Link
     private $link;
 
     /**
-     * @var \AppBundle\Entity\Sheet
+     * @var integer
      */
     private $sheet;
 
@@ -90,11 +90,11 @@ class Link
     /**
      * Set sheet
      *
-     * @param \AppBundle\Entity\Sheet $sheet
+     * @param integer $sheet
      *
      * @return Link
      */
-    public function setSheet(\AppBundle\Entity\Sheet $sheet = null)
+    public function setSheet($sheet)
     {
         $this->sheet = $sheet;
 
@@ -104,7 +104,7 @@ class Link
     /**
      * Get sheet
      *
-     * @return \AppBundle\Entity\Sheet
+     * @return integer
      */
     public function getSheet()
     {
