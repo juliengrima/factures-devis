@@ -83,13 +83,14 @@ class SheetController extends Controller
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-        if($sheetFacture !== 0){
+        if($sheetFacture != 0){
             $sheetFacture = 'Fac';
             $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
             $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
 
 //            Loading template
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('../../../web/media/templates/fac-template.xlsx');
+            $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
 
             //            GENERATING XLSX FILE
 //            PROPERTIES OF THE XLSX DOCUMENT
@@ -164,7 +165,8 @@ class SheetController extends Controller
             $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
 
             //            Loading template
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('../../../web/media/templates/dev-template.xlsx');
+            $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/dev-template.xlsx';
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
 
             //            GENERATING XLSX FILE
 //            PROPERTIES OF THE XLSX DOCUMENT
@@ -180,7 +182,7 @@ class SheetController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('H2',$sheetDateStr);
+                $worksheet->setCellValue('G2',$sheetDateStrFac);
                 $worksheet->setCellValue('E7',$societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);
