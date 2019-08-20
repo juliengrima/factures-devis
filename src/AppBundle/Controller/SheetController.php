@@ -75,10 +75,9 @@ class SheetController extends Controller
         if($sheetFacture != 0){
             $sheetFacture = 'Fac';
 
-            $inputFileName = __DIR__ . '/sampleData/example1.xls';
+            $inputFileName = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
             $spreadsheet = IOFactory::load($inputFileName);
             $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-            var_dump($sheetData);
         }
         else{
             $sheetFacture = 'Dev';
