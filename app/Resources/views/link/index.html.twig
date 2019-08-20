@@ -16,15 +16,11 @@
         {% for link in links %}
             <tr>
                 <td><a href="{{ path('link_show', { 'id': link.id }) }}">{{ link.id }}</a></td>
-                <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.link }}</a></td>
-                <td>{{ link.linkname }}</td>
+                <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.linkname }}</a></td>
                 <td>
                     <ul>
                         <li>
                             <a href="{{ path('link_show', { 'id': link.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('link_edit', { 'id': link.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>

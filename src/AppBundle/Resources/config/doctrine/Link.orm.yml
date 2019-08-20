@@ -18,13 +18,5 @@ AppBundle\Entity\Link:
             length: 255
         sheet:
             type: integer
-            
-#    oneToOne:
-#        sheet:
-#            targetEntity: AppBundle\Entity\Sheet
-#            inversedBy: link
-#            joinColumn:
-#                name: sheet_id
-#                referencedColumnName: id
 
     lifecycleCallbacks: {  }
