@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Link;
 use AppBundle\Entity\Sheet;
 use AppBundle\Entity\society;
+use AppBundle\Entity\Contact;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,98 +73,92 @@ class SheetController extends Controller
         $societyZipCode = $sheet->getSociety()->getZipcode();
         $societyCity = $sheet->getSociety()->getCity();
 
+        $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
+        $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
+
         if($sheetFacture != 0){
             $sheetFacture = 'Fac';
 
-            $inputFileName = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
-            $spreadsheet = IOFactory::load($inputFileName);
-            $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+            //            USE ON CACHE
+            $cache = new FilesystemCache();
+            \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
+
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('../../../web/media/templates/fac-template.xlsx');
+
+            //            GENERATING XLSX FILE
+//            PROPERTIES OF THE XLSX DOCUMENT
+            $spreadsheet->getProperties()
+                ->setCreator("Unknow")
+                ->setTitle($sheetTitle)
+                ->setSubject($sheetName.'-'.$societyName.$sheetId)
+                ->setDescription("Génération de documents Excel Devis et Factures.")
+                ->setKeywords($sheetName)
+                ->setCategory("Excel 2013 XLSX");
+
+//            TITLE OF PAGE AND BODY OF XLSX
+            /* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
+            $worksheet = $spreadsheet->getActiveSheet();
+            $worksheet->setCellValue('E7',$societyName);
+            $worksheet->setCellValue('E8', $societyAddress);
+            $worksheet->setCellValue('E9', $societyZipCode);
+            $worksheet->setCellValue('F9', $societyCity);
+            $worksheet->setCellValue('B2', $sheetId);
+            $worksheet->setCellValue('B3', $sheetDateStr);
+            $worksheet->setCellValue('B4', $sheetFacture);
+
+            // Redirect output to a client’s web browser (Xlsx)
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="'.$sheetName);
+            header('Cache-Control: max-age=0');
+// If you're serving to IE 9, then the following may be needed
+            header('Cache-Control: max-age=1');
+
+// If you're serving to IE over SSL, then the following may be needed
+            header('Expires: '.$sheetDateStr); // Date in the past
+            header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+            header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+            header('Pragma: public'); // HTTP/1.0
+
+//            Create your Office 2007 Excel (XLSX Format)
+            $writer = new Xlsx($spreadsheet);
+
+//            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
+            $fileName = $sheetName.'.xlsx';
+
+            $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
+            // e.g /var/www/project/public/my_first_excel_symfony4.xls
+            $excelFilepath = $publicDirectory . '/' . $fileName;
+
+            $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+            $writer->save($excelFilepath);
+
+            $spreadsheet->disconnectWorksheets();
+            unset($spreadsheet);
+
+            $link = new Link();
+            $link->setLinkname($fileName);
+            $link->setLink('media/documents/'.$fileName);
+            $link->setSheet($sheetId);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($link);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('homepage', array(
+                    'id' => $sheetId,
+                    'excelFilepath' => $excelFilepath,
+                    'fileName' => $fileName,
+                )
+            );
         }
         else{
             $sheetFacture = 'Dev';
         }
 
-        $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
-        $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
 
-        //            GENERATING XLSX FILE
-//            USE ON CACHE
-        $cache = new FilesystemCache();
-        \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-//            PROPERTIES OF THE XLSX DOCUMENT
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet($sheet);
-        $spreadsheet->getProperties()
-            ->setCreator("Unknow")
-            ->setTitle($sheetTitle)
-            ->setSubject($sheetName.'-'.$societyName.$sheetId)
-            ->setDescription("Génération de documents Excel Devis et Factures.")
-            ->setKeywords($sheetName)
-            ->setCategory("Excel 2013 XLSX");
 
-        $spreadsheet->getDefaultStyle()
-            ->getFont()
-            ->setName('Arial')
-            ->setSize(12);
 
-//            TITLE OF PAGE AND BODY OF XLSX
-        /* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setTitle($sheetTitle);
-        $sheet->setCellValue('A1', $societyName);
-        $sheet->setCellValue('A2', $societyAddress);
-        $sheet->setCellValue('A3', $societyZipCode);
-        $sheet->setCellValue('B1', $societyCity);
-        $sheet->setCellValue('B2', $sheetId);
-        $sheet->setCellValue('B3', $sheetDateStr);
-        $sheet->setCellValue('B4', $sheetFacture);
 
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(0);
-
-        // Redirect output to a client’s web browser (Xlsx)
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="'.$sheetName);
-        header('Cache-Control: max-age=0');
-// If you're serving to IE 9, then the following may be needed
-        header('Cache-Control: max-age=1');
-
-// If you're serving to IE over SSL, then the following may be needed
-        header('Expires: '.$sheetDate); // Date in the past
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-        header('Pragma: public'); // HTTP/1.0
-
-//            Create your Office 2007 Excel (XLSX Format)
-        $writer = new Xlsx($spreadsheet);
-
-//            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-        $fileName = $sheetName.'.xlsx';
-
-        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
-        // e.g /var/www/project/public/my_first_excel_symfony4.xls
-        $excelFilepath = $publicDirectory . '/' . $fileName;
-
-        $writer = IOFactory::createWriter($spreadsheet, 'Xls');
-        $writer->save($excelFilepath);
-
-        $spreadsheet->disconnectWorksheets();
-        unset($spreadsheet);
-
-        $link = new Link();
-        $link->setLinkname($fileName);
-        $link->setLink('media/documents/'.$fileName);
-        $link->setSheet($sheetId);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($link);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('homepage', array(
-            'id' => $sheetId,
-            'excelFilepath' => $excelFilepath,
-            'fileName' => $fileName,
-            )
-        );
     }
 
     /**
