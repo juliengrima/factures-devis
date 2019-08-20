@@ -4,13 +4,34 @@
     <h1>Sheet creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+
+        <!-- One -->
+        <section id="one" class="wrapper style2 spotlights">
+            <section>
+                <div class="content">
+                    <div class="inner">
+                        <h2>Génération du document Excel</h2>
+                        <ul class="icons">
+                            <li>Cocher si il s'agit d'une facture :</li>
+                            <li>
+                                {{ form_widget(form.facture, {'attr': {'id': 'demo-copy'}}) }}
+                                {{ form_label(form.facture, 'Facture', {'label_attr': {'for': 'demo-cop'}}) }}
+                                {{ form_errors(form.facture) }}
+                            </li>
+                        </ul>
+                        <div>
+                            <p>Sélectionner la société :</p>
+                            {{ form_widget(form.society) }}
+                            {{ form_errors(form.society) }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <input type="submit" value="Générer le document" class="submit-center"/>
+
+        </section>
+
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('sheet_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

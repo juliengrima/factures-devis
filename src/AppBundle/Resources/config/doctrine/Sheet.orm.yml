@@ -9,13 +9,11 @@ AppBundle\Entity\Sheet:
             generator:
                 strategy: AUTO
     fields:
-        line:
-            type: string
-            length: 255
+        facture:
+            type: boolean
             nullable: true
-        price:
-            type: integer
-            nullable: true
+        date:
+            type: date
     manyToOne:
         society:
             targetEntity: AppBundle\Entity\society
@@ -23,10 +21,5 @@ AppBundle\Entity\Sheet:
             joinColumn:
                 name: society_id
                 referencedColumnName: id
-                
-#    oneToOne:
-#        link:
-#            targetEntity: AppBundle\Entity\Link
-#            mappedBy: sheet
 
     lifecycleCallbacks: {  }

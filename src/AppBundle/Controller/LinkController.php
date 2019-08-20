@@ -73,6 +73,20 @@ class LinkController extends Controller
         $form = $this->createDeleteForm($link);
         $form->handleRequest($request);
 
+        $file = $link->getFile();
+        if ($link->getLink() != null) {	// Si le média contenait déjà un fichier uploadé
+            $filename = $link->getLinkname();
+//            $tmp = explode('/', $link->getLink());
+//            $filename = end($tmp);    // On récupère le nom du fichier ({{media.picname}}.extension
+
+            // On supprime ce fichier du HDD
+            if (file_exists ($filename)){
+                unlink($this->container->getParameter('link_directory') . '/' . $filename);
+                $link->setLink(null);
+            }
+
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($link);
