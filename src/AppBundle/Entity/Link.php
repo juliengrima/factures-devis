@@ -7,6 +7,18 @@ namespace AppBundle\Entity;
  */
 class Link
 {
+    private $file;
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($picture)
+    {
+        $this->file = $picture;
+        return $this;
+    }
 
     /**
      * @var integer

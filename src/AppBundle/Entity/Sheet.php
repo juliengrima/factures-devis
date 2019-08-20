@@ -8,20 +8,32 @@ namespace AppBundle\Entity;
 class Sheet
 {
 
+    public function __construct()
+    {
+//        Give date for ticket
+        $this->date = new \DateTime('now');
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->date;
+    }
+
     /**
      * @var integer
      */
     private $id;
 
     /**
-     * @var string
+     * @var boolean
      */
-    private $line;
+    private $facture;
 
     /**
-     * @var integer
+     * @var \DateTime
      */
-    private $price;
+    private $date;
 
     /**
      * @var \AppBundle\Entity\society
@@ -40,51 +52,51 @@ class Sheet
     }
 
     /**
-     * Set line
+     * Set facture
      *
-     * @param string $line
+     * @param boolean $facture
      *
      * @return Sheet
      */
-    public function setLine($line)
+    public function setFacture($facture)
     {
-        $this->line = $line;
+        $this->facture = $facture;
 
         return $this;
     }
 
     /**
-     * Get line
+     * Get facture
      *
-     * @return string
+     * @return boolean
      */
-    public function getLine()
+    public function getFacture()
     {
-        return $this->line;
+        return $this->facture;
     }
 
     /**
-     * Set price
+     * Set date
      *
-     * @param integer $price
+     * @param \DateTime $date
      *
      * @return Sheet
      */
-    public function setPrice($price)
+    public function setDate($date)
     {
-        $this->price = $price;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get price
+     * Get date
      *
-     * @return integer
+     * @return \DateTime
      */
-    public function getPrice()
+    public function getDate()
     {
-        return $this->price;
+        return $this->date;
     }
 
     /**
