@@ -67,7 +67,8 @@ class SheetController extends Controller
 
         $sheetId = $sheet->getId();
         $sheetDate = $sheet->getDate();
-        $sheetDateStr = $sheetDate->format('d-m-Y');
+        $sheetDateStr = $sheetDate->format('dmY');
+        $sheetDateStrFac = $sheetDate->format('d-m-Y');
         $sheetFacture = $sheet->getFacture();
         $societyId = $sheet->getSociety()->getId();
         $societyName = $sheet->getSociety()->getSocietyName();
@@ -75,18 +76,21 @@ class SheetController extends Controller
         $societyZipCode = $sheet->getSociety()->getZipcode();
         $societyCity = $sheet->getSociety()->getCity();
 
-        $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
-        $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
+        $sheetDev = $sheetDateStr.$societyId.'-'.$sheetId;
+        $sheetFac = $sheetDateStr.$societyId.'-'.$sheetId;
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-        if($sheetFacture !== 0){
+        if($sheetFacture != 0){
             $sheetFacture = 'Fac';
+            $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
+            $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
 
 //            Loading template
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('../../../web/media/templates/fac-template.xlsx');
+            $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
 
             //            GENERATING XLSX FILE
 //            PROPERTIES OF THE XLSX DOCUMENT
@@ -102,13 +106,14 @@ class SheetController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('E7',$societyName);
+                $worksheet->setCellValue('E7', $societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);
                 $worksheet->setCellValue('F9', $societyCity);
-                $worksheet->setCellValue('B2', $sheetId);
-                $worksheet->setCellValue('B3', $sheetDateStr);
-                $worksheet->setCellValue('B4', $sheetFacture);
+                $worksheet->setCellValue('A17',$sheetFac);
+//                $worksheet->setCellValue('G11', $contact);
+                $worksheet->setCellValue('B17', $sheetDateStrFac);
+                $worksheet->setCellValue('B53', $sheetDateStrFac);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
 
@@ -156,9 +161,12 @@ class SheetController extends Controller
         }
         else{
             $sheetFacture = 'Dev';
+            $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
+            $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
 
             //            Loading template
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('../../../web/media/templates/dev-template.xlsx');
+            $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/dev-template.xlsx';
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
 
             //            GENERATING XLSX FILE
 //            PROPERTIES OF THE XLSX DOCUMENT
@@ -174,14 +182,13 @@ class SheetController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('H2',$sheetDateStr);
-                $worksheet->setCellValue('E9',$societyName);
-                $worksheet->setCellValue('E10', $societyAddress);
-                $worksheet->setCellValue('E11', $societyZipCode);
-                $worksheet->setCellValue('F11', $societyCity);
-                $worksheet->setCellValue('B2', $sheetId);
-                $worksheet->setCellValue('B3', $sheetDateStr);
-                $worksheet->setCellValue('B4', $sheetFacture);
+                $worksheet->setCellValue('G2',$sheetDateStrFac);
+                $worksheet->setCellValue('E7',$societyName);
+                $worksheet->setCellValue('E8', $societyAddress);
+                $worksheet->setCellValue('E9', $societyZipCode);
+                $worksheet->setCellValue('F9', $societyCity);
+//                $worksheet->setCellValue('B14', $sheetDev);
+                $worksheet->setCellValue('B14', $sheetDev);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
             // Redirect output to a client’s web browser (Xlsx)
