@@ -68,7 +68,7 @@ class SheetDevController extends Controller
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrFac = $sheetDate->format('d-m-Y');
-        $sheetFacture = $sheetDev->getFacture();
+        $sheetFacture = $sheetDev->getDevis();
         $societyId = $sheetDev->getSociety()->getId();
         $societyName = $sheetDev->getSociety()->getSocietyName();
         $societyAddress = $sheetDev->getSociety()->getAddress();
