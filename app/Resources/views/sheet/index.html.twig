@@ -1,37 +1,54 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Sheets list</h1>
+    <h1>Liste des factures</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Line</th>
-                <th>Price</th>
+    <div class="left">
+        <table class="">
+            <thead>
+                <tr>
+                    <th>Fichiers</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for link in links %}
+                <tr>
+                    <td>
+                        {{ link.linkname }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="right">
+        <table class="">
+            <thead>
+                <th>Date</th>
+                <th>Payée</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for sheet in sheets %}
-            <tr>
-                <td><a href="{{ path('sheet_show', { 'id': sheet.id }) }}">{{ sheet.id }}</a></td>
-                <td>{{ sheet.line }}</td>
-                <td>{{ sheet.price }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('sheet_show', { 'id': sheet.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('sheet_edit', { 'id': sheet.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for sheet in sheets %}
+                <tr>
+
+                    <td>{{ sheet.date|date('d-m-Y') }}</td>
+                    <td>{{ sheet.facture }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('sheet_edit', { 'id': sheet.id }) }}">Modifier/Supprimer</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
 
     <ul>
         <li>

@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Sheet creation</h1>
+    <h1>Génération de la facture</h1>
 
     {{ form_start(form) }}
 
@@ -11,14 +11,6 @@
                 <div class="content">
                     <div class="inner">
                         <h2>Génération du document Excel</h2>
-                        <ul class="icons">
-                            <li>Cocher si il s'agit d'une facture :</li>
-                            <li>
-                                {{ form_widget(form.facture, {'attr': {'id': 'demo-copy'}}) }}
-                                {{ form_label(form.facture, 'Facture', {'label_attr': {'for': 'demo-cop'}}) }}
-                                {{ form_errors(form.facture) }}
-                            </li>
-                        </ul>
                         <div>
                             <p>Sélectionner la société :</p>
                             {{ form_widget(form.society) }}

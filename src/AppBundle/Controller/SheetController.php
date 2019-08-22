@@ -7,6 +7,7 @@ use AppBundle\Entity\Sheet;
 use AppBundle\Entity\society;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\SheetDev;
+use AppBundle\Repository\LinkRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -30,9 +31,15 @@ class SheetController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $sheets = $em->getRepository('AppBundle:Sheet')->findAll();
+        $links = $em->getRepository('AppBundle:Link')->findAll();
+
+//        foreach ($sheets as $key => $sheet){
+//            $links = $em->getRepository('AppBundle:Link')->findBy(array('sheet' => $sheet));
+//        }
 
         return $this->render('sheet/index.html.twig', array(
             'sheets' => $sheets,
+            'links' => $links,
         ));
     }
 

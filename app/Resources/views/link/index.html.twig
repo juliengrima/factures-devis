@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Links list</h1>
 
-    <table>
+    <table id="table_id" class="display">
         <thead>
             <tr>
                 <th>Id</th>
@@ -29,4 +29,12 @@
         </tbody>
     </table>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
 {% endblock %}
