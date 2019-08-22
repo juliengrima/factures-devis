@@ -1,0 +1,24 @@
+sheetdev_index:
+    path:     /
+    defaults: { _controller: "AppBundle:SheetDev:index" }
+    methods:  GET
+
+sheetdev_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:SheetDev:show" }
+    methods:  GET
+
+sheetdev_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:SheetDev:new" }
+    methods:  [GET, POST]
+
+sheetdev_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:SheetDev:edit" }
+    methods:  [GET, POST]
+
+sheetdev_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:SheetDev:delete" }
+    methods:  DELETE

@@ -1,0 +1,25 @@
+AppBundle\Entity\SheetDev:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\SheetDevRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        devis:
+            type: boolean
+            nullable: true
+        date:
+            type: datetime
+    manyToOne:
+        society:
+            targetEntity: AppBundle\Entity\society
+            inversedBy: sheetdev
+            joinColumn:
+                name: society_id
+                referencedColumnName: id
+
+    lifecycleCallbacks: {  }

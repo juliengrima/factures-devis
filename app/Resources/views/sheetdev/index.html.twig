@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sheetdevs list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Devis</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sheetDev in sheetDevs %}
+            <tr>
+                <td><a href="{{ path('sheetdev_show', { 'id': sheetDev.id }) }}">{{ sheetDev.id }}</a></td>
+                <td>{% if sheetDev.devis %}Yes{% else %}No{% endif %}</td>
+                <td>{% if sheetDev.date %}{{ sheetDev.date|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('sheetdev_show', { 'id': sheetDev.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sheetdev_edit', { 'id': sheetDev.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sheetdev_new') }}">Create a new sheetDev</a>
+        </li>
+    </ul>
+{% endblock %}

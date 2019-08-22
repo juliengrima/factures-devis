@@ -30,4 +30,7 @@ AppBundle\Entity\society:
         sheet:
             targetEntity: AppBundle\Entity\Sheet
             mappedBy: society
+        sheetdev:
+            targetEntity: AppBundle\Entity\SheetDev
+            mappedBy: society
     lifecycleCallbacks: {  }

@@ -17,3 +17,7 @@ app_sheet:
 app_link:
     resource: "@AppBundle/Resources/config/routing/link.yml"
     prefix:   /link
+
+app_sheetdev:
+  resource: "@AppBundle/Resources/config/routing/sheetdev.yml"
+  prefix:   /sheetdev
