@@ -1,14 +1,13 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Links list</h1>
+    <h1>liste des fichiers</h1>
 
-    <table id="table_id" class="display">
+    <table id="table_id" class="display text">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Linkname</th>
-                <th>Link</th>
+                <th>Fichiers</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,7 +19,7 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('link_show', { 'id': link.id }) }}">show</a>
+                            <a href="{{ path('link_show', { 'id': link.id }) }}">Voir le lien</a>
                         </li>
                     </ul>
                 </td>
@@ -32,6 +31,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script>
         $(document).ready( function () {
             $('#table_id').DataTable();

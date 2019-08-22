@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Link</h1>
+    <h1>Lien du fichier</h1>
 
     <table>
         <tbody>
@@ -10,11 +10,11 @@
                 <td>{{ link.id }}</td>
             </tr>
             <tr>
-                <th>Linkname</th>
+                <th>Nom du fichier</th>
                 <td>{{ link.linkname }}</td>
             </tr>
             <tr>
-                <th>Link</th>
+                <th>Lien du fichier</th>
                 <td>{{ link.link }}</td>
             </tr>
         </tbody>
@@ -26,7 +26,7 @@
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer le lien">
             {{ form_end(delete_form) }}
         </li>
     </ul>
