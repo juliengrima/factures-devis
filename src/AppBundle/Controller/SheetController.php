@@ -73,12 +73,13 @@ class SheetController extends Controller
         $sheetDate = $sheet->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrFac = $sheetDate->format('d-m-Y');
-        $sheetFacture = $sheet->getFacture();
+//        $sheetFacture = $sheet->getFacture();
         $societyId = $sheet->getSociety()->getId();
         $societyName = $sheet->getSociety()->getSocietyName();
         $societyAddress = $sheet->getSociety()->getAddress();
         $societyZipCode = $sheet->getSociety()->getZipcode();
         $societyCity = $sheet->getSociety()->getCity();
+        $image = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
 
         $sheetFac = $sheetDateStr.$societyId.'-'.$sheetId;
 
@@ -108,6 +109,7 @@ class SheetController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
+                $worksheet->setCellValue('A1', $image);
                 $worksheet->setCellValue('E7', $societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);

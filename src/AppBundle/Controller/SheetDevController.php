@@ -60,103 +60,26 @@ class SheetDevController extends Controller
         ));
     }
 
-    public function spreadSheetAction(sheetDev $sheetDev){
-
+    public function spreadSheetDevAction(sheetDev $sheetDev)
+    {
         $sheetId = $sheetDev->getId();
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
-        $sheetDateStrFac = $sheetDate->format('d-m-Y');
-        $sheetFacture = $sheetDev->getDevis();
+        $sheetDateStrDev = $sheetDate->format('d-m-Y');
+//        $sheetDevis = $sheetDev->getDevis();
         $societyId = $sheetDev->getSociety()->getId();
         $societyName = $sheetDev->getSociety()->getSocietyName();
         $societyAddress = $sheetDev->getSociety()->getAddress();
         $societyZipCode = $sheetDev->getSociety()->getZipcode();
         $societyCity = $sheetDev->getSociety()->getCity();
+        $image = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
 
-        $sheetDev = $sheetDateStr.$societyId.'-'.$sheetId;
-        $sheetFac = $sheetDateStr.$societyId.'-'.$sheetId;
-
+        $sheetDevNumber = $sheetDateStr.$societyId.'-'.$sheetId;
+//
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-//        if($sheetFacture != 0){
-//            $sheetFacture = 'Fac';
-//            $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
-//            $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
-//
-////            Loading template
-//            $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
-//            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
-//
-//            //            GENERATING XLSX FILE
-////            PROPERTIES OF THE XLSX DOCUMENT
-//            $spreadsheet->getProperties()
-//                ->setCreator('A.C.C.E.S')
-//                ->setTitle($sheetTitle)
-//                ->setSubject($sheetName.'-'.$societyName.$sheetId)
-//                ->setDescription('Génération de documents Excel Devis et Factures.')
-//                ->setKeywords($sheetName)
-//                ->setCategory('Excel 2013 XLSX');
-//
-////            TITLE OF PAGE AND BODY OF XLSX
-//            /* @var $sheet Worksheet */
-//            try {
-//                $worksheet = $spreadsheet->getActiveSheet();
-//                $worksheet->setCellValue('E7', $societyName);
-//                $worksheet->setCellValue('E8', $societyAddress);
-//                $worksheet->setCellValue('E9', $societyZipCode);
-//                $worksheet->setCellValue('F9', $societyCity);
-//                $worksheet->setCellValue('A17',$sheetFac);
-////                $worksheet->setCellValue('G11', $contact);
-//                $worksheet->setCellValue('B17', $sheetDateStrFac);
-//                $worksheet->setCellValue('B53', $sheetDateStrFac);
-//            } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
-//            }
-//
-//
-//            // Redirect output to a client’s web browser (Xlsx)
-//            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-//            header('Content-Disposition: attachment;filename="'.$sheetName);
-//            header('Cache-Control: max-age=0');
-//// If you're serving to IE 9, then the following may be needed
-//            header('Cache-Control: max-age=1');
-//
-//// If you're serving to IE over SSL, then the following may be needed
-//            header('Expires: '.$sheetDateStr); // Date in the past
-//            header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-//            header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-//            header('Pragma: public'); // HTTP/1.0
-//
-////            Create your Office 2007 Excel (XLSX Format)
-//            $writer = new Xlsx($spreadsheet);
-//
-////            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-//            $fileName = $sheetName.'.xlsx';
-//
-//            $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
-//            // e.g /var/www/project/public/my_first_excel_symfony4.xls
-//            $excelFilepath = $publicDirectory . '/' . $fileName;
-//
-//            try {
-//                $writer = IOFactory::createWriter($spreadsheet, 'Xls');
-//            } catch (Exception $e) {
-//            }
-//            try {
-//                $writer->save($excelFilepath);
-//            } catch (Exception $e) {
-//            }
-//
-//            $link = new Link();
-//            $link->setLinkname($fileName);
-//            $link->setLink('media/documents/'.$fileName);
-//            $link->setSheet($sheetId);
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($link);
-//            $entityManager->flush();
-//
-//        }
-//        else{
             $sheetFacture = 'Dev';
             $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
             $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
@@ -170,7 +93,7 @@ class SheetDevController extends Controller
             $spreadsheet->getProperties()
                 ->setCreator('A.C.C.E.S')
                 ->setTitle($sheetTitle)
-                ->setSubject($sheetName.'-'.$societyName.$sheetId)
+                ->setSubject($sheetName)
                 ->setDescription('Génération de documents Excel Devis et Factures.')
                 ->setKeywords($sheetName)
                 ->setCategory('Excel 2013 XLSX');
@@ -179,13 +102,14 @@ class SheetDevController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('G2',$sheetDateStrFac);
+                $worksheet->setCellValue('A1',$image);
+                $worksheet->setCellValue('G2',$sheetDateStrDev);
                 $worksheet->setCellValue('E7',$societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);
                 $worksheet->setCellValue('F9', $societyCity);
 //                $worksheet->setCellValue('B14', $sheetDev);
-                $worksheet->setCellValue('B14', $sheetDev);
+                $worksheet->setCellValue('B14', $sheetDevNumber);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
             // Redirect output to a client’s web browser (Xlsx)
@@ -228,15 +152,10 @@ class SheetDevController extends Controller
             $entityManager->persist($link);
             $entityManager->flush();
 
-
-//        }
-
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
         return $this->redirectToRoute('homepage');
-
-
 
     }
 

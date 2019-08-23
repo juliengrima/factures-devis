@@ -3,10 +3,10 @@ sheet_index:
     defaults: { _controller: "AppBundle:Sheet:index" }
     methods:  GET
 
-sheet_show:
-    path:     /{id}/show
-    defaults: { _controller: "AppBundle:Sheet:show" }
-    methods:  GET
+#sheet_show:
+#    path:     /{id}/show
+#    defaults: { _controller: "AppBundle:Sheet:show" }
+#    methods:  GET
 
 sheet_spread:
     path:     /{id}/spread

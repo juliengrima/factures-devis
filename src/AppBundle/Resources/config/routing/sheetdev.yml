@@ -8,6 +8,11 @@ sheetdev_show:
     defaults: { _controller: "AppBundle:SheetDev:show" }
     methods:  GET
 
+sheet_spread_dev:
+    path:     /{id}/spreaddev
+    defaults: { _controller: "AppBundle:SheetDev:spreadSheetDev" }
+    methods:  [GET, POST]
+
 sheetdev_new:
     path:     /new
     defaults: { _controller: "AppBundle:SheetDev:new" }
