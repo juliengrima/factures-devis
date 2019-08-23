@@ -40,26 +40,24 @@ class SheetDevController extends Controller
      * Creates a new sheetDev entity.
      *
      */
-    public function newAction(Request $request, sheet $sheet)
+    public function newAction(Request $request)
     {
-//        $sheetDev = new Sheetdev();
-//        $form = $this->createForm('AppBundle\Form\SheetDevType', $sheetDev);
-//        $form->handleRequest($request);
+        $sheetDev = new Sheetdev();
+        $form = $this->createForm('AppBundle\Form\SheetDevType', $sheetDev);
+        $form->handleRequest($request);
 
-        $sheetDev = $sheet;
-
-//        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sheetDev);
             $em->flush();
 
             return $this->redirectToRoute('sheetdev_show', array('id' => $sheetDev->getId()));
-//        }
+        }
 
-//        return $this->render('sheetdev/new.html.twig', array(
-//            'sheetDev' => $sheetDev,
-//            'form' => $form->createView(),
-//        ));
+        return $this->render('sheetdev/new.html.twig', array(
+            'sheetDev' => $sheetDev,
+            'form' => $form->createView(),
+        ));
     }
 
     public function spreadSheetAction(sheetDev $sheetDev){
