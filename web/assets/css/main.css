@@ -126,7 +126,7 @@ input, select, textarea {
 
 			body, input, select, textarea {
 				font-size: 13pt;
-				background-color: #3e4094;
+				background-color: #5052b5;
 			}
 
 		}
@@ -135,7 +135,7 @@ input, select, textarea {
 
 			body, input, select, textarea {
 				font-size: 12pt;
-				background-color: #3e4094;
+				background-color: #5052b5;
 			}
 
 		}
@@ -144,7 +144,7 @@ input, select, textarea {
 
 			body, input, select, textarea {
 				font-size: 11pt;
-				background-color: #3e4094;
+				background-color: #5052b5;
 
 			}
 
@@ -3253,6 +3253,7 @@ input, select, textarea {
 
 		.wrapper.style2 {
 			background-color: #5052b5;
+			margin-left: 20%;
 		}
 
 		.wrapper.style2-alt {

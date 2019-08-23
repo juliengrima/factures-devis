@@ -3,30 +3,34 @@
 {% block body %}
     <h1>liste des fichiers</h1>
 
-    <table id="table_id" class="display text">
-        <thead>
-            <tr>
-                <th class="align-center">Identifiant</th>
-                <th>Fichiers</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for link in links %}
-            <tr>
-                <td class="align-center"><a href="{{ path('link_show', { 'id': link.id }) }}">{{ link.id }}</a></td>
-                <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.linkname }}</a></td>
-                <td>
-                    <ul class="icons">
-                        <li>
-                            <a href="{{ path('link_show', { 'id': link.id }) }}">Voir le fichier</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <section id="one" class="wrapper style2 spotlights">
+        <section>
+            <table id="table_id" class="display text">
+                <thead>
+                    <tr>
+                        <th class="align-center">Identifiant</th>
+                        <th>Fichiers</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for link in links %}
+                    <tr>
+                        <td class="align-center"><a href="{{ path('link_show', { 'id': link.id }) }}">{{ link.id }}</a></td>
+                        <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.linkname }}</a></td>
+                        <td>
+                            <ul class="icons">
+                                <li>
+                                    <a href="{{ path('link_show', { 'id': link.id }) }}">Voir le fichier</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </section>
 
 {% endblock %}
 
