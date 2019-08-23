@@ -51,7 +51,7 @@ class SheetDevController extends Controller
             $em->persist($sheetDev);
             $em->flush();
 
-            return $this->redirectToRoute('sheetdev_show', array('id' => $sheetDev->getId()));
+            return $this->redirectToRoute('sheet_spread_dev', array('id' => $sheetDev->getId()));
         }
 
         return $this->render('sheetdev/new.html.twig', array(
