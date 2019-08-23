@@ -9,36 +9,40 @@
         </li>
     </ul>
 
-    <table id="table_id" class="display text">
-        <thead>
-            <tr>
-                <th class="align-center">Identifiant</th>
-                <th>société</th>
-                <th>Adresse</th>
-                <th>Code postal</th>
-                <th>Ville</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for society in societies %}
-            <tr>
-                <td class="align-center"><a href="{{ path('society_show', { 'id': society.id }) }}">{{ society.id }}</a></td>
-                <td>{{ society.societyName }}</td>
-                <td>{{ society.address }}</td>
-                <td>{{ society.zipcode }}</td>
-                <td>{{ society.city }}</td>
-                <td>
-                    <ul class="icons">
-                        <li>
-                            <a href="{{ path('society_edit', { 'id': society.id }) }}">Modifier/Supprimer</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <section id="one" class="wrapper style2 spotlights">
+        <section>
+            <table id="table_id" class="display text">
+                <thead>
+                    <tr>
+                        <th class="align-center">Identifiant</th>
+                        <th>société</th>
+                        <th>Adresse</th>
+                        <th>Code postal</th>
+                        <th>Ville</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for society in societies %}
+                    <tr>
+                        <td class="align-center">{{ society.id }}</td>
+                        <td>{{ society.societyName }}</td>
+                        <td>{{ society.address }}</td>
+                        <td>{{ society.zipcode }}</td>
+                        <td>{{ society.city }}</td>
+                        <td>
+                            <ul class="icons">
+                                <li>
+                                    <a href="{{ path('society_edit', { 'id': society.id }) }}">Modifier/Supprimer</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </section>
 
 {% endblock %}
 

@@ -3,7 +3,7 @@
 {% block body %}
     <h1>liste des fichiers</h1>
 
-    <section id="one" class="wrapper style2 spotlights">
+    <section id="one" class="wrapper style2-alt spotlights">
         <section>
             <table id="table_id" class="display text">
                 <thead>
@@ -16,7 +16,7 @@
                 <tbody>
                 {% for link in links %}
                     <tr>
-                        <td class="align-center"><a href="{{ path('link_show', { 'id': link.id }) }}">{{ link.id }}</a></td>
+                        <td class="align-center">{{ link.id }}</td>
                         <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.linkname }}</a></td>
                         <td>
                             <ul class="icons">
