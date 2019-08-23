@@ -6,7 +6,7 @@
     <table id="table_id" class="display text">
         <thead>
             <tr>
-                <th>Id</th>
+                <th class="align-center">Identifiant</th>
                 <th>Fichiers</th>
                 <th>Actions</th>
             </tr>
@@ -14,12 +14,12 @@
         <tbody>
         {% for link in links %}
             <tr>
-                <td><a href="{{ path('link_show', { 'id': link.id }) }}">{{ link.id }}</a></td>
+                <td class="align-center"><a href="{{ path('link_show', { 'id': link.id }) }}">{{ link.id }}</a></td>
                 <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.linkname }}</a></td>
                 <td>
-                    <ul>
+                    <ul class="icons">
                         <li>
-                            <a href="{{ path('link_show', { 'id': link.id }) }}">Voir le lien</a>
+                            <a href="{{ path('link_show', { 'id': link.id }) }}">Voir le fichier</a>
                         </li>
                     </ul>
                 </td>

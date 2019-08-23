@@ -3,32 +3,35 @@
 {% block body %}
     <h1>Societies list</h1>
 
+    <ul class="icons align-center">
+        <li>
+            <a href="{{ path('society_new') }}">Enrgistrer une nouvelle société</a>
+        </li>
+    </ul>
+
     <table>
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Societyname</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>City</th>
+                <th class="align-center">Identifiant</th>
+                <th>société</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for society in societies %}
             <tr>
-                <td><a href="{{ path('society_show', { 'id': society.id }) }}">{{ society.id }}</a></td>
+                <td class="align-center"><a href="{{ path('society_show', { 'id': society.id }) }}">{{ society.id }}</a></td>
                 <td>{{ society.societyName }}</td>
                 <td>{{ society.address }}</td>
                 <td>{{ society.zipcode }}</td>
                 <td>{{ society.city }}</td>
                 <td>
-                    <ul>
+                    <ul class="icons">
                         <li>
-                            <a href="{{ path('society_show', { 'id': society.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('society_edit', { 'id': society.id }) }}">edit</a>
+                            <a href="{{ path('society_edit', { 'id': society.id }) }}">Modifier/Supprimer</a>
                         </li>
                     </ul>
                 </td>
@@ -37,9 +40,13 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('society_new') }}">Create a new society</a>
-        </li>
-    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
 {% endblock %}

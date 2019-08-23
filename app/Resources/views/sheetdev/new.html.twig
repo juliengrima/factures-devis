@@ -1,16 +1,28 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Sheetdev creation</h1>
+    <h1>Génération d'un devis Excel</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+
+        <section id="one" class="wrapper style2 spotlights">
+            <section>
+                <div class="content">
+                    <div class="inner">
+                        <h2>Génération du devis</h2>
+                        <div>
+                            <p>Sélectionner la société :</p>
+                            {{ form_widget(form.society) }}
+                            {{ form_errors(form.society) }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <input type="submit" value="Générer le document" class="submit-center"/>
+
+        </section>
+
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('sheetdev_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}
