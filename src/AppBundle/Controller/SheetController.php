@@ -141,7 +141,7 @@ class SheetController extends Controller
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
             $fileName = $sheetName.'.xlsx';
 
-            $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents';
+            $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/factures';
             // e.g /var/www/project/public/my_first_excel_symfony4.xls
             $excelFilepath = $publicDirectory . '/' . $fileName;
 
@@ -156,7 +156,7 @@ class SheetController extends Controller
 
             $link = new Link();
             $link->setLinkname($fileName);
-            $link->setLink('media/documents/'.$fileName);
+            $link->setLink('media/documents/factures/'.$fileName);
             $link->setSheet($sheetId);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
