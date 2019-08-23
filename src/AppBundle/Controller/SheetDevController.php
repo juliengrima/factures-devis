@@ -72,7 +72,7 @@ class SheetDevController extends Controller
         $societyAddress = $sheetDev->getSociety()->getAddress();
         $societyZipCode = $sheetDev->getSociety()->getZipcode();
         $societyCity = $sheetDev->getSociety()->getCity();
-        $image = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
 
         $sheetDevNumber = $sheetDateStr.$societyId.'-'.$sheetId;
 //
@@ -102,14 +102,23 @@ class SheetDevController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('A1',$image);
+                $worksheet->setCellValue('A1',$imagePath);
                 $worksheet->setCellValue('G2',$sheetDateStrDev);
                 $worksheet->setCellValue('E7',$societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);
                 $worksheet->setCellValue('F9', $societyCity);
-//                $worksheet->setCellValue('B14', $sheetDev);
                 $worksheet->setCellValue('B14', $sheetDevNumber);
+
+                $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                $sheeti->setName('acces');
+                $sheeti->setDescription('logo');
+                $sheeti->setPath($imagePath);
+                $sheeti->setHeight(90);
+                $sheeti->setCoordinates("A1");
+                $sheeti->setOffsetX(0);
+                $sheeti->setOffsetY(0);
+                $sheeti->setWorksheet($worksheet);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
             // Redirect output to a client’s web browser (Xlsx)

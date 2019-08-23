@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
+use \PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -79,7 +80,7 @@ class SheetController extends Controller
         $societyAddress = $sheet->getSociety()->getAddress();
         $societyZipCode = $sheet->getSociety()->getZipcode();
         $societyCity = $sheet->getSociety()->getCity();
-        $image = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
 
         $sheetFac = $sheetDateStr.$societyId.'-'.$sheetId;
 
@@ -107,9 +108,10 @@ class SheetController extends Controller
 
 //            TITLE OF PAGE AND BODY OF XLSX
             /* @var $sheet Worksheet */
-            try {
+            try
+            {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('A1', $image);
+                $worksheet->setCellValue('A1', $imagePath);
                 $worksheet->setCellValue('E7', $societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);
@@ -118,6 +120,16 @@ class SheetController extends Controller
 //                $worksheet->setCellValue('G11', $contact);
                 $worksheet->setCellValue('B17', $sheetDateStrFac);
                 $worksheet->setCellValue('B53', $sheetDateStrFac);
+
+                $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                $sheeti->setName('acces');
+                $sheeti->setDescription('logo');
+                $sheeti->setPath($imagePath);
+                $sheeti->setHeight(90);
+                $sheeti->setCoordinates("A1");
+                $sheeti->setOffsetX(0);
+                $sheeti->setOffsetY(0);
+                $sheeti->setWorksheet($worksheet);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
 
