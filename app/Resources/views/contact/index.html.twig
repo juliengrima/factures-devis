@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Enregistrement d'un contact</h1>
+
+    <ul class="icons align-center">
+        <li>
+            <a href="{{ path('contact_new') }}">Enregistrer un contact</a>
+        </li>
+    </ul>
+
+    <section id="one" class="wrapper style2-alt spotlights">
+        <section>
+            <table id="table_id" class="display text">
+                <thead>
+                    <tr>
+                        <th>Identifiant</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for contact in contacts %}
+                    <tr>
+                        <td><a href="{{ path('contact_show', { 'id': contact.id }) }}">{{ contact.id }}</a></td>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.firstname }}</td>
+                        <td>
+                            <ul class="icons">
+                                <li>
+                                    <a href="{{ path('contact_edit', { 'id': contact.id }) }}">Modifier/Supprimer</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+AppBundle\Entity\society:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\societyRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        societyName:
+            type: string
+            length: '70'
+            column: society_name
+        address:
+            type: string
+            length: 255
+        zipcode:
+            type: integer
+            length: '5'
+        city:
+            type: string
+            length: '40'
+            
+    oneToMany:
+        contact:
+            targetEntity: AppBundle\Entity\Contact
+            mappedBy: society
+        sheet:
+            targetEntity: AppBundle\Entity\Sheet
+            mappedBy: society
+        sheetdev:
+            targetEntity: AppBundle\Entity\SheetDev
+            mappedBy: society
+    lifecycleCallbacks: {  }

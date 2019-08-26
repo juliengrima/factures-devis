@@ -1,7 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
+
+    <section id="sidebar">
+        <div class="inner">
+            <nav>
+                <ul>
+                    <li class="li-nav li-border"><a href="{{ path('homepage') }}" class="a-nav a-transition">accueil</a></li>
+                    <li class="li-nav li-border"><a href="{{ path('sheetdev_new') }}" class="a-nav a-transition">Génération d'un devis</a></li>
+                    <li class="li-nav li-border"><a href="{{ path('sheet_new') }}" class="a-nav a-transition">Génération d'une facture</a></li>
+                    <li class="li-nav li-border"><a href="{{ path('society_index') }}" class="a-nav a-transition">Enregistrer une Société</a></li>
+                    <li class="li-nav li-border"><a href="{{ path('contact_index') }}" class="a-nav a-transition">Enregistrer un Contact</a></li>
+                    <li class="li-nav li-border"><a href="{{ path('link_index') }}" class="a-nav a-transition">Liste des fichiers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
 {% endblock %}
 
 {% block footer %}
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper style1-alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; KeppConnection. All rights reserved.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+            <ul class="icons">
+                <li><a href="http://www.groupe-tse.fr/ecotoner/" class="icon brands fa-google" target="_blank"><span class="label">Google</span></a></li>
+                <li><a href="https://github.com/juliengrima" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                <li><a href="https://fr.linkedin.com/in/julien-grima-927612129" class="icon brands fa-linkedin-in" target="_blank"><span class="label">LinkedIn</span></a></li>
+                <li><a href="#" class="icon brands fa-facebook-f" target="_blank"><span class="label">Facebook</span></a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+
 {% endblock %}

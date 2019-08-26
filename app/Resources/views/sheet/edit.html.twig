@@ -1,0 +1,73 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Validation de paiement</h1>
+
+    {{ form_start(form) }}
+
+    <!-- One -->
+    <section id="one" class="wrapper style2 spotlights">
+        <section>
+            <div class="content">
+                <div class="inner">
+                    <h2>Validation du paiement</h2>
+                    <ul class="icons">
+                        <li>Paiement effectué :</li>
+                        <li>
+                            {{ form_widget(form.facture, {'attr': {'id': 'demo-copy'}}) }}
+                            {{ form_label(form.facture, 'Facture', {'label_attr': {'for': 'demo-cop'}}) }}
+                            {{ form_errors(form.facture) }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <input type="submit" value="Valider le paiement" class="submit-center"/>
+
+    </section>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Sheet edit</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('sheet_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
