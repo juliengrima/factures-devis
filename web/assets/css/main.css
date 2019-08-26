@@ -126,6 +126,7 @@ input, select, textarea {
 
 			body, input, select, textarea {
 				font-size: 13pt;
+				background-color: #5052b5;
 			}
 
 		}
@@ -134,6 +135,7 @@ input, select, textarea {
 
 			body, input, select, textarea {
 				font-size: 12pt;
+				background-color: #5052b5;
 			}
 
 		}
@@ -142,6 +144,8 @@ input, select, textarea {
 
 			body, input, select, textarea {
 				font-size: 11pt;
+				background-color: #5052b5;
+
 			}
 
 		}
@@ -3249,10 +3253,12 @@ input, select, textarea {
 
 		.wrapper.style2 {
 			background-color: #5052b5;
+			margin-left: 15%;
 		}
 
 		.wrapper.style2-alt {
-			background-color: #3e4094;
+			background-color: #5052b5;
+			margin-left: 20%;
 		}
 
 		.wrapper.style3 {
@@ -3910,4 +3916,8 @@ input, select, textarea {
 
 .submit-center{
 	margin-left: 40%;
+}
+
+.number{
+	background-color: initial;
 }

@@ -1,32 +1,44 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Links list</h1>
+    <h1>liste des fichiers</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Linkname</th>
-                <th>Link</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for link in links %}
-            <tr>
-                <td><a href="{{ path('link_show', { 'id': link.id }) }}">{{ link.id }}</a></td>
-                <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.linkname }}</a></td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('link_show', { 'id': link.id }) }}">show</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <section id="one" class="wrapper style2-alt spotlights">
+        <section>
+            <table id="table_id" class="display text">
+                <thead>
+                    <tr>
+                        <th class="align-center">Identifiant</th>
+                        <th>Fichiers</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for link in links %}
+                    <tr>
+                        <td class="align-center">{{ link.id }}</td>
+                        <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.linkname }}</a></td>
+                        <td>
+                            <ul class="icons">
+                                <li>
+                                    <a href="{{ path('link_show', { 'id': link.id }) }}">Voir le fichier</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </section>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
 {% endblock %}

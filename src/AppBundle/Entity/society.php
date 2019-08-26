@@ -231,4 +231,43 @@ class society
     {
         return $this->sheet;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sheetdev;
+
+
+    /**
+     * Add sheetdev
+     *
+     * @param \AppBundle\Entity\SheetDev $sheetdev
+     *
+     * @return society
+     */
+    public function addSheetdev(\AppBundle\Entity\SheetDev $sheetdev)
+    {
+        $this->sheetdev[] = $sheetdev;
+
+        return $this;
+    }
+
+    /**
+     * Remove sheetdev
+     *
+     * @param \AppBundle\Entity\SheetDev $sheetdev
+     */
+    public function removeSheetdev(\AppBundle\Entity\SheetDev $sheetdev)
+    {
+        $this->sheetdev->removeElement($sheetdev);
+    }
+
+    /**
+     * Get sheetdev
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSheetdev()
+    {
+        return $this->sheetdev;
+    }
 }

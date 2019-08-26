@@ -1,16 +1,15 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Génération d'une facture Excel</h1>
+    <h1>Génération d'un devis Excel</h1>
 
     {{ form_start(form) }}
 
-        <!-- One -->
         <section id="one" class="wrapper style2 spotlights">
             <section>
                 <div class="content">
                     <div class="inner">
-                        <h2>Génération de la facture</h2>
+                        <h2>Génération du devis</h2>
                         <div>
                             <p>Sélectionner la société :</p>
                             {{ form_widget(form.society) }}

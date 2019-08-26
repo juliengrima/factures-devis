@@ -3,43 +3,54 @@
 {% block body %}
     <h1>Societies list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Societyname</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for society in societies %}
-            <tr>
-                <td><a href="{{ path('society_show', { 'id': society.id }) }}">{{ society.id }}</a></td>
-                <td>{{ society.societyName }}</td>
-                <td>{{ society.address }}</td>
-                <td>{{ society.zipcode }}</td>
-                <td>{{ society.city }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('society_show', { 'id': society.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('society_edit', { 'id': society.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
+    <ul class="icons align-center">
         <li>
-            <a href="{{ path('society_new') }}">Create a new society</a>
+            <a href="{{ path('society_new') }}">Enrgistrer une nouvelle société</a>
         </li>
     </ul>
+
+    <section id="one" class="wrapper style2 spotlights">
+        <section>
+            <table id="table_id" class="display text">
+                <thead>
+                    <tr>
+                        <th class="align-center">Identifiant</th>
+                        <th>société</th>
+                        <th>Adresse</th>
+                        <th>Code postal</th>
+                        <th>Ville</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for society in societies %}
+                    <tr>
+                        <td class="align-center">{{ society.id }}</td>
+                        <td>{{ society.societyName }}</td>
+                        <td>{{ society.address }}</td>
+                        <td>{{ society.zipcode }}</td>
+                        <td>{{ society.city }}</td>
+                        <td>
+                            <ul class="icons">
+                                <li>
+                                    <a href="{{ path('society_edit', { 'id': society.id }) }}">Modifier/Supprimer</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
 {% endblock %}

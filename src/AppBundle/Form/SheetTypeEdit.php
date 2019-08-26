@@ -7,14 +7,17 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SheetType extends AbstractType
+class SheetTypeEdit extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('society');
+        $builder->add('facture', CheckboxType::class, array(
+                        'label' => false,
+                        'required' => false,
+                    ));
 
     }/**
      * {@inheritdoc}

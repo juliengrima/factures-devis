@@ -1,32 +1,32 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Link</h1>
+    <h1>fichier Excel</h1>
 
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Identifiant</th>
                 <td>{{ link.id }}</td>
             </tr>
             <tr>
-                <th>Linkname</th>
+                <th>Nom du fichier</th>
                 <td>{{ link.linkname }}</td>
             </tr>
             <tr>
-                <th>Link</th>
+                <th>Lien du fichier</th>
                 <td>{{ link.link }}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
+    <ul class="icons align-center">
         <li>
-            <a href="{{ path('link_index') }}">Retour à la liste</a>
+            <a href="{{ path('link_index') }}">Revenir en arrièe</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer le document">
             {{ form_end(delete_form) }}
         </li>
     </ul>
