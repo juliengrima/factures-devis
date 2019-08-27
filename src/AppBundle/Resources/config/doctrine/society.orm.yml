@@ -27,9 +27,6 @@ AppBundle\Entity\society:
         contact:
             targetEntity: AppBundle\Entity\Contact
             mappedBy: society
-        sheet:
-            targetEntity: AppBundle\Entity\Sheet
-            mappedBy: society
         sheetdev:
             targetEntity: AppBundle\Entity\SheetDev
             mappedBy: society

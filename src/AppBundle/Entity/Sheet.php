@@ -122,4 +122,33 @@ class Sheet
     {
         return $this->society;
     }
+    /**
+     * @var \AppBundle\Entity\Provider
+     */
+    private $provider;
+
+
+    /**
+     * Set provider
+     *
+     * @param \AppBundle\Entity\Provider $provider
+     *
+     * @return Sheet
+     */
+    public function setProvider(\AppBundle\Entity\Provider $provider = null)
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+
+    /**
+     * Get provider
+     *
+     * @return \AppBundle\Entity\Provider
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
 }

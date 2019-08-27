@@ -21,4 +21,7 @@ AppBundle\Entity\Provider:
             type: string
             length: '100'
             nullable: true
+    sheet:
+        targetEntity: AppBundle\Entity\Sheet
+        mappedBy: provider
     lifecycleCallbacks: {  }

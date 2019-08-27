@@ -15,11 +15,11 @@ AppBundle\Entity\Sheet:
         date:
             type: date
     manyToOne:
-        society:
-            targetEntity: AppBundle\Entity\society
+        provider:
+            targetEntity: AppBundle\Entity\Provider
             inversedBy: sheet
             joinColumn:
-                name: society_id
+                name: provider_id
                 referencedColumnName: id
 
     lifecycleCallbacks: {  }
