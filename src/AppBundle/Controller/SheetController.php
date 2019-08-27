@@ -74,7 +74,6 @@ class SheetController extends Controller
         $sheetDate = $sheet->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrFac = $sheetDate->format('d-m-Y');
-//        $sheetFacture = $sheet->getFacture();
         $societyId = $sheet->getSociety()->getId();
         $societyName = $sheet->getSociety()->getSocietyName();
         $societyAddress = $sheet->getSociety()->getAddress();
