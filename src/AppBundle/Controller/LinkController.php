@@ -73,27 +73,41 @@ class LinkController extends Controller
         $form = $this->createDeleteForm($link);
         $form->handleRequest($request);
 
-        $file = $link->getFile();
-        if ($link->getLink() != null) {	// Si le média contenait déjà un fichier uploadé
-            $filename = $link->getLinkname();
-//            $tmp = explode('/', $link->getLink());
-//            $filename = end($tmp);    // On récupère le nom du fichier ({{media.picname}}.extension
+        $filename = $link->getLinkname();
+        $sheet = $link->getId();
 
-            // On supprime ce fichier du HDD
-            if (file_exists ($filename)){
-                unlink($this->container->getParameter('link_directory') . '/' . $filename);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $publicDevDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/deviss';
+            $publicFacDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/factures';
+            // e.g /var/www/project/public/my_first_excel_symfony4.xls
+            $excelDevFilepath = $publicDevDirectory . '/' . $filename;
+            $excelFacFilepath = $publicFacDirectory . '/' . $filename;
+
+            $rest = substr($filename, 0, 2);
+
+//       Deleting files
+            if($rest != 'dev'){
+                unlink($excelFacFilepath);
+                $link->setLink(null);
+            }
+            else{
+                unlink($excelDevFilepath);
                 $link->setLink(null);
             }
 
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($link);
             $em->flush();
         }
 
-        return $this->redirectToRoute('link_index');
+        if($rest == 'dev'){
+            return $this->redirectToRoute('sheetdev_delete', array('id' => $sheet));
+        }
+        else{
+            return $this->redirectToRoute('sheet_delete', array('id' => $sheet));
+        }
+
     }
 
     /**
