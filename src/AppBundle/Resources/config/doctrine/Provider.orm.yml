@@ -1,0 +1,24 @@
+AppBundle\Entity\Provider:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ProviderRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        provider:
+            type: string
+            length: 255
+        code:
+            type: string
+            length: '10'
+            nullable: true
+            column: Code
+        contact:
+            type: string
+            length: '100'
+            nullable: true
+    lifecycleCallbacks: {  }
