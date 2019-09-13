@@ -13,7 +13,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
 use AppBundle\Entity\Link;
 use AppBundle\Entity\Sheet;
 use AppBundle\Entity\society;
-use AppBundle\Entity\Contact;
 
 /**
  * Sheetdev controller.
