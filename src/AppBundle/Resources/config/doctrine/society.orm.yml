@@ -25,6 +25,7 @@ AppBundle\Entity\society:
         contact:
             type: string
             length: 50
+            nullable: true
             
     oneToMany:
         sheetdev:

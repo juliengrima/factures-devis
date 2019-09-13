@@ -14,12 +14,12 @@ AppBundle\Entity\Provider:
             length: 255
         code:
             type: string
-            length: '10'
+            length: 10
             nullable: true
             column: Code
         contact:
             type: string
-            length: '100'
+            length: 50
             nullable: true
     sheet:
         targetEntity: AppBundle\Entity\Sheet
