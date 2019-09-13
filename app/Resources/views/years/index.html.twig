@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Years list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Years</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for year in years %}
+            <tr>
+                <td>{{ year.years }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('years_edit', { 'id': year.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

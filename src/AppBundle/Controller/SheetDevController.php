@@ -11,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
 use AppBundle\Entity\Link;
-use AppBundle\Entity\Sheet;
+use AppBundle\Entity\Years;
 use AppBundle\Entity\society;
 
 /**
@@ -64,7 +64,7 @@ class SheetDevController extends Controller
         $sheetId = $sheetDev->getId();
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
-        $sheetDateYear = $sheetDate->format('y');
+        $sheetDateYear = $sheetDate->format('dm');
         $sheetDateStrDev = $sheetDate->format('d-m-Y');
         $societyId = $sheetDev->getSociety()->getId();
         $societyName = $sheetDev->getSociety()->getSocietyName();
@@ -73,15 +73,16 @@ class SheetDevController extends Controller
         $societyCity = $sheetDev->getSociety()->getCity();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
 
-        $sheetDevNumber = $sheetDateYear.'D'.$societyId.'-'.$sheetId;
-//
+        $em = $this->getDoctrine()->getManager();
+        $years = $em->getRepository('AppBundle:Years')->findAll();
+
+        $sheetDevNumber = $years.'D00'.$sheetId;
+
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-            $sheetFacture = 'Dev';
-            $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
-            $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
+            $sheetName = $societyName.$sheetDevNumber;
 
             //            Loading template
             $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/dev-template.xlsx';
@@ -91,7 +92,7 @@ class SheetDevController extends Controller
 //            PROPERTIES OF THE XLSX DOCUMENT
             $spreadsheet->getProperties()
                 ->setCreator('A.C.C.E.S')
-                ->setTitle($sheetTitle)
+                ->setTitle($sheetName)
                 ->setSubject($sheetName)
                 ->setDescription('Génération de documents Excel Devis et Factures.')
                 ->setKeywords($sheetName)

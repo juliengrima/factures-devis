@@ -7,13 +7,20 @@ namespace AppBundle\Entity;
  */
 class Years
 {
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->years;
+    }
+
+
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var int
+     * @var integer
      */
     private $years;
 
@@ -21,7 +28,7 @@ class Years
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -45,11 +52,10 @@ class Years
     /**
      * Get years
      *
-     * @return int
+     * @return integer
      */
     public function getYears()
     {
         return $this->years;
     }
 }
-
