@@ -14,7 +14,6 @@ class society
         return $this->societyName;
     }
 
-
     /**
      * @var integer
      */
@@ -41,7 +40,7 @@ class society
     private $city;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var string
      */
     private $contact;
 
@@ -55,7 +54,6 @@ class society
      */
     public function __construct()
     {
-        $this->contact = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sheetdev = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -166,33 +164,23 @@ class society
     }
 
     /**
-     * Add contact
+     * Set contact
      *
-     * @param \AppBundle\Entity\Contact $contact
+     * @param string $contact
      *
      * @return society
      */
-    public function addContact(\AppBundle\Entity\Contact $contact)
+    public function setContact($contact)
     {
-        $this->contact[] = $contact;
+        $this->contact = $contact;
 
         return $this;
     }
 
     /**
-     * Remove contact
-     *
-     * @param \AppBundle\Entity\Contact $contact
-     */
-    public function removeContact(\AppBundle\Entity\Contact $contact)
-    {
-        $this->contact->removeElement($contact);
-    }
-
-    /**
      * Get contact
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return string
      */
     public function getContact()
     {
@@ -231,19 +219,5 @@ class society
     public function getSheetdev()
     {
         return $this->sheetdev;
-    }
-
-    /**
-     * Set contact
-     *
-     * @param string $contact
-     *
-     * @return society
-     */
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
-
-        return $this;
     }
 }

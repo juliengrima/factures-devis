@@ -42,29 +42,6 @@ class LinkController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing link entity.
-     *
-     */
-    public function editAction(Request $request, Link $link)
-    {
-        $deleteForm = $this->createDeleteForm($link);
-        $editForm = $this->createForm('AppBundle\Form\LinkType', $link);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('link_edit', array('id' => $link->getId()));
-        }
-
-        return $this->render('link/edit.html.twig', array(
-            'link' => $link,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
      * Deletes a link entity.
      *
      */
@@ -78,7 +55,7 @@ class LinkController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $publicDevDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/deviss';
+            $publicDevDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
             $publicFacDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/factures';
             // e.g /var/www/project/public/my_first_excel_symfony4.xls
             $excelDevFilepath = $publicDevDirectory . '/' . $filename;
