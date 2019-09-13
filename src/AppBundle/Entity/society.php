@@ -232,4 +232,18 @@ class society
     {
         return $this->sheetdev;
     }
+
+    /**
+     * Set contact
+     *
+     * @param string $contact
+     *
+     * @return society
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
 }

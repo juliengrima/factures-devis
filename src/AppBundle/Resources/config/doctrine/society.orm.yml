@@ -11,7 +11,7 @@ AppBundle\Entity\society:
     fields:
         societyName:
             type: string
-            length: '70'
+            length: 70
             column: society_name
         address:
             type: string
@@ -21,12 +21,12 @@ AppBundle\Entity\society:
             length: '5'
         city:
             type: string
-            length: '40'
+            length: 40
+        contact:
+            type: string
+            length: 50
             
     oneToMany:
-        contact:
-            targetEntity: AppBundle\Entity\Contact
-            mappedBy: society
         sheetdev:
             targetEntity: AppBundle\Entity\SheetDev
             mappedBy: society

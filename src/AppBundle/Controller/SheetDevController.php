@@ -65,6 +65,7 @@ class SheetDevController extends Controller
         $sheetId = $sheetDev->getId();
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
+        $sheetDateYear = $sheetDate->format('y');
         $sheetDateStrDev = $sheetDate->format('d-m-Y');
         $societyId = $sheetDev->getSociety()->getId();
         $societyName = $sheetDev->getSociety()->getSocietyName();
@@ -73,7 +74,7 @@ class SheetDevController extends Controller
         $societyCity = $sheetDev->getSociety()->getCity();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
 
-        $sheetDevNumber = $sheetDateStr.$societyId.'-'.$sheetId;
+        $sheetDevNumber = $sheetDateYear.'D'.$societyId.'-'.$sheetId;
 //
         //            USE ON CACHE
         $cache = new FilesystemCache();
@@ -101,9 +102,9 @@ class SheetDevController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('A1',$imagePath);
-                $worksheet->setCellValue('G2',$sheetDateStrDev);
-                $worksheet->setCellValue('E7',$societyName);
+                $worksheet->setCellValue('A1', $imagePath);
+                $worksheet->setCellValue('G2', $sheetDateStrDev);
+                $worksheet->setCellValue('E7', $societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);
                 $worksheet->setCellValue('F9', $societyCity);
