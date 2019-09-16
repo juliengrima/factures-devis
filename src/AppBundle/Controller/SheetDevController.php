@@ -156,7 +156,7 @@ class SheetDevController extends Controller
             $link = new Link();
             $link->setLinkname($fileName);
             $link->setLink('media/documents/devis/'.$fileName);
-            $link->setSheet($sheetId);
+            $link->setSheetdev($sheetId);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
             $entityManager->flush();

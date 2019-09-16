@@ -18,5 +18,7 @@ AppBundle\Entity\Link:
             length: 255
         sheet:
             type: integer
+        sheetdev:
+            type: integer
 
     lifecycleCallbacks: {  }

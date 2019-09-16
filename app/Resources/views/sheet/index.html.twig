@@ -1,10 +1,16 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Liste des factures</h1>
+    <h1>Liste des commandes</h1>
+
+    <ul class="icons align-center">
+        <li>
+            <a href="{{ path('sheet_new') }}" class="favorite styled">Générer une commande Excel</a>
+        </li>
+    </ul>
 
     <div class="left">
-        <table class="">
+        <table id="table_id" class="display text">
             <thead>
                 <tr>
                     <th>Fichiers</th>
@@ -25,7 +31,7 @@
         <table class="">
             <thead>
                 <th>Date</th>
-                <th>Payée</th>
+{#                <th>Payée</th>#}
                 <th>Actions</th>
             </tr>
             </thead>
@@ -34,7 +40,7 @@
                 <tr>
 
                     <td>{{ sheet.date|date('d-m-Y') }}</td>
-                    <td>{{ sheet.facture }}</td>
+{#                    <td>{{ sheet.facture }}</td>#}
                     <td>
                         <ul>
                             <li>
@@ -48,11 +54,13 @@
         </table>
     </div>
 
+{% endblock %}
 
-
-    <ul>
-        <li>
-            <a href="{{ path('sheet_new') }}">Create a new sheet</a>
-        </li>
-    </ul>
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
 {% endblock %}
