@@ -1,9 +1,15 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Sheetdevs list</h1>
+    <h1>Liste des devis en cours</h1>
 
-    <table>
+    <ul class="icons align-center">
+        <li>
+            <a href="{{ path('sheetdev_new') }}" class="favorite styled">Générer un devis Excel</a>
+        </li>
+    </ul>
+
+    <table id="table_id" class="display text">
         <thead>
             <tr>
                 <th>Id</th>
@@ -33,9 +39,13 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('sheetdev_new') }}">Create a new sheetDev</a>
-        </li>
-    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
 {% endblock %}
