@@ -46,6 +46,7 @@ class SheetDevController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($sheetDev);
             $em->flush();
@@ -72,12 +73,11 @@ class SheetDevController extends Controller
         $societyZipCode = $sheetDev->getSociety()->getZipcode();
         $societyCity = $sheetDev->getSociety()->getCity();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+        $years = $sheetDev->getYears()->getYears();
 
-        $em = $this->getDoctrine()->getManager();
-        $years = $em->getRepository('AppBundle:Years')->findAll();
+        var_dump($years);
 
         $sheetDevNumber = $years.'D00'.$sheetId;
-
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
@@ -138,7 +138,7 @@ class SheetDevController extends Controller
             $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-            $fileName = $sheetName.'.xlsx';
+            $fileName = $sheetDevNumber.'.xlsx';
 
             $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
             // e.g /var/www/project/public/my_first_excel_symfony4.xls

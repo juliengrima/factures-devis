@@ -58,4 +58,50 @@ class Years
     {
         return $this->years;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sheetdev;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sheetdev = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add sheetdev
+     *
+     * @param \AppBundle\Entity\SheetDev $sheetdev
+     *
+     * @return Years
+     */
+    public function addSheetdev(\AppBundle\Entity\SheetDev $sheetdev)
+    {
+        $this->sheetdev[] = $sheetdev;
+
+        return $this;
+    }
+
+    /**
+     * Remove sheetdev
+     *
+     * @param \AppBundle\Entity\SheetDev $sheetdev
+     */
+    public function removeSheetdev(\AppBundle\Entity\SheetDev $sheetdev)
+    {
+        $this->sheetdev->removeElement($sheetdev);
+    }
+
+    /**
+     * Get sheetdev
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSheetdev()
+    {
+        return $this->sheetdev;
+    }
 }

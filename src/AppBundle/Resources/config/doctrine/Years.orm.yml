@@ -10,6 +10,13 @@ AppBundle\Entity\Years:
                 strategy: AUTO
     fields:
         years:
-            type: integer
+            type: string
+            nullable: false
+            length: 2
             unique: true
+            
+    oneToMany:
+        sheetdev:
+            targetEntity: AppBundle\Entity\SheetDev
+            mappedBy: years
     lifecycleCallbacks: {  }

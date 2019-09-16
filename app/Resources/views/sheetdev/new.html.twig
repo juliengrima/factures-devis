@@ -9,11 +9,16 @@
             <section>
                 <div class="content">
                     <div class="inner">
-                        <h2>Génération du devis</h2>
+                        <h2 class="align-center">Génération du devis</h2>
                         <div>
                             <p>Sélectionner la société :</p>
                             {{ form_widget(form.society) }}
                             {{ form_errors(form.society) }}
+                        </div>
+                        <div class="disp">
+                            <p>Année en cours</p>
+                            {{ form_widget(form.years) }}
+                            {{ form_errors(form.years) }}
                         </div>
                     </div>
                 </div>

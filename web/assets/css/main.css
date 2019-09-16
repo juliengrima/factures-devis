@@ -3921,3 +3921,7 @@ input, select, textarea {
 .number{
 	background-color: initial;
 }
+
+.disp{
+	display: none;
+}
