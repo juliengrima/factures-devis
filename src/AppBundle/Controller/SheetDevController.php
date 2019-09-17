@@ -51,7 +51,7 @@ class SheetDevController extends Controller
             $em->persist($sheetDev);
             $em->flush();
 
-            return $this->redirectToRoute('sheet_spread_dev', array('id' => $sheetDev->getId()));
+            return $this->redirectToRoute('sheetdev_spread', array('id' => $sheetDev->getId()));
         }
 
         return $this->render('sheetdev/new.html.twig', array(
@@ -76,6 +76,8 @@ class SheetDevController extends Controller
         $years = $sheetDev->getYears()->getYears();
 
         $sheetDevNumber = $years.'D00'.$sheetId;
+
+//        var_dump($sheetDev, $sheetDevNumber);
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
@@ -138,9 +140,9 @@ class SheetDevController extends Controller
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
             $fileName = $sheetDevNumber.'.xlsx';
-
+//
             $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
-            // e.g /var/www/project/public/my_first_excel_symfony4.xls
+//             e.g /var/www/project/public/my_first_excel_symfony4.xls
             $excelFilepath = $publicDirectory . '/' . $fileName;
 
             try {
@@ -152,16 +154,19 @@ class SheetDevController extends Controller
             } catch (Exception $e) {
             }
 
+        $spreadsheet->disconnectWorksheets();
+        unset($spreadsheet);
+
+            $sheetlink = 0;
+
             $link = new Link();
             $link->setLinkname($fileName);
             $link->setLink('media/documents/devis/'.$fileName);
             $link->setSheetdev($sheetId);
+            $link->setSheet($sheetlink);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
             $entityManager->flush();
-
-        $spreadsheet->disconnectWorksheets();
-        unset($spreadsheet);
 
         return $this->redirectToRoute('homepage');
 
