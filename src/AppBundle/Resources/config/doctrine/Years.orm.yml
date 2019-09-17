@@ -19,4 +19,7 @@ AppBundle\Entity\Years:
         sheetdev:
             targetEntity: AppBundle\Entity\SheetDev
             mappedBy: years
+        sheet:
+            targetEntity: AppBundle\Entity\SheetDev
+            mappedBy: years
     lifecycleCallbacks: {  }

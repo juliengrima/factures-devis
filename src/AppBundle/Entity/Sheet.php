@@ -151,4 +151,33 @@ class Sheet
     {
         return $this->provider;
     }
+    /**
+     * @var \AppBundle\Entity\Years
+     */
+    private $years;
+
+
+    /**
+     * Set years
+     *
+     * @param \AppBundle\Entity\Years $years
+     *
+     * @return Sheet
+     */
+    public function setYears(\AppBundle\Entity\Years $years = null)
+    {
+        $this->years = $years;
+
+        return $this;
+    }
+
+    /**
+     * Get years
+     *
+     * @return \AppBundle\Entity\Years
+     */
+    public function getYears()
+    {
+        return $this->years;
+    }
 }

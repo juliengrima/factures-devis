@@ -74,24 +74,22 @@ class SheetController extends Controller
         $sheetDate = $sheet->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrFac = $sheetDate->format('d-m-Y');
-        $societyId = $sheet->getSociety()->getId();
-        $societyName = $sheet->getSociety()->getSocietyName();
-        $societyAddress = $sheet->getSociety()->getAddress();
-        $societyZipCode = $sheet->getSociety()->getZipcode();
-        $societyCity = $sheet->getSociety()->getCity();
+        $providerId = $sheet->getProvider()->getId();
+        $providerName = $sheet->getProvider()->getProvider();
+        $providerCode = $sheet->getProvider()->getCode();
+        $providerContact = $sheet->getProvider()->getContact();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+        $years = $sheet->getYears()->getYears();
 
-        $sheetFac = $sheetDateStr.$societyId.'-'.$sheetId;
+        $sheetDevNumber = $years.'/'.$sheetId;
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-            $sheetFacture = 'Fac';
-            $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
-            $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
+            $sheetName = $providerName.'-'.$sheetDevNumber;
 
-//            Loading template
+            //            Loading template
             $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
 
@@ -99,8 +97,8 @@ class SheetController extends Controller
 //            PROPERTIES OF THE XLSX DOCUMENT
             $spreadsheet->getProperties()
                 ->setCreator('A.C.C.E.S')
-                ->setTitle($sheetTitle)
-                ->setSubject($sheetName.'-'.$societyName.$sheetId)
+                ->setTitle($sheetName)
+                ->setSubject($sheetName)
                 ->setDescription('Génération de documents Excel Devis et Factures.')
                 ->setKeywords($sheetName)
                 ->setCategory('Excel 2013 XLSX');
@@ -150,7 +148,7 @@ class SheetController extends Controller
             $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-            $fileName = $sheetName.'.xlsx';
+            $fileName = $sheetDevNumber.'.xlsx';
 
             $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/factures';
             // e.g /var/www/project/public/my_first_excel_symfony4.xls

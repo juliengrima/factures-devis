@@ -104,4 +104,43 @@ class Years
     {
         return $this->sheetdev;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sheet;
+
+
+    /**
+     * Add sheet
+     *
+     * @param \AppBundle\Entity\SheetDev $sheet
+     *
+     * @return Years
+     */
+    public function addSheet(\AppBundle\Entity\SheetDev $sheet)
+    {
+        $this->sheet[] = $sheet;
+
+        return $this;
+    }
+
+    /**
+     * Remove sheet
+     *
+     * @param \AppBundle\Entity\SheetDev $sheet
+     */
+    public function removeSheet(\AppBundle\Entity\SheetDev $sheet)
+    {
+        $this->sheet->removeElement($sheet);
+    }
+
+    /**
+     * Get sheet
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSheet()
+    {
+        return $this->sheet;
+    }
 }

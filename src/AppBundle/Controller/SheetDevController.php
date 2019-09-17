@@ -75,9 +75,8 @@ class SheetDevController extends Controller
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
         $years = $sheetDev->getYears()->getYears();
 
-        var_dump($years);
-
         $sheetDevNumber = $years.'D00'.$sheetId;
+
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
