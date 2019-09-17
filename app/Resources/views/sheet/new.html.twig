@@ -12,9 +12,14 @@
                     <div class="inner">
                         <h2>Génération de la facture</h2>
                         <div>
-                            <p>Sélectionner la société :</p>
-                            {{ form_widget(form.society) }}
-                            {{ form_errors(form.society) }}
+                            <p>Sélectionner le fournisseur :</p>
+                            {{ form_widget(form.provider) }}
+                            {{ form_errors(form.provider) }}
+                        </div>
+                        <div>
+                            <p>Sélectionner le devis associé :</p>
+                            {{ form_widget(form.sheetdev) }}
+                            {{ form_errors(form.sheetdev) }}
                         </div>
                     </div>
                 </div>

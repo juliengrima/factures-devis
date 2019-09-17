@@ -27,5 +27,9 @@ AppBundle\Entity\SheetDev:
             joinColumn:
                 name: years_id
                 referencedColumnName: id
+    oneToMany:
+        sheet:
+            targetEntity: AppBundle\Entity\Sheet
+            mappedBy: years
 
     lifecycleCallbacks: {  }

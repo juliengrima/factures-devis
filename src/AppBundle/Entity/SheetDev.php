@@ -150,4 +150,43 @@ class SheetDev
     {
         return $this->years;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sheet;
+
+
+    /**
+     * Add sheet
+     *
+     * @param \AppBundle\Entity\Sheet $sheet
+     *
+     * @return SheetDev
+     */
+    public function addSheet(\AppBundle\Entity\Sheet $sheet)
+    {
+        $this->sheet[] = $sheet;
+
+        return $this;
+    }
+
+    /**
+     * Remove sheet
+     *
+     * @param \AppBundle\Entity\Sheet $sheet
+     */
+    public function removeSheet(\AppBundle\Entity\Sheet $sheet)
+    {
+        $this->sheet->removeElement($sheet);
+    }
+
+    /**
+     * Get sheet
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSheet()
+    {
+        return $this->sheet;
+    }
 }

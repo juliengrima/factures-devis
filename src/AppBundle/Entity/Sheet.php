@@ -180,4 +180,33 @@ class Sheet
     {
         return $this->years;
     }
+    /**
+     * @var \AppBundle\Entity\SheetDev
+     */
+    private $sheetdev;
+
+
+    /**
+     * Set sheetdev
+     *
+     * @param \AppBundle\Entity\SheetDev $sheetdev
+     *
+     * @return Sheet
+     */
+    public function setSheetdev(\AppBundle\Entity\SheetDev $sheetdev = null)
+    {
+        $this->sheetdev = $sheetdev;
+
+        return $this;
+    }
+
+    /**
+     * Get sheetdev
+     *
+     * @return \AppBundle\Entity\SheetDev
+     */
+    public function getSheetdev()
+    {
+        return $this->sheetdev;
+    }
 }

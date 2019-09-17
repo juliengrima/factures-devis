@@ -27,5 +27,11 @@ AppBundle\Entity\Sheet:
             joinColumn:
                 name: years_id
                 referencedColumnName: id
+        sheetdev:
+            targetEntity: AppBundle\Entity\SheetDev
+            inversedBy: sheet
+            joinColumn:
+                name: sheetdev_id
+                referencedColumnName: id
 
     lifecycleCallbacks: {  }
