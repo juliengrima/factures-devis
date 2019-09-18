@@ -17,7 +17,7 @@ class Sheet
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->date;
+        return $this->facture;
     }
 
     /**
@@ -36,9 +36,14 @@ class Sheet
     private $date;
 
     /**
-     * @var \AppBundle\Entity\society
+     * @var \AppBundle\Entity\Provider
      */
-    private $society;
+    private $provider;
+
+    /**
+     * @var \AppBundle\Entity\SheetDev
+     */
+    private $sheetdev;
 
 
     /**
@@ -100,35 +105,6 @@ class Sheet
     }
 
     /**
-     * Set society
-     *
-     * @param \AppBundle\Entity\society $society
-     *
-     * @return Sheet
-     */
-    public function setSociety(\AppBundle\Entity\society $society = null)
-    {
-        $this->society = $society;
-
-        return $this;
-    }
-
-    /**
-     * Get society
-     *
-     * @return \AppBundle\Entity\society
-     */
-    public function getSociety()
-    {
-        return $this->society;
-    }
-    /**
-     * @var \AppBundle\Entity\Provider
-     */
-    private $provider;
-
-
-    /**
      * Set provider
      *
      * @param \AppBundle\Entity\Provider $provider
@@ -180,11 +156,6 @@ class Sheet
     {
         return $this->years;
     }
-    /**
-     * @var \AppBundle\Entity\SheetDev
-     */
-    private $sheetdev;
-
 
     /**
      * Set sheetdev

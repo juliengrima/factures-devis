@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Liste des commandes</h1>
+    <h1>Liste des commandes en cours</h1>
 
     <ul class="icons align-center">
         <li>
@@ -9,50 +9,35 @@
         </li>
     </ul>
 
-    <div class="left">
-        <table id="table_id" class="display text">
-            <thead>
-                <tr>
-                    <th>Fichiers</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for link in links %}
-                <tr>
-                    <td>
-                        {{ link.linkname }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="right">
-        <table class="">
-            <thead>
-                <th>Date</th>
-{#                <th>Payée</th>#}
-                <th>Actions</th>
+    <table id="table_id" class="display text">
+        <thead>
+        <tr>
+            <th class="align-center">Commande</th>
+            <th class="align-center">Validation</th>
+            <th class="align-center">Date</th>
+            <th class="align-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sheet in sheets %}
+            <tr>
+                <td class="align-center">{{ sheet.provider.provider }}-{{ sheetDev.years }}/00{{ sheetDev.id }}</td>
+                <td class="align-center">{% if sheet.devis %}Commadé{% else %}{% endif %}</td>
+                <td class="align-center">{% if sheet.date %}{{ sheetDev.date|date('d-m-Y') }}{% endif %}</td>
+                <td>
+                    <ul class="align-center list-type">
+                        <li class="">
+                            <a href="{{ path('sheetdev_show', { 'id': sheet.id }) }}" class="favorite styled">Montrer</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sheetdev_edit', { 'id': sheet.id }) }}" class="favorite styled">Valider</a>
+                        </li>
+                    </ul>
+                </td>
             </tr>
-            </thead>
-            <tbody>
-            {% for sheet in sheets %}
-                <tr>
-
-                    <td>{{ sheet.date|date('d-m-Y') }}</td>
-{#                    <td>{{ sheet.facture }}</td>#}
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('sheet_edit', { 'id': sheet.id }) }}">Modifier/Supprimer</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
 

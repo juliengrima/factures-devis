@@ -32,15 +32,9 @@ class SheetController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $sheets = $em->getRepository('AppBundle:Sheet')->findAll();
-        $links = $em->getRepository('AppBundle:Link')->findAll();
-
-//        foreach ($sheets as $key => $sheet){
-//            $links = $em->getRepository('AppBundle:Link')->findBy(array('sheet' => $sheet));
-//        }
 
         return $this->render('sheet/index.html.twig', array(
             'sheets' => $sheets,
-            'links' => $links,
         ));
     }
 
@@ -81,13 +75,14 @@ class SheetController extends Controller
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
         $years = $sheet->getYears()->getYears();
 
-        $sheetDevNumber = $years.'/'.$sheetId;
+        $sheetNumber = $years.'/'.$sheetId;
+        $document = $sheetDateStr.'/'.$sheetNumber;
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-            $sheetName = $providerName.'-'.$sheetDevNumber;
+            $sheetName = $providerName.'-'.$sheetNumber;
 
             //            Loading template
             $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
@@ -109,14 +104,11 @@ class SheetController extends Controller
             {
                 $worksheet = $spreadsheet->getActiveSheet();
                 $worksheet->setCellValue('A1', $imagePath);
-                $worksheet->setCellValue('E7', $societyName);
-                $worksheet->setCellValue('E8', $societyAddress);
-                $worksheet->setCellValue('E9', $societyZipCode);
-                $worksheet->setCellValue('F9', $societyCity);
-                $worksheet->setCellValue('A17',$sheetFac);
-//                $worksheet->setCellValue('G11', $contact);
-                $worksheet->setCellValue('B17', $sheetDateStrFac);
-                $worksheet->setCellValue('B53', $sheetDateStrFac);
+                $worksheet->setCellValue('C14', $providerName);
+                $worksheet->setCellValue('C15', $sheetNumber);
+                $worksheet->setCellValue('H14', $providerContact);
+                $worksheet->setCellValue('D16', $document);
+                $worksheet->setCellValue('G2', $sheetDateStrFac);
 
                 $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                 $sheeti->setName('acces');
@@ -148,9 +140,9 @@ class SheetController extends Controller
             $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-            $fileName = $sheetDevNumber.'.xlsx';
+            $fileName = $sheetNumber.'.xlsx';
 
-            $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/factures';
+            $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/commandes';
             // e.g /var/www/project/public/my_first_excel_symfony4.xls
             $excelFilepath = $publicDirectory . '/' . $fileName;
 
@@ -163,9 +155,12 @@ class SheetController extends Controller
             } catch (Exception $e) {
             }
 
+            $sheetDevLink = 0;
+
             $link = new Link();
             $link->setLinkname($fileName);
-            $link->setLink('media/documents/factures/'.$fileName);
+            $link->setLink('media/documents/commandes/'.$fileName);
+            $link->setSheetdev($sheetDevLink);
             $link->setSheet($sheetId);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);

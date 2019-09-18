@@ -56,7 +56,7 @@ class LinkController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $publicDevDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
-            $publicFacDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/factures';
+            $publicFacDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/commandes';
             // e.g /var/www/project/public/my_first_excel_symfony4.xls
             $excelDevFilepath = $publicDevDirectory . '/' . $filename;
             $excelFacFilepath = $publicFacDirectory . '/' . $filename;

@@ -12,25 +12,25 @@
     <table id="table_id" class="display text">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Devis</th>
-                <th>Date</th>
-                <th>Actions</th>
+                <th class="align-center">Devis</th>
+                <th class="align-center">Validation</th>
+                <th class="align-center">Date</th>
+                <th class="align-center">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for sheetDev in sheetDevs %}
             <tr>
-                <td><a href="{{ path('sheetdev_show', { 'id': sheetDev.id }) }}">{{ sheetDev.id }}</a></td>
-                <td>{% if sheetDev.devis %}Yes{% else %}No{% endif %}</td>
-                <td>{% if sheetDev.date %}{{ sheetDev.date|date('Y-m-d') }}{% endif %}</td>
+                <td class="align-center">{{ sheetDev.society.societyName }}-{{ sheetDev.years }}/00{{ sheetDev.id }}</td>
+                <td class="align-center">{% if sheetDev.devis %}Accepté{% else %}{% endif %}</td>
+                <td class="align-center">{% if sheetDev.date %}{{ sheetDev.date|date('d-m-Y') }}{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('sheetdev_show', { 'id': sheetDev.id }) }}">show</a>
+                    <ul class="align-center list-type">
+                        <li class="">
+                            <a href="{{ path('sheetdev_show', { 'id': sheetDev.id }) }}" class="favorite styled">Montrer</a>
                         </li>
                         <li>
-                            <a href="{{ path('sheetdev_edit', { 'id': sheetDev.id }) }}">edit</a>
+                            <a href="{{ path('sheetdev_edit', { 'id': sheetDev.id }) }}" class="favorite styled">Valider</a>
                         </li>
                     </ul>
                 </td>

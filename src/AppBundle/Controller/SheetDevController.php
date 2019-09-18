@@ -154,19 +154,19 @@ class SheetDevController extends Controller
             } catch (Exception $e) {
             }
 
-        $spreadsheet->disconnectWorksheets();
-        unset($spreadsheet);
-
-            $sheetlink = 0;
+            $sheetLink = 0;
 
             $link = new Link();
             $link->setLinkname($fileName);
             $link->setLink('media/documents/devis/'.$fileName);
             $link->setSheetdev($sheetId);
-            $link->setSheet($sheetlink);
+            $link->setSheet($sheetLink);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
             $entityManager->flush();
+
+        $spreadsheet->disconnectWorksheets();
+        unset($spreadsheet);
 
         return $this->redirectToRoute('homepage');
 

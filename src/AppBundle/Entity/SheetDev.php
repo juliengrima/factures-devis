@@ -16,7 +16,7 @@ class SheetDev
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->date;
+        return $this->society . $this->devis . $this->years;
     }
 
     /**
@@ -33,6 +33,21 @@ class SheetDev
      * @var \DateTime
      */
     private $date;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sheet;
+
+    /**
+     * @var \AppBundle\Entity\Years
+     */
+    private $years;
+
+    /**
+     * @var \AppBundle\Entity\society
+     */
+    private $society;
 
 
     /**
@@ -92,11 +107,6 @@ class SheetDev
     {
         return $this->date;
     }
-    /**
-     * @var \AppBundle\Entity\society
-     */
-    private $society;
-
 
     /**
      * Set society
@@ -121,11 +131,6 @@ class SheetDev
     {
         return $this->society;
     }
-    /**
-     * @var \AppBundle\Entity\Years
-     */
-    private $years;
-
 
     /**
      * Set years
@@ -150,11 +155,6 @@ class SheetDev
     {
         return $this->years;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $sheet;
-
 
     /**
      * Add sheet
