@@ -20,12 +20,12 @@ class SheetDev
     }
 
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $devis;
 
@@ -35,14 +35,14 @@ class SheetDev
     private $date;
 
     /**
+     * @var integer
+     */
+    private $years;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $sheet;
-
-    /**
-     * @var \AppBundle\Entity\Years
-     */
-    private $years;
 
     /**
      * @var \AppBundle\Entity\society
@@ -53,7 +53,7 @@ class SheetDev
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -77,7 +77,7 @@ class SheetDev
     /**
      * Get devis
      *
-     * @return bool
+     * @return boolean
      */
     public function getDevis()
     {
@@ -109,37 +109,13 @@ class SheetDev
     }
 
     /**
-     * Set society
-     *
-     * @param \AppBundle\Entity\society $society
-     *
-     * @return SheetDev
-     */
-    public function setSociety(\AppBundle\Entity\society $society = null)
-    {
-        $this->society = $society;
-
-        return $this;
-    }
-
-    /**
-     * Get society
-     *
-     * @return \AppBundle\Entity\society
-     */
-    public function getSociety()
-    {
-        return $this->society;
-    }
-
-    /**
      * Set years
      *
-     * @param \AppBundle\Entity\Years $years
+     * @param integer $years
      *
      * @return SheetDev
      */
-    public function setYears(\AppBundle\Entity\Years $years = null)
+    public function setYears($years)
     {
         $this->years = $years;
 
@@ -149,7 +125,7 @@ class SheetDev
     /**
      * Get years
      *
-     * @return \AppBundle\Entity\Years
+     * @return integer
      */
     public function getYears()
     {
@@ -188,5 +164,29 @@ class SheetDev
     public function getSheet()
     {
         return $this->sheet;
+    }
+
+    /**
+     * Set society
+     *
+     * @param \AppBundle\Entity\society $society
+     *
+     * @return SheetDev
+     */
+    public function setSociety(\AppBundle\Entity\society $society = null)
+    {
+        $this->society = $society;
+
+        return $this;
+    }
+
+    /**
+     * Get society
+     *
+     * @return \AppBundle\Entity\society
+     */
+    public function getSociety()
+    {
+        return $this->society;
     }
 }

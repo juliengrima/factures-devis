@@ -15,7 +15,7 @@ class SheetTypeEdit extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('facture', CheckboxType::class, array(
-                        'label' => 'Devis accepté',
+                        'label' => 'Commande validée',
                         'required' => false,
                     ));
 

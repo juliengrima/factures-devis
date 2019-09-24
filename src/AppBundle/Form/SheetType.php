@@ -28,6 +28,17 @@ class SheetType extends AbstractType
                     },
 
                     'label' => 'Devis en cours'
+                ])
+                ->add('years', EntityType::class, [
+                    // looks for choices from this entity
+                    'class' => Years::class,
+
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('a')
+                            ->orderBy('a.years', 'ASC');
+                    },
+
+                    'label' => 'Année en cours'
                 ]);
 
     }/**

@@ -17,7 +17,7 @@ class Sheet
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->facture;
+        return $this->provider . $this->years . $this->facture ;
     }
 
     /**
@@ -34,6 +34,11 @@ class Sheet
      * @var \DateTime
      */
     private $date;
+
+    /**
+     * @var string
+     */
+    private $years;
 
     /**
      * @var \AppBundle\Entity\Provider
@@ -105,6 +110,30 @@ class Sheet
     }
 
     /**
+     * Set years
+     *
+     * @param string $years
+     *
+     * @return Sheet
+     */
+    public function setYears($years)
+    {
+        $this->years = $years;
+
+        return $this;
+    }
+
+    /**
+     * Get years
+     *
+     * @return string
+     */
+    public function getYears()
+    {
+        return $this->years;
+    }
+
+    /**
      * Set provider
      *
      * @param \AppBundle\Entity\Provider $provider
@@ -126,35 +155,6 @@ class Sheet
     public function getProvider()
     {
         return $this->provider;
-    }
-    /**
-     * @var \AppBundle\Entity\Years
-     */
-    private $years;
-
-
-    /**
-     * Set years
-     *
-     * @param \AppBundle\Entity\Years $years
-     *
-     * @return Sheet
-     */
-    public function setYears(\AppBundle\Entity\Years $years = null)
-    {
-        $this->years = $years;
-
-        return $this;
-    }
-
-    /**
-     * Get years
-     *
-     * @return \AppBundle\Entity\Years
-     */
-    public function getYears()
-    {
-        return $this->years;
     }
 
     /**

@@ -47,7 +47,6 @@ class SheetDevController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($sheetDev);
             $em->flush();
 
@@ -73,7 +72,7 @@ class SheetDevController extends Controller
         $societyZipCode = $sheetDev->getSociety()->getZipcode();
         $societyCity = $sheetDev->getSociety()->getCity();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
-        $years = $sheetDev->getYears()->getYears();
+        $years = $sheetDev->getYears();
 
         $sheetDevNumber = $years.'D00'.$sheetId;
 

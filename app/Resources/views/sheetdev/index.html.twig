@@ -7,7 +7,6 @@
         <a href="{{ path('sheetdev_new') }}" class="favorite styled">Générer un devis Excel</a>
     </div>
 
-{#    <div class="right-margin">#}
     <table id="table_id" class="display text">
         <thead>
             <tr>
@@ -20,7 +19,7 @@
         <tbody>
         {% for sheetDev in sheetDevs %}
             <tr>
-                <td class="align-center">{{ sheetDev.society.societyName }}-{{ sheetDev.years.years }}/00{{ sheetDev.id }}</td>
+                <td class="align-center">{{ sheetDev.society.societyName }}-{{ sheetDev.years }}D00{{ sheetDev.id }}</td>
                 <td class="align-center">{% if sheetDev.devis %}Accepté{% else %}{% endif %}</td>
                 <td class="align-center">{% if sheetDev.date %}{{ sheetDev.date|date('d-m-Y') }}{% endif %}</td>
                 <td>
@@ -29,7 +28,10 @@
                             <a href="{{ path('sheetdev_show', { 'id': sheetDev.id }) }}" class="favorite styled">Montrer</a>
                         </li>
                         <li>
+                            {% if sheetDev.devis %}
+                            {% else %}
                             <a href="{{ path('sheetdev_edit', { 'id': sheetDev.id }) }}" class="favorite styled">Valider</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </td>
@@ -37,7 +39,6 @@
         {% endfor %}
         </tbody>
     </table>
-{#    </div>#}
 
 {% endblock %}
 

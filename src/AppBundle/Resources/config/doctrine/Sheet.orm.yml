@@ -13,19 +13,16 @@ AppBundle\Entity\Sheet:
             type: boolean
             nullable: true
         date:
-            type: date
+            type: datetime
+        years:
+            type: string
+            length: 2
     manyToOne:
         provider:
             targetEntity: AppBundle\Entity\Provider
             inversedBy: sheet
             joinColumn:
                 name: provider_id
-                referencedColumnName: id
-        years:
-            targetEntity: AppBundle\Entity\Years
-            inversedBy: sheet
-            joinColumn:
-                name: years_id
                 referencedColumnName: id
         sheetdev:
             targetEntity: AppBundle\Entity\SheetDev

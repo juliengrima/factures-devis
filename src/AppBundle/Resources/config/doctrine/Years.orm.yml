@@ -14,12 +14,4 @@ AppBundle\Entity\Years:
             nullable: false
             length: 2
             unique: true
-            
-    oneToMany:
-        sheetdev:
-            targetEntity: AppBundle\Entity\SheetDev
-            mappedBy: years
-        sheet:
-            targetEntity: AppBundle\Entity\Sheet
-            mappedBy: years
     lifecycleCallbacks: {  }

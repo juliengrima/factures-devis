@@ -1,13 +1,13 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Devis N° : {{ sheetDev.years.years }}/00{{ sheetDev.id }}</h1>
+    <h1>Devis N° : {{ sheetDev.years }}D00{{ sheetDev.id }}</h1>
 
     <table>
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>/00{{ sheetDev.id }}</td>
+                <td>D00{{ sheetDev.id }}</td>
             </tr>
             <tr>
                 <th>Validation</th>
@@ -31,7 +31,7 @@
         <table>
             <tbody>
                 <th>Commande N°</th>
-                <td>{{ sheet.years.years }}/ 00{{ sheet.id }}/ </td>
+                <td>{{ sheet.years }}/ 00{{ sheet.id }} </td>
             </tbody>
         </table>
     {% endfor %}

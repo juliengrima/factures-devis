@@ -14,18 +14,15 @@ AppBundle\Entity\SheetDev:
             nullable: true
         date:
             type: datetime
+        years:
+            type: string
+            length: 2
     manyToOne:
         society:
             targetEntity: AppBundle\Entity\society
             inversedBy: sheetdev
             joinColumn:
                 name: society_id
-                referencedColumnName: id
-        years:
-            targetEntity: AppBundle\Entity\Years
-            inversedBy: sheetdev
-            joinColumn:
-                name: years_id
                 referencedColumnName: id
     oneToMany:
         sheet:

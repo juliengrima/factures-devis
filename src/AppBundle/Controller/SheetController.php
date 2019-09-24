@@ -73,7 +73,7 @@ class SheetController extends Controller
         $providerCode = $sheet->getProvider()->getCode();
         $providerContact = $sheet->getProvider()->getContact();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
-        $years = $sheet->getYears()->getYears();
+        $years = $sheet->getYears();
 
         $sheetNumber = $years.'/'.$sheetId;
         $document = $sheetDateStr.'/'.$sheetNumber;
@@ -179,13 +179,13 @@ class SheetController extends Controller
     public function editAction(Request $request, Sheet $sheet)
     {
         $deleteForm = $this->createDeleteForm($sheet);
-        $editForm = $this->createForm('AppBundle\Form\SheetType', $sheet);
+        $editForm = $this->createForm('AppBundle\Form\SheetTypeEdit', $sheet);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('sheet_edit', array('id' => $sheet->getId()));
+            return $this->redirectToRoute('sheet_index', array('id' => $sheet->getId()));
         }
 
         return $this->render('sheet/edit.html.twig', array(

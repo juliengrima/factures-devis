@@ -10,6 +10,7 @@
         <thead>
         <tr>
             <th class="align-center">Commande</th>
+            <th class="align-center">Client</th>
             <th class="align-center">Validation</th>
             <th class="align-center">Date</th>
             <th class="align-center">Actions</th>
@@ -19,15 +20,16 @@
         {% for sheet in sheets %}
             <tr>
                 <td class="align-center">{{ sheet.provider.provider }}-{{ sheet.years }}/00{{ sheet.id }}</td>
-                <td class="align-center">{% if sheet.facture %}Commadé{% else %}{% endif %}</td>
+                <td class="align-center">{{ sheet.sheetdev.society.societyName }}-{{ sheet.sheetdev.years }}D00{{ sheet.sheetdev.id }}</td>
+                <td class="align-center">{% if sheet.facture %}Commandée{% else %}{% endif %}</td>
                 <td class="align-center">{% if sheet.date %}{{ sheet.date|date('d-m-Y') }}{% endif %}</td>
                 <td>
                     <ul class="align-center list-type">
-                        <li class="">
-                            <a href="{{ path('sheetdev_show', { 'id': sheet.id }) }}" class="favorite styled">Montrer</a>
-                        </li>
                         <li>
-                            <a href="{{ path('sheetdev_edit', { 'id': sheet.id }) }}" class="favorite styled">Valider</a>
+                            {% if sheet.facture %}
+                            {% else %}
+                            <a href="{{ path('sheet_edit', { 'id': sheet.id }) }}" class="favorite styled">Valider</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </td>
