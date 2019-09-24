@@ -18,7 +18,7 @@
                         </div>
                         <div>
                             <p>Sélectionner le devis associé :</p>
-                            {{ form_widget(form.sheetdev) }}
+                            {{ form_widget(form.sheetdev, {'attr': {'type': 'list', 'class': ''}}) }}
                             {{ form_errors(form.sheetdev) }}
                         </div>
                     </div>

@@ -180,8 +180,12 @@ class SheetDevController extends Controller
     {
         $deleteForm = $this->createDeleteForm($sheetDev);
 
+        $em = $this->getDoctrine()->getManager();
+        $sheets = $em->getRepository('AppBundle:Sheet')->findBy(array('sheetdev' => $sheetDev));
+
         return $this->render('sheetdev/show.html.twig', array(
             'sheetDev' => $sheetDev,
+            'sheets' => $sheets,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -193,13 +197,13 @@ class SheetDevController extends Controller
     public function editAction(Request $request, SheetDev $sheetDev)
     {
         $deleteForm = $this->createDeleteForm($sheetDev);
-        $editForm = $this->createForm('AppBundle\Form\SheetDevType', $sheetDev);
+        $editForm = $this->createForm('AppBundle\Form\SheetDevEditType', $sheetDev);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('sheetdev_edit', array('id' => $sheetDev->getId()));
+            return $this->redirectToRoute('sheetdev_show', array('id' => $sheetDev->getId()));
         }
 
         return $this->render('sheetdev/edit.html.twig', array(

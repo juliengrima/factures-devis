@@ -22,3 +22,6 @@ app_years:
   resource: "@AppBundle/Resources/config/routing/years.yml"
   prefix:   /years
 
+app_provider:
+  resource: "@AppBundle/Resources/config/routing/provider.yml"
+  prefix:   /provider

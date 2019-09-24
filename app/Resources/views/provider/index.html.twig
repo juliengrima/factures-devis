@@ -1,0 +1,56 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des fournisseurs</h1>
+
+    <ul class="icons align-center">
+        <li>
+            <a href="{{ path('provider_new') }}" class="favorite styled">Enregistrer un fournisseur</a>
+        </li>
+    </ul>
+
+    <table id="table_id" class="display text">
+        <thead>
+            <tr>
+                <th>Provider</th>
+                <th>Code</th>
+                <th>Contact</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for provider in providers %}
+            <tr>
+                <td>{{ provider.provider }}</td>
+                <td>{{ provider.code }}</td>
+                <td>{{ provider.contact }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('provider_show', { 'id': provider.id }) }}">vérifier</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('provider_edit', { 'id': provider.id }) }}">Editer</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('provider_new') }}">Create a new provider</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+{% endblock %}

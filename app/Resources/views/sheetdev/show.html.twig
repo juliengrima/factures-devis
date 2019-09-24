@@ -1,36 +1,52 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Sheetdev</h1>
+    <h1>Devis N° : {{ sheetDev.years.years }}/00{{ sheetDev.id }}</h1>
 
     <table>
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ sheetDev.id }}</td>
+                <td>/00{{ sheetDev.id }}</td>
             </tr>
             <tr>
-                <th>Devis</th>
-                <td>{% if sheetDev.devis %}Yes{% else %}No{% endif %}</td>
+                <th>Validation</th>
+                <td>{% if sheetDev.devis %}Accepté{% else %}No{% endif %}</td>
             </tr>
             <tr>
                 <th>Date</th>
-                <td>{% if sheetDev.date %}{{ sheetDev.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if sheetDev.date %}{{ sheetDev.date|date('d-m-Y') }}{% endif %}</td>
             </tr>
+        <tr>
+            <th>Client</th>
+            <td>{{ sheetDev.society.societyName }}</td>
+        </tr>
         </tbody>
     </table>
 
-    <ul>
+    {% for sheet in sheets %}
+
+        <p>-----------------------------------------------------------------------</p>
+
+        <table>
+            <tbody>
+                <th>Commande N°</th>
+                <td>{{ sheet.years.years }}/ 00{{ sheet.id }}/ </td>
+            </tbody>
+        </table>
+    {% endfor %}
+
+    <ul class="icons align-center">
         <li>
-            <a href="{{ path('sheetdev_index') }}">Back to the list</a>
+            <a href="{{ path('sheetdev_index') }}">Retour</a>
         </li>
         <li>
-            <a href="{{ path('sheetdev_edit', { 'id': sheetDev.id }) }}">Edit</a>
+            <a href="{{ path('sheetdev_edit', { 'id': sheetDev.id }) }}">Validation</a>
         </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+{#        <li>#}
+{#            {{ form_start(delete_form) }}#}
+{#                <input type="submit" value="Suppression">#}
+{#            {{ form_end(delete_form) }}#}
+{#        </li>#}
     </ul>
 {% endblock %}

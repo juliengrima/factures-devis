@@ -7,6 +7,12 @@ namespace AppBundle\Entity;
  */
 class Provider
 {
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->provider;
+    }
+
     /**
      * @var int
      */
