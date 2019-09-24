@@ -20,6 +20,6 @@ AppBundle\Entity\Years:
             targetEntity: AppBundle\Entity\SheetDev
             mappedBy: years
         sheet:
-            targetEntity: AppBundle\Entity\SheetDev
+            targetEntity: AppBundle\Entity\Sheet
             mappedBy: years
     lifecycleCallbacks: {  }

@@ -18,17 +18,6 @@ class SheetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('provider')
-                ->add('years', EntityType::class, [
-                    // looks for choices from this entity
-                    'class' => Years::class,
-
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('a')
-                            ->orderBy('a.years', 'ASC');
-                    },
-
-                    'label' => 'Année en cours'
-                ])
                 ->add('sheetdev', EntityType::class, [
                     // looks for choices from this entity
                     'class' => SheetDev::class,
@@ -38,7 +27,7 @@ class SheetType extends AbstractType
                             ->orderBy('a.id', 'ASC');
                     },
 
-                    'label' => 'Année en cours'
+                    'label' => 'Devis en cours'
                 ]);
 
     }/**
