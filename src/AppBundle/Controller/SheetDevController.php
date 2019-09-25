@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Link;
 use AppBundle\Entity\SheetDev;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,9 +11,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
-use AppBundle\Entity\Link;
-use AppBundle\Entity\Years;
-use AppBundle\Entity\society;
 
 /**
  * Sheetdev controller.
@@ -64,7 +62,6 @@ class SheetDevController extends Controller
         $sheetId = $sheetDev->getId();
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
-        $sheetDateYear = $sheetDate->format('dm');
         $sheetDateStrDev = $sheetDate->format('d-m-Y');
         $societyId = $sheetDev->getSociety()->getId();
         $societyName = $sheetDev->getSociety()->getSocietyName();

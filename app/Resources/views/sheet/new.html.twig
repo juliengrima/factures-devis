@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Génération d'une facture Excel</h1>
+    <h1>Génération d'un bon de commande</h1>
 
     {{ form_start(form) }}
 
@@ -10,7 +10,6 @@
             <section>
                 <div class="content">
                     <div class="inner">
-                        <h2>Génération de la facture</h2>
                         <div>
                             <p>Sélectionner le fournisseur :</p>
                             {{ form_widget(form.provider) }}

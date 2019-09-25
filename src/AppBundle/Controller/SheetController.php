@@ -4,18 +4,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Link;
 use AppBundle\Entity\Sheet;
-use AppBundle\Entity\society;
-use AppBundle\Entity\Contact;
-use AppBundle\Entity\SheetDev;
-use AppBundle\Repository\LinkRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
-use \PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Cache\Simple\FilesystemCache;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Sheet controller.
@@ -121,6 +116,7 @@ class SheetController extends Controller
             $sheeti->setWorksheet($worksheet);
         } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
         }
+
         // Redirect output to a client’s web browser (Xlsx)
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="'.$sheetName);
@@ -139,8 +135,10 @@ class SheetController extends Controller
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
         $fileName = $sheetDevNumber.'.xlsx';
+
+        var_dump($fileName);
 //
-        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
+        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/commandes';
 //             e.g /var/www/project/public/my_first_excel_symfony4.xls
         $excelFilepath = $publicDirectory . '/' . $fileName;
 
@@ -157,7 +155,7 @@ class SheetController extends Controller
 
         $link = new Link();
         $link->setLinkname($fileName);
-        $link->setLink('media/documents/devis/'.$fileName);
+        $link->setLink('media/documents/commandes/'.$fileName);
         $link->setSheetdev($sheetLink);
         $link->setSheet($sheetId);
         $entityManager = $this->getDoctrine()->getManager();
