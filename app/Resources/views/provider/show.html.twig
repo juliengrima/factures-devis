@@ -1,7 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Provider</h1>
+    <h1>{{ provider.provider }}</h1>
 
     <table>
         <tbody>
@@ -24,17 +24,12 @@
         </tbody>
     </table>
 
-    <ul>
+    <ul class="icons align-center">
         <li>
-            <a href="{{ path('provider_index') }}">Back to the list</a>
+            <a href="{{ path('provider_index') }}">Retour</a>
         </li>
         <li>
-            <a href="{{ path('provider_edit', { 'id': provider.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+            <a href="{{ path('provider_edit', { 'id': provider.id }) }}">Modifier</a>
         </li>
     </ul>
 {% endblock %}

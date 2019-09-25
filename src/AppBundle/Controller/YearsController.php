@@ -39,7 +39,7 @@ class YearsController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('years_edit', array('id' => $year->getId()));
+            return $this->redirectToRoute('homepage', array('id' => $year->getId()));
         }
 
         return $this->render('years/edit.html.twig', array(

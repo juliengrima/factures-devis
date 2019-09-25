@@ -3,11 +3,9 @@
 {% block body %}
     <h1>Liste des fournisseurs</h1>
 
-    <ul class="icons align-center">
-        <li>
-            <a href="{{ path('provider_new') }}" class="favorite styled">Enregistrer un fournisseur</a>
-        </li>
-    </ul>
+    <div class="icons align-center">
+        <a href="{{ path('provider_new') }}" class="favorite styled">Enregistrer un fournisseur</a>
+    </div>
 
     <table id="table_id" class="display text">
         <thead>
@@ -25,12 +23,12 @@
                 <td>{{ provider.code }}</td>
                 <td>{{ provider.contact }}</td>
                 <td>
-                    <ul>
+                    <ul class="list-type">
                         <li>
-                            <a href="{{ path('provider_show', { 'id': provider.id }) }}">vérifier</a>
+                            <a href="{{ path('provider_show', { 'id': provider.id }) }}" class="favorite styled">Montrer</a>
                         </li>
                         <li>
-                            <a href="{{ path('provider_edit', { 'id': provider.id }) }}">Editer</a>
+                            <a href="{{ path('provider_edit', { 'id': provider.id }) }}" class="favorite styled">Editer</a>
                         </li>
                     </ul>
                 </td>

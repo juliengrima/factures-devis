@@ -78,7 +78,7 @@ class ProviderController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('provider_edit', array('id' => $provider->getId()));
+            return $this->redirectToRoute('provider_show', array('id' => $provider->getId()));
         }
 
         return $this->render('provider/edit.html.twig', array(

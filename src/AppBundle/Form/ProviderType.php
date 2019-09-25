@@ -13,7 +13,7 @@ class ProviderType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('provider')->add('code')->add('contact');
+        $builder->add('provider')->add('contact');
     }/**
      * {@inheritdoc}
      */
