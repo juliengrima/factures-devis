@@ -33,3 +33,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    spread.service:
+        class: AppBundle\Services\SpreadService
+        arguments: ['@service_container']

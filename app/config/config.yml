@@ -2,13 +2,14 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@AppBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
     # Path location Media
-#    link_directory: '%kernel.root_dir%/../web/media/documents'
+    link_directory: '%kernel.root_dir%/../web/media/documents'
 
 framework:
     #esi: ~

@@ -48,7 +48,12 @@ class SheetController extends Controller
             $em->persist($sheet);
             $em->flush();
 
-            return $this->redirectToRoute('sheet_spread', array('id' => $sheet->getId()));
+            $sheetDev = $sheet;
+
+            $spread = $this->container->get('spread.service')->spreadSheetAction($sheetDev);
+
+//            return $this->redirectToRoute('sheet_spread', array('id' => $sheet->getId()));
+            return $this->redirectToRoute('sheet_index');
         }
 
         return $this->render('sheet/new.html.twig', array(
@@ -57,114 +62,114 @@ class SheetController extends Controller
         ));
     }
 
-    public function spreadSheetAction(sheet $sheet)
-    {
-        $sheetId = $sheet->getId();
-        $sheetDate = $sheet->getDate();
-        $sheetDevId = $sheet->getSheetdev()->getId();
-        $sheetDevYears = $sheet->getSheetdev()->getYears();
-        $sheetDateStr = $sheetDate->format('dmY');
-        $sheetDateStrDev = $sheetDate->format('d-m-Y');
-        $providerId = $sheet->getProvider()->getId();
-        $providerName = $sheet->getProvider()->getProvider();
-        $providerContact = $sheet->getProvider()->getContact();
-        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
-        $years = $sheet->getYears();
-
-        $sheetDevNumber = $years.'/00'.$sheetId;
-        $sheetDev = $sheetDevYears.'D00'.$sheetDevId;
-
-        //            USE ON CACHE
-        $cache = new FilesystemCache();
-        \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
-
-        $sheetName = $providerName.$sheetDevNumber;
-
-        //            Loading template
-        $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
-
-        //            GENERATING XLSX FILE
-//            PROPERTIES OF THE XLSX DOCUMENT
-        $spreadsheet->getProperties()
-            ->setCreator('A.C.C.E.S')
-            ->setTitle($sheetName)
-            ->setSubject($sheetName)
-            ->setDescription('Génération de documents Excel Devis et Commandes.')
-            ->setKeywords($sheetName)
-            ->setCategory('Excel 2013 XLSX');
-
-//            TITLE OF PAGE AND BODY OF XLSX
-        /* @var $sheet Worksheet */
-        try {
-            $worksheet = $spreadsheet->getActiveSheet();
-            $worksheet->setCellValue('A1', $imagePath);
-            $worksheet->setCellValue('G2', $sheetDateStrDev);
-            $worksheet->setCellValue('C14', $providerName);
-            $worksheet->setCellValue('H14', $providerContact);
-            $worksheet->setCellValue('C15', $sheetDevNumber);
-            $worksheet->setCellValue('D16', $sheetDev);
-
-            $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-            $sheeti->setName('acces');
-            $sheeti->setDescription('logo');
-            $sheeti->setPath($imagePath);
-            $sheeti->setHeight(90);
-            $sheeti->setCoordinates("A1");
-            $sheeti->setOffsetX(0);
-            $sheeti->setOffsetY(0);
-            $sheeti->setWorksheet($worksheet);
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
-        }
-
-        // Redirect output to a client’s web browser (Xlsx)
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="'.$sheetName);
-        header('Cache-Control: max-age=0');
-// If you're serving to IE 9, then the following may be needed
-        header('Cache-Control: max-age=1');
-
-// If you're serving to IE over SSL, then the following may be needed
-        header('Expires: '.$sheetDateStr); // Date in the past
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-        header('Pragma: public'); // HTTP/1.0
-
-//            Create your Office 2007 Excel (XLSX Format)
-        $writer = new Xlsx($spreadsheet);
-
-//            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-        $fileName = $sheetDevNumber.'.xlsx';
+//    public function spreadSheetAction(sheet $sheet)
+//    {
+//        $sheetId = $sheet->getId();
+//        $sheetDate = $sheet->getDate();
+//        $sheetDevId = $sheet->getSheetdev()->getId();
+//        $sheetDevYears = $sheet->getSheetdev()->getYears();
+//        $sheetDateStr = $sheetDate->format('dmY');
+//        $sheetDateStrDev = $sheetDate->format('d-m-Y');
+//        $providerId = $sheet->getProvider()->getId();
+//        $providerName = $sheet->getProvider()->getProvider();
+//        $providerContact = $sheet->getProvider()->getContact();
+//        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+//        $years = $sheet->getYears();
 //
-        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/commandes';
-//             e.g /var/www/project/public/my_first_excel_symfony4.xls
-        $excelFilepath = $publicDirectory . '/' . $fileName;
-
-        try {
-            $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-        } catch (Exception $e) {
-        }
-        try {
-            $writer->save($excelFilepath);
-        } catch (Exception $e) {
-        }
-
-        $sheetLink = 0;
-
-        $link = new Link();
-        $link->setLinkname($fileName);
-        $link->setLink('media/documents/commandes/'.$fileName);
-        $link->setSheetdev($sheetLink);
-        $link->setSheet($sheetId);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($link);
-        $entityManager->flush();
-
-        $spreadsheet->disconnectWorksheets();
-        unset($spreadsheet);
-
-        return $this->redirectToRoute('sheet_index');
-    }
+//        $sheetDevNumber = $years.'/00'.$sheetId;
+//        $sheetDev = $sheetDevYears.'D00'.$sheetDevId;
+//
+//        //            USE ON CACHE
+//        $cache = new FilesystemCache();
+//        \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
+//
+//        $sheetName = $providerName.$sheetDevNumber;
+//
+//        //            Loading template
+//        $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
+//        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
+//
+//        //            GENERATING XLSX FILE
+////            PROPERTIES OF THE XLSX DOCUMENT
+//        $spreadsheet->getProperties()
+//            ->setCreator('A.C.C.E.S')
+//            ->setTitle($sheetName)
+//            ->setSubject($sheetName)
+//            ->setDescription('Génération de documents Excel Devis et Commandes.')
+//            ->setKeywords($sheetName)
+//            ->setCategory('Excel 2013 XLSX');
+//
+////            TITLE OF PAGE AND BODY OF XLSX
+//        /* @var $sheet Worksheet */
+//        try {
+//            $worksheet = $spreadsheet->getActiveSheet();
+//            $worksheet->setCellValue('A1', $imagePath);
+//            $worksheet->setCellValue('G2', $sheetDateStrDev);
+//            $worksheet->setCellValue('C14', $providerName);
+//            $worksheet->setCellValue('H14', $providerContact);
+//            $worksheet->setCellValue('C15', $sheetDevNumber);
+//            $worksheet->setCellValue('D16', $sheetDev);
+//
+//            $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+//            $sheeti->setName('acces');
+//            $sheeti->setDescription('logo');
+//            $sheeti->setPath($imagePath);
+//            $sheeti->setHeight(90);
+//            $sheeti->setCoordinates("A1");
+//            $sheeti->setOffsetX(0);
+//            $sheeti->setOffsetY(0);
+//            $sheeti->setWorksheet($worksheet);
+//        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+//        }
+//
+//        // Redirect output to a client’s web browser (Xlsx)
+//        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+//        header('Content-Disposition: attachment;filename="'.$sheetName);
+//        header('Cache-Control: max-age=0');
+//// If you're serving to IE 9, then the following may be needed
+//        header('Cache-Control: max-age=1');
+//
+//// If you're serving to IE over SSL, then the following may be needed
+//        header('Expires: '.$sheetDateStr); // Date in the past
+//        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+//        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+//        header('Pragma: public'); // HTTP/1.0
+//
+////            Create your Office 2007 Excel (XLSX Format)
+//        $writer = new Xlsx($spreadsheet);
+//
+////            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
+//        $fileName = $sheetDevNumber.'.xlsx';
+////
+//        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/factures';
+////             e.g /var/www/project/public/my_first_excel_symfony4.xls
+//        $excelFilepath = $publicDirectory . '/' . $fileName;
+//
+//        try {
+//            $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+//        } catch (Exception $e) {
+//        }
+//        try {
+//            $writer->save($excelFilepath);
+//        } catch (Exception $e) {
+//        }
+//
+//        $sheetLink = 0;
+//
+//        $link = new Link();
+//        $link->setLinkname($fileName);
+//        $link->setLink('media/documents/factures/'.$fileName);
+//        $link->setSheetdev($sheetLink);
+//        $link->setSheet($sheetId);
+//        $entityManager = $this->getDoctrine()->getManager();
+//        $entityManager->persist($link);
+//        $entityManager->flush();
+//
+//        $spreadsheet->disconnectWorksheets();
+//        unset($spreadsheet);
+//
+//        return $this->redirectToRoute('sheet_index');
+//    }
 
     /**
      * Displays a form to edit an existing sheet entity.
