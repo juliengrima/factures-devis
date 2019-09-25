@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\SheetDev;
 use AppBundle\Entity\Years;
+use Doctrine\DBAL\Platforms\SQLServer2005Platform;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -21,13 +22,9 @@ class SheetType extends AbstractType
                 ->add('sheetdev', EntityType::class, [
                     // looks for choices from this entity
                     'class' => SheetDev::class,
-
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('a')
-                            ->orderBy('a.id', 'ASC');
-                    },
-
-                    'label' => 'Devis en cours'
+                    'choice_label' => static function($sheetDev){
+                        return $sheetDev->getSociety()->getSocietyName().'-'.$sheetDev->getYears().'D00'.$sheetDev->getId();
+                    }
                 ])
                 ->add('years', EntityType::class, [
                     // looks for choices from this entity

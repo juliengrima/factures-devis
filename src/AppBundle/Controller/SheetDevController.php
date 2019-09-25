@@ -76,8 +76,6 @@ class SheetDevController extends Controller
 
         $sheetDevNumber = $years.'D00'.$sheetId;
 
-//        var_dump($sheetDev, $sheetDevNumber);
-
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
@@ -167,7 +165,7 @@ class SheetDevController extends Controller
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('sheetdev_index');
 
     }
 

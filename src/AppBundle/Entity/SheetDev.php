@@ -16,7 +16,7 @@ class SheetDev
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->society . $this->devis . $this->years;
+        return $this->society . $this->devis . $this->years . $this->id;
     }
 
     /**

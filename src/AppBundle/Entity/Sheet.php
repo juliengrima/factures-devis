@@ -17,7 +17,7 @@ class Sheet
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->provider . $this->years . $this->facture ;
+        return $this->provider . $this->years . $this->facture . $this->sheetdev ;
     }
 
     /**
