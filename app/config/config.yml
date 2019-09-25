@@ -8,7 +8,7 @@ imports:
 parameters:
     locale: fr
     # Path location Media
-    link_directory: '%kernel.root_dir%/../web/media/documents'
+#    link_directory: '%kernel.root_dir%/../web/media/documents'
 
 framework:
     #esi: ~

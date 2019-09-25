@@ -57,8 +57,8 @@ class SheetController extends Controller
         ));
     }
 
-    public function spreadSheetAction(sheet $sheet){
-
+    public function spreadSheetAction(sheet $sheet)
+    {
         $sheetId = $sheet->getId();
         $sheetDate = $sheet->getDate();
         $sheetDevId = $sheet->getSheetdev()->getId();
@@ -90,7 +90,7 @@ class SheetController extends Controller
             ->setCreator('A.C.C.E.S')
             ->setTitle($sheetName)
             ->setSubject($sheetName)
-            ->setDescription('Génération de documents Excel Devis et Factures.')
+            ->setDescription('Génération de documents Excel Devis et Commandes.')
             ->setKeywords($sheetName)
             ->setCategory('Excel 2013 XLSX');
 
@@ -135,15 +135,13 @@ class SheetController extends Controller
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
         $fileName = $sheetDevNumber.'.xlsx';
-
-        var_dump($fileName);
 //
         $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/commandes';
 //             e.g /var/www/project/public/my_first_excel_symfony4.xls
         $excelFilepath = $publicDirectory . '/' . $fileName;
 
         try {
-            $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+            $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         } catch (Exception $e) {
         }
         try {
