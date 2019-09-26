@@ -40,22 +40,21 @@ class society
     private $city;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var string
      */
     private $contact;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $sheet;
+    private $sheetdev;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->contact = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sheet = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sheetdev = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -165,77 +164,28 @@ class society
     }
 
     /**
-     * Add contact
+     * Set contact
      *
-     * @param \AppBundle\Entity\Contact $contact
+     * @param string $contact
      *
      * @return society
      */
-    public function addContact(\AppBundle\Entity\Contact $contact)
+    public function setContact($contact)
     {
-        $this->contact[] = $contact;
+        $this->contact = $contact;
 
         return $this;
-    }
-
-    /**
-     * Remove contact
-     *
-     * @param \AppBundle\Entity\Contact $contact
-     */
-    public function removeContact(\AppBundle\Entity\Contact $contact)
-    {
-        $this->contact->removeElement($contact);
     }
 
     /**
      * Get contact
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return string
      */
     public function getContact()
     {
         return $this->contact;
     }
-
-    /**
-     * Add sheet
-     *
-     * @param \AppBundle\Entity\Sheet $sheet
-     *
-     * @return society
-     */
-    public function addSheet(\AppBundle\Entity\Sheet $sheet)
-    {
-        $this->sheet[] = $sheet;
-
-        return $this;
-    }
-
-    /**
-     * Remove sheet
-     *
-     * @param \AppBundle\Entity\Sheet $sheet
-     */
-    public function removeSheet(\AppBundle\Entity\Sheet $sheet)
-    {
-        $this->sheet->removeElement($sheet);
-    }
-
-    /**
-     * Get sheet
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSheet()
-    {
-        return $this->sheet;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $sheetdev;
-
 
     /**
      * Add sheetdev

@@ -6,10 +6,6 @@ app_society:
     resource: "@AppBundle/Resources/config/routing/society.yml"
     prefix:   /society
 
-app_contact:
-    resource: "@AppBundle/Resources/config/routing/contact.yml"
-    prefix:   /contact
-
 app_sheet:
     resource: "@AppBundle/Resources/config/routing/sheet.yml"
     prefix:   /sheet
@@ -21,3 +17,11 @@ app_link:
 app_sheetdev:
   resource: "@AppBundle/Resources/config/routing/sheetdev.yml"
   prefix:   /sheetdev
+
+app_years:
+  resource: "@AppBundle/Resources/config/routing/years.yml"
+  prefix:   /years
+
+app_provider:
+  resource: "@AppBundle/Resources/config/routing/provider.yml"
+  prefix:   /provider

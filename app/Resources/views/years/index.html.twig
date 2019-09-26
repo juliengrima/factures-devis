@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Année en cours</h1>
+
+    {% for year in years %}
+
+                <ul class="icons align-center">
+                    <li>
+                        <h1>{{ year.years }}</h1>
+                    </li>
+                    <li>
+                        <h1><a href="{{ path('years_edit', { 'id': year.id }) }}" class="favorite styled">Modifier</a></h1>
+                    </li>
+                </ul>
+
+    {% endfor %}
+{% endblock %}

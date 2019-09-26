@@ -1,0 +1,17 @@
+AppBundle\Entity\Years:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\YearsRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        years:
+            type: string
+            nullable: false
+            length: 2
+            unique: true
+    lifecycleCallbacks: {  }

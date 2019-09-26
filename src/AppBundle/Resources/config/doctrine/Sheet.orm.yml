@@ -13,13 +13,22 @@ AppBundle\Entity\Sheet:
             type: boolean
             nullable: true
         date:
-            type: date
+            type: datetime
+        years:
+            type: string
+            length: 2
     manyToOne:
-        society:
-            targetEntity: AppBundle\Entity\society
+        provider:
+            targetEntity: AppBundle\Entity\Provider
             inversedBy: sheet
             joinColumn:
-                name: society_id
+                name: provider_id
+                referencedColumnName: id
+        sheetdev:
+            targetEntity: AppBundle\Entity\SheetDev
+            inversedBy: sheet
+            joinColumn:
+                name: sheetdev_id
                 referencedColumnName: id
 
     lifecycleCallbacks: {  }
