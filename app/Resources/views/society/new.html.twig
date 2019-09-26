@@ -1,16 +1,44 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Society creation</h1>
+    <h1>Enregistrement d'un client </h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <section id="one" class=" style2 spotlights">
+        <section>
+            <div class="content">
+                <div class="inner">
+                    <div>
+                        <p>Nom de la société :</p>
+                        {{ form_widget(form.societyName) }}
+                        {{ form_errors(form.societyName) }}
+                    </div>
+                    <div>
+                        <p>Nom du contact :</p>
+                        {{ form_widget(form.contact) }}
+                        {{ form_errors(form.contact) }}
+                    </div>
+                    <div>
+                        <p>Adresse :</p>
+                        {{ form_widget(form.address) }}
+                        {{ form_errors(form.address) }}
+                    </div>
+                    <div>
+                        <p>Code postal :</p>
+                        {{ form_widget(form.zipcode, {'attr': {'class': 'zip-code'}} ) }}
+                        {{ form_errors(form.zipcode) }}
+                    </div>
+                    <div>
+                        <p>Ville :</p>
+                        {{ form_widget(form.city) }}
+                        {{ form_errors(form.city) }}
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <ul>
-        <li>
-            <a href="{{ path('society_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <input type="submit" value="Valider" class="submit-center"/>
+
+    </section>
+    {{ form_end(form) }}
 {% endblock %}

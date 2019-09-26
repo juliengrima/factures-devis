@@ -10,7 +10,7 @@
                 <td>{{ provider.id }}</td>
             </tr>
             <tr>
-                <th>Provider</th>
+                <th>Fournisseur</th>
                 <td>{{ provider.provider }}</td>
             </tr>
             <tr>
@@ -26,10 +26,10 @@
 
     <ul class="icons align-center">
         <li>
-            <a href="{{ path('provider_index') }}">Retour</a>
+            <a href="{{ path('provider_index') }}" class="button">Retour</a>
         </li>
         <li>
-            <a href="{{ path('provider_edit', { 'id': provider.id }) }}">Modifier</a>
+            <a href="{{ path('provider_edit', { 'id': provider.id }) }}" class="button">Modifier</a>
         </li>
     </ul>
 {% endblock %}

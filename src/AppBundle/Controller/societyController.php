@@ -78,7 +78,7 @@ class societyController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('society_edit', array('id' => $society->getId()));
+            return $this->redirectToRoute('society_show', array('id' => $society->getId()));
         }
 
         return $this->render('society/edit.html.twig', array(

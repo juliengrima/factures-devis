@@ -3959,3 +3959,13 @@ input, select, textarea {
 .right-margin{
 	margin-right: 5% !important;
 }
+
+.img-size{
+	width: 600px !important;
+	height: 200px !important;
+	margin-left: 22% !important;
+}
+
+.zip-code{
+	color: #3c2c62;
+}

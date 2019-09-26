@@ -1,44 +1,35 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Society</h1>
+    <h1>{{ society.societyName}}</h1>
 
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ society.id }}</td>
+                <th>Contact</th>
+                <td>{{ society.contact }}</td>
             </tr>
             <tr>
-                <th>Societyname</th>
-                <td>{{ society.societyName }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
+                <th>Adresse</th>
                 <td>{{ society.address }}</td>
             </tr>
             <tr>
-                <th>Zipcode</th>
+                <th>Code postal</th>
                 <td>{{ society.zipcode }}</td>
             </tr>
             <tr>
-                <th>City</th>
+                <th>Ville</th>
                 <td>{{ society.city }}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
+    <ul class="icons align-center">
         <li>
-            <a href="{{ path('society_index') }}">Back to the list</a>
+            <a href="{{ path('society_index') }}" class="button">Retour</a>
         </li>
         <li>
-            <a href="{{ path('society_edit', { 'id': society.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+            <a href="{{ path('society_edit', { 'id': society.id }) }}" class="button">Modifier</a>
         </li>
     </ul>
 {% endblock %}

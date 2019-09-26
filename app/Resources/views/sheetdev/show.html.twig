@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Devis N° : {{ sheetDev.years }}D00{{ sheetDev.id }}</h1>
+    <h1>{{ sheetDev.society.societyName }} Devis N° : {{ sheetDev.years }}D00{{ sheetDev.id }}</h1>
 
     <table>
         <tbody>
@@ -17,36 +17,31 @@
                 <th>Date</th>
                 <td>{% if sheetDev.date %}{{ sheetDev.date|date('d-m-Y') }}{% endif %}</td>
             </tr>
-        <tr>
-            <th>Client</th>
-            <td>{{ sheetDev.society.societyName }}</td>
-        </tr>
         </tbody>
     </table>
 
+    <h4 class="align-center">Commandes en cours</h4>
     {% for sheet in sheets %}
-
-        <p>-----------------------------------------------------------------------</p>
+        <p class="align-center">-----------------------------------------------------------------------</p>
 
         <table>
             <tbody>
-                <th>Commande N°</th>
-                <td>{{ sheet.years }}/ 00{{ sheet.id }} </td>
+                <tr>
+                    <th>Fournisseur</th>
+                    <td>{{ sheet.provider.provider }}</td>
+                </tr>
+                <tr>
+                    <th>Commande N°</th>
+                    <td>{{ sheet.years }}/ 00{{ sheet.id }} </td>
+                </tr>
+
             </tbody>
         </table>
     {% endfor %}
 
     <ul class="icons align-center">
         <li>
-            <a href="{{ path('sheetdev_index') }}">Retour</a>
+            <a href="{{ path('sheetdev_index') }}" class="button">Retour</a>
         </li>
-        <li>
-            <a href="{{ path('sheetdev_edit', { 'id': sheetDev.id }) }}">Validation</a>
-        </li>
-{#        <li>#}
-{#            {{ form_start(delete_form) }}#}
-{#                <input type="submit" value="Suppression">#}
-{#            {{ form_end(delete_form) }}#}
-{#        </li>#}
     </ul>
 {% endblock %}
