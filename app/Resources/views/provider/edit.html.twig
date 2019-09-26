@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Provider edit</h1>
+
+    {{ form_start(edit_form) }}
+    <!-- One -->
+    <section id="one" class="wrapper style2 spotlights">
+        <section>
+            <div class="content">
+                <div class="inner">
+                    <div>
+                        <p>Nom du fournisseur :</p>
+                        {{ form_widget(edit_form.provider) }}
+                        {{ form_errors(edit_form.provider) }}
+                    </div>
+                    <div>
+                        <p>Nom du contact :</p>
+                        {{ form_widget(edit_form.contact) }}
+                        {{ form_errors(edit_form.contact) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <ul class="icons align-center">
+        <li>
+            <input type="submit" value="Valider" class=""/>
+        </li>
+        {{ form_end(edit_form) }}
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+    </section>
+{% endblock %}

@@ -122,4 +122,33 @@ class Link
     {
         return $this->sheet;
     }
+    /**
+     * @var integer
+     */
+    private $sheetdev;
+
+
+    /**
+     * Set sheetdev
+     *
+     * @param integer $sheetdev
+     *
+     * @return Link
+     */
+    public function setSheetdev($sheetdev)
+    {
+        $this->sheetdev = $sheetdev;
+
+        return $this;
+    }
+
+    /**
+     * Get sheetdev
+     *
+     * @return integer
+     */
+    public function getSheetdev()
+    {
+        return $this->sheetdev;
+    }
 }

@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Enregistrement d'un fournisseur</h1>
+
+    {{ form_start(form) }}
+        <!-- One -->
+        <section id="one" class="wrapper style2 spotlights">
+            <section>
+                <div class="content">
+                    <div class="inner">
+                        <div>
+                            <p>Nom du fournisseur :</p>
+                            {{ form_widget(form.provider) }}
+                            {{ form_errors(form.provider) }}
+                        </div>
+                        <div>
+                            <p>Nom du contact :</p>
+                            {{ form_widget(form.contact) }}
+                            {{ form_errors(form.contact) }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <input type="submit" value="Valider" class="submit-center"/>
+
+        </section>
+    {{ form_end(form) }}
+{% endblock %}

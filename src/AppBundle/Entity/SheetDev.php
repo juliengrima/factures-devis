@@ -16,16 +16,16 @@ class SheetDev
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->date;
+        return $this->society . $this->devis . $this->years . $this->id;
     }
 
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $devis;
 
@@ -34,11 +34,26 @@ class SheetDev
      */
     private $date;
 
+    /**
+     * @var integer
+     */
+    private $years;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sheet;
+
+    /**
+     * @var \AppBundle\Entity\society
+     */
+    private $society;
+
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +77,7 @@ class SheetDev
     /**
      * Get devis
      *
-     * @return bool
+     * @return boolean
      */
     public function getDevis()
     {
@@ -92,11 +107,64 @@ class SheetDev
     {
         return $this->date;
     }
-    /**
-     * @var \AppBundle\Entity\society
-     */
-    private $society;
 
+    /**
+     * Set years
+     *
+     * @param integer $years
+     *
+     * @return SheetDev
+     */
+    public function setYears($years)
+    {
+        $this->years = $years;
+
+        return $this;
+    }
+
+    /**
+     * Get years
+     *
+     * @return integer
+     */
+    public function getYears()
+    {
+        return $this->years;
+    }
+
+    /**
+     * Add sheet
+     *
+     * @param \AppBundle\Entity\Sheet $sheet
+     *
+     * @return SheetDev
+     */
+    public function addSheet(\AppBundle\Entity\Sheet $sheet)
+    {
+        $this->sheet[] = $sheet;
+
+        return $this;
+    }
+
+    /**
+     * Remove sheet
+     *
+     * @param \AppBundle\Entity\Sheet $sheet
+     */
+    public function removeSheet(\AppBundle\Entity\Sheet $sheet)
+    {
+        $this->sheet->removeElement($sheet);
+    }
+
+    /**
+     * Get sheet
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSheet()
+    {
+        return $this->sheet;
+    }
 
     /**
      * Set society

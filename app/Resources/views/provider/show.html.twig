@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>{{ provider.provider }}</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ provider.id }}</td>
+            </tr>
+            <tr>
+                <th>Provider</th>
+                <td>{{ provider.provider }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ provider.code }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ provider.contact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="icons align-center">
+        <li>
+            <a href="{{ path('provider_index') }}">Retour</a>
+        </li>
+        <li>
+            <a href="{{ path('provider_edit', { 'id': provider.id }) }}">Modifier</a>
+        </li>
+    </ul>
+{% endblock %}

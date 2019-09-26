@@ -1,0 +1,24 @@
+years_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Years:index" }
+    methods:  GET
+
+years_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Years:show" }
+    methods:  GET
+
+years_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Years:new" }
+    methods:  [GET, POST]
+
+years_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Years:edit" }
+    methods:  [GET, POST]
+
+years_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Years:delete" }
+    methods:  DELETE

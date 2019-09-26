@@ -17,7 +17,7 @@ tfoot, thead, tr, th, td, article, aside,
 canvas, details, embed, figure, figcaption,
 footer, header, hgroup, menu, nav, output, ruby,
 section, summary, time, mark, audio, video {
-	margin: 0;
+	margin: 2%;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
@@ -3920,4 +3920,42 @@ input, select, textarea {
 
 .number{
 	background-color: initial;
+}
+
+.disp{
+	display: none;
+}
+
+.styled {
+	border: 0;
+	line-height: 2.5;
+	padding: 0 20px;
+	font-size: 1rem;
+	text-align: center;
+	color: #fff;
+	text-shadow: 1px 1px 1px #000;
+	border-radius: 10px;
+	background-color: #493382;
+	background-image: linear-gradient(to top left,
+	rgba(0, 0, 0, .2),
+	rgba(0, 0, 0, .2) 30%,
+	rgba(0, 0, 0, 0));
+	box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+	inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+.styled:hover {
+	background-color: #2F4F4F;
+}
+
+.styled:active {
+	box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+	inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+.list-type{
+	list-style-type: none;
+}
+
+.right-margin{
+	margin-right: 5% !important;
 }

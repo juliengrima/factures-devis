@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Link;
 use AppBundle\Entity\SheetDev;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,10 +11,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
-use AppBundle\Entity\Link;
-use AppBundle\Entity\Sheet;
-use AppBundle\Entity\society;
-use AppBundle\Entity\Contact;
 
 /**
  * Sheetdev controller.
@@ -51,7 +48,7 @@ class SheetDevController extends Controller
             $em->persist($sheetDev);
             $em->flush();
 
-            return $this->redirectToRoute('sheet_spread_dev', array('id' => $sheetDev->getId()));
+            return $this->redirectToRoute('sheetdev_spread', array('id' => $sheetDev->getId()));
         }
 
         return $this->render('sheetdev/new.html.twig', array(
@@ -66,23 +63,21 @@ class SheetDevController extends Controller
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrDev = $sheetDate->format('d-m-Y');
-//        $sheetDevis = $sheetDev->getDevis();
         $societyId = $sheetDev->getSociety()->getId();
         $societyName = $sheetDev->getSociety()->getSocietyName();
         $societyAddress = $sheetDev->getSociety()->getAddress();
         $societyZipCode = $sheetDev->getSociety()->getZipcode();
         $societyCity = $sheetDev->getSociety()->getCity();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+        $years = $sheetDev->getYears();
 
-        $sheetDevNumber = $sheetDateStr.$societyId.'-'.$sheetId;
-//
+        $sheetDevNumber = $years.'D00'.$sheetId;
+
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-            $sheetFacture = 'Dev';
-            $sheetTitle = $sheetFacture.'-'.$societyName.'-'.$sheetId;
-            $sheetName = $sheetFacture.'-'.$societyName.$sheetDateStr.'-'.$sheetId;
+            $sheetName = $societyName.$sheetDevNumber;
 
             //            Loading template
             $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/dev-template.xlsx';
@@ -92,7 +87,7 @@ class SheetDevController extends Controller
 //            PROPERTIES OF THE XLSX DOCUMENT
             $spreadsheet->getProperties()
                 ->setCreator('A.C.C.E.S')
-                ->setTitle($sheetTitle)
+                ->setTitle($sheetName)
                 ->setSubject($sheetName)
                 ->setDescription('Génération de documents Excel Devis et Factures.')
                 ->setKeywords($sheetName)
@@ -102,9 +97,9 @@ class SheetDevController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('A1',$imagePath);
-                $worksheet->setCellValue('G2',$sheetDateStrDev);
-                $worksheet->setCellValue('E7',$societyName);
+                $worksheet->setCellValue('A1', $imagePath);
+                $worksheet->setCellValue('G2', $sheetDateStrDev);
+                $worksheet->setCellValue('E7', $societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);
                 $worksheet->setCellValue('F9', $societyCity);
@@ -138,10 +133,10 @@ class SheetDevController extends Controller
             $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-            $fileName = $sheetName.'.xlsx';
-
+            $fileName = $sheetDevNumber.'.xlsx';
+//
             $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
-            // e.g /var/www/project/public/my_first_excel_symfony4.xls
+//             e.g /var/www/project/public/my_first_excel_symfony4.xls
             $excelFilepath = $publicDirectory . '/' . $fileName;
 
             try {
@@ -153,10 +148,13 @@ class SheetDevController extends Controller
             } catch (Exception $e) {
             }
 
+            $sheetLink = 0;
+
             $link = new Link();
             $link->setLinkname($fileName);
             $link->setLink('media/documents/devis/'.$fileName);
-            $link->setSheet($sheetId);
+            $link->setSheetdev($sheetId);
+            $link->setSheet($sheetLink);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
             $entityManager->flush();
@@ -164,7 +162,7 @@ class SheetDevController extends Controller
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('sheetdev_index');
 
     }
 
@@ -176,8 +174,12 @@ class SheetDevController extends Controller
     {
         $deleteForm = $this->createDeleteForm($sheetDev);
 
+        $em = $this->getDoctrine()->getManager();
+        $sheets = $em->getRepository('AppBundle:Sheet')->findBy(array('sheetdev' => $sheetDev));
+
         return $this->render('sheetdev/show.html.twig', array(
             'sheetDev' => $sheetDev,
+            'sheets' => $sheets,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -189,13 +191,13 @@ class SheetDevController extends Controller
     public function editAction(Request $request, SheetDev $sheetDev)
     {
         $deleteForm = $this->createDeleteForm($sheetDev);
-        $editForm = $this->createForm('AppBundle\Form\SheetDevType', $sheetDev);
+        $editForm = $this->createForm('AppBundle\Form\SheetDevEditType', $sheetDev);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('sheetdev_edit', array('id' => $sheetDev->getId()));
+            return $this->redirectToRoute('sheetdev_show', array('id' => $sheetDev->getId()));
         }
 
         return $this->render('sheetdev/edit.html.twig', array(

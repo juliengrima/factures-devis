@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Génération d'une facture Excel</h1>
+    <h1>Génération d'un bon de commande</h1>
 
     {{ form_start(form) }}
 
@@ -10,11 +10,20 @@
             <section>
                 <div class="content">
                     <div class="inner">
-                        <h2>Génération de la facture</h2>
                         <div>
-                            <p>Sélectionner la société :</p>
-                            {{ form_widget(form.society) }}
-                            {{ form_errors(form.society) }}
+                            <p>Sélectionner le fournisseur :</p>
+                            {{ form_widget(form.provider) }}
+                            {{ form_errors(form.provider) }}
+                        </div>
+                        <div>
+                            <p>Sélectionner le devis associé :</p>
+                            {{ form_widget(form.sheetdev, {'attr': {'type': 'list', 'class': ''}}) }}
+                            {{ form_errors(form.sheetdev) }}
+                        </div>
+                        <div class="disp">
+                            <p>Année en cours</p>
+                            {{ form_widget(form.years) }}
+                            {{ form_errors(form.years) }}
                         </div>
                     </div>
                 </div>

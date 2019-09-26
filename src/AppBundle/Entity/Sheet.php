@@ -17,7 +17,7 @@ class Sheet
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->date;
+        return $this->provider . $this->years . $this->facture . $this->sheetdev ;
     }
 
     /**
@@ -36,9 +36,19 @@ class Sheet
     private $date;
 
     /**
-     * @var \AppBundle\Entity\society
+     * @var string
      */
-    private $society;
+    private $years;
+
+    /**
+     * @var \AppBundle\Entity\Provider
+     */
+    private $provider;
+
+    /**
+     * @var \AppBundle\Entity\SheetDev
+     */
+    private $sheetdev;
 
 
     /**
@@ -100,26 +110,74 @@ class Sheet
     }
 
     /**
-     * Set society
+     * Set years
      *
-     * @param \AppBundle\Entity\society $society
+     * @param string $years
      *
      * @return Sheet
      */
-    public function setSociety(\AppBundle\Entity\society $society = null)
+    public function setYears($years)
     {
-        $this->society = $society;
+        $this->years = $years;
 
         return $this;
     }
 
     /**
-     * Get society
+     * Get years
      *
-     * @return \AppBundle\Entity\society
+     * @return string
      */
-    public function getSociety()
+    public function getYears()
     {
-        return $this->society;
+        return $this->years;
+    }
+
+    /**
+     * Set provider
+     *
+     * @param \AppBundle\Entity\Provider $provider
+     *
+     * @return Sheet
+     */
+    public function setProvider(\AppBundle\Entity\Provider $provider = null)
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+
+    /**
+     * Get provider
+     *
+     * @return \AppBundle\Entity\Provider
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Set sheetdev
+     *
+     * @param \AppBundle\Entity\SheetDev $sheetdev
+     *
+     * @return Sheet
+     */
+    public function setSheetdev(\AppBundle\Entity\SheetDev $sheetdev = null)
+    {
+        $this->sheetdev = $sheetdev;
+
+        return $this;
+    }
+
+    /**
+     * Get sheetdev
+     *
+     * @return \AppBundle\Entity\SheetDev
+     */
+    public function getSheetdev()
+    {
+        return $this->sheetdev;
     }
 }
