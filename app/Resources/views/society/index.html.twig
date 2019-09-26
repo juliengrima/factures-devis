@@ -1,48 +1,43 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Liste des sociétés</h1>
+    <h1>Liste des clients</h1>
 
-    <ul class="icons align-center">
-        <li>
-            <a href="{{ path('society_new') }}">Enrgistrer une nouvelle société</a>
-        </li>
-    </ul>
+    <div class="icons align-center">
+            <a href="{{ path('society_new') }}" class="favorite styled">Enrgistrer un nouvau client</a>
+    </div>
 
-    <section id="one" class="wrapper style2 spotlights">
-        <section>
-            <table id="table_id" class="display text">
-                <thead>
-                    <tr>
-                        <th class="align-center">Identifiant</th>
-                        <th>société</th>
-                        <th>Adresse</th>
-                        <th>Code postal</th>
-                        <th>Ville</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for society in societies %}
-                    <tr>
-                        <td class="align-center">{{ society.id }}</td>
-                        <td>{{ society.societyName }}</td>
-                        <td>{{ society.address }}</td>
-                        <td>{{ society.zipcode }}</td>
-                        <td>{{ society.city }}</td>
-                        <td>
-                            <ul class="icons">
-                                <li>
-                                    <a href="{{ path('society_edit', { 'id': society.id }) }}">Modifier/Supprimer</a>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </section>
-    </section>
+    <table id="table_id" class="display text">
+        <thead>
+            <tr>
+                <th>société</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for society in societies %}
+            <tr>
+                <td>{{ society.societyName }}</td>
+                <td>{{ society.address }}</td>
+                <td>{{ society.zipcode }}</td>
+                <td>{{ society.city }}</td>
+                <td>
+                    <ul class="list-type">
+                        <li>
+                            <a href="{{ path('society_show', { 'id': society.id }) }}" class="favorite styled">Montrer</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('society_edit', { 'id': society.id }) }}" class="favorite styled">Modifier/Supprimer</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
 

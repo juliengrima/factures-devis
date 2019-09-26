@@ -97,7 +97,6 @@ class SheetDevController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('A1', $imagePath);
                 $worksheet->setCellValue('G2', $sheetDateStrDev);
                 $worksheet->setCellValue('E7', $societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
@@ -133,7 +132,7 @@ class SheetDevController extends Controller
             $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-            $fileName = $sheetDevNumber.'.xlsx';
+            $fileName = $sheetDevNumber.'.xls';
 //
             $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
 //             e.g /var/www/project/public/my_first_excel_symfony4.xls

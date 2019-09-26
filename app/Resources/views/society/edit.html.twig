@@ -1,20 +1,51 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Society edit</h1>
+    <h1>Modifier/Supprimer : {{society.societyName}}</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <section id="one" class="style2">
+        <section>
+            <div class="content">
+                <div class="inner">
+                    <div>
+                        <p>Nom du client :</p>
+                        {{ form_widget(edit_form.societyName) }}
+                        {{ form_errors(edit_form.societyName) }}
+                    </div>
+                    <div>
+                        <p>Nom du contact :</p>
+                        {{ form_widget(edit_form.contact) }}
+                        {{ form_errors(edit_form.contact) }}
+                    </div>
+                    <div>
+                        <p>Adresse :</p>
+                        {{ form_widget(edit_form.address) }}
+                        {{ form_errors(edit_form.address) }}
+                    </div>
+                    <div>
+                        <p>Code postal :</p>
+                        {{ form_widget(edit_form.zipcode, {'attr': {'class': 'zip-code'}} ) }}
+                        {{ form_errors(edit_form.zipcode) }}
+                    </div>
+                    <div>
+                        <p>Ville :</p>
+                        {{ form_widget(edit_form.city) }}
+                        {{ form_errors(edit_form.city) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
 
-    <ul>
+    <ul class="icons align-center">
         <li>
-            <a href="{{ path('society_index') }}">Back to the list</a>
+            <input type="submit" value="Modifier" />
         </li>
+        {{ form_end(edit_form) }}
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer">
             {{ form_end(delete_form) }}
         </li>
     </ul>

@@ -69,16 +69,17 @@ class SheetController extends Controller
         $providerName = $sheet->getProvider()->getProvider();
         $providerContact = $sheet->getProvider()->getContact();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
-        $years = $sheet->getYears();
+        $sheetYears = $sheet->getYears();
 
-        $sheetDevNumber = $years.'/00'.$sheetId;
-        $sheetDev = $sheetDevYears.'D00'.$sheetDevId;
+        $sheetNumber = $sheetYears.'/00'.$sheetId;
+        $sheetDevNumber = $sheetDevYears.'D00'.$sheetDevId;
+        $sheetFileName = $sheetYears.'-00'.$sheetId;
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-        $sheetName = $providerName.$sheetDevNumber;
+        $sheetName = $providerName.$sheetFileName;
 
         //            Loading template
         $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/fac-template.xlsx';
@@ -98,12 +99,11 @@ class SheetController extends Controller
         /* @var $sheet Worksheet */
         try {
             $worksheet = $spreadsheet->getActiveSheet();
-            $worksheet->setCellValue('A1', $imagePath);
             $worksheet->setCellValue('G2', $sheetDateStrDev);
             $worksheet->setCellValue('C14', $providerName);
             $worksheet->setCellValue('H14', $providerContact);
-            $worksheet->setCellValue('C15', $sheetDevNumber);
-            $worksheet->setCellValue('D16', $sheetDev);
+            $worksheet->setCellValue('C15', $sheetNumber);
+            $worksheet->setCellValue('D16', $sheetDevNumber);
 
             $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
             $sheeti->setName('acces');
@@ -134,7 +134,7 @@ class SheetController extends Controller
         $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-        $fileName = $sheetDevNumber.'.xlsx';
+        $fileName = $sheetFileName.'.xls';
 
         var_dump($fileName);
 //

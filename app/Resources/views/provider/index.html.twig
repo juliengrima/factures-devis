@@ -10,8 +10,7 @@
     <table id="table_id" class="display text">
         <thead>
             <tr>
-                <th>Provider</th>
-                <th>Code</th>
+                <th>Fournisseur</th>
                 <th>Contact</th>
                 <th>Actions</th>
             </tr>
@@ -20,7 +19,6 @@
         {% for provider in providers %}
             <tr>
                 <td>{{ provider.provider }}</td>
-                <td>{{ provider.code }}</td>
                 <td>{{ provider.contact }}</td>
                 <td>
                     <ul class="list-type">
