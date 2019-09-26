@@ -30,25 +30,27 @@ class SpreadService extends Controller
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrDev = $sheetDate->format('d-m-Y');
-
-        $societyId = $sheetDev->getSociety()->getId();
-        $societyName = $sheetDev->getSociety()->getSocietyName();
-        $societyAddress = $sheetDev->getSociety()->getAddress();
-        $societyZipCode = $sheetDev->getSociety()->getZipcode();
-        $societyCity = $sheetDev->getSociety()->getCity();
-
-        $providerId = $sheetDev->getProvider()->getId();
-        $providerName = $sheetDev->getProvider()->getProvider();
-        $providerContact = $sheetDev->getProvider()->getContact();
         $years = $sheetDev->getYears();
+
+        $societyId = property_exists('sheetDev', 'getSociety');
+        var_dump($societyId);
 
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
 
-        if(isset($societyId)){
+        if($societyId != false){;
+            $societyName = $sheetDev->getSociety()->getSocietyName();
+            $societyAddress = $sheetDev->getSociety()->getAddress();
+            $societyZipCode = $sheetDev->getSociety()->getZipcode();
+            $societyCity = $sheetDev->getSociety()->getCity();
+
             $sheetDevNumber = $years.'D00'.$sheetId;
             $sheetName = $societyName.$sheetDevNumber;
         }
         else{
+            $providerId = $sheetDev->getProvider()->getId();
+            $providerName = $sheetDev->getProvider()->getProvider();
+            $providerContact = $sheetDev->getProvider()->getContact();
+
             $sheetDevNumber = $years.'/00'.$sheetId;
             $sheetName = $providerName.$sheetDevNumber;
         }
@@ -77,11 +79,19 @@ class SpreadService extends Controller
             $worksheet = $spreadsheet->getActiveSheet();
             $worksheet->setCellValue('A1', $imagePath);
             $worksheet->setCellValue('G2', $sheetDateStrDev);
-            $worksheet->setCellValue('E7', $societyName);
-            $worksheet->setCellValue('E8', $societyAddress);
-            $worksheet->setCellValue('E9', $societyZipCode);
-            $worksheet->setCellValue('F9', $societyCity);
-            $worksheet->setCellValue('B14', $sheetDevNumber);
+            if($societyId != false) {
+                $worksheet->setCellValue('E7', $societyName);
+                $worksheet->setCellValue('E8', $societyAddress);
+                $worksheet->setCellValue('E9', $societyZipCode);
+                $worksheet->setCellValue('F9', $societyCity);
+                $worksheet->setCellValue('B14', $sheetDevNumber);
+            }
+            else{
+                $worksheet->setCellValue('C14', $providerName);
+                $worksheet->setCellValue('H14', $providerContact);
+                $worksheet->setCellValue('C15', $sheetDevNumber);
+                $worksheet->setCellValue('D16', $sheetDev);
+            }
 
             $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
             $sheeti->setName('acces');
@@ -132,8 +142,14 @@ class SpreadService extends Controller
         $link = new Link();
         $link->setLinkname($fileName);
         $link->setLink('media/documents/devis/'.$fileName);
-        $link->setSheetdev($sheetId);
-        $link->setSheet($sheetLink);
+        if($societyId != false){
+            $link->setSheetdev($sheetId);
+            $link->setSheet($sheetLink);
+        }
+        else{
+            $link->setSheetdev($sheetLink);
+            $link->setSheet($sheetId);
+        }
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($link);
         $entityManager->flush();
