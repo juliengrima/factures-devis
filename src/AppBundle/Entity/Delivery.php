@@ -27,6 +27,11 @@ class Delivery
      */
     private $years;
 
+    /**
+     * @var \AppBundle\Entity\SheetDev
+     */
+    private $sheetdev;
+
 
     /**
      * Get id.
@@ -109,11 +114,6 @@ class Delivery
     {
         return $this->years;
     }
-    /**
-     * @var \AppBundle\Entity\SheetDev
-     */
-    private $sheetdev;
-
 
     /**
      * Set sheetdev.
@@ -137,5 +137,34 @@ class Delivery
     public function getSheetdev()
     {
         return $this->sheetdev;
+    }
+    /**
+     * @var \AppBundle\Entity\Sheet
+     */
+    private $sheet;
+
+
+    /**
+     * Set sheet.
+     *
+     * @param \AppBundle\Entity\Sheet|null $sheet
+     *
+     * @return Delivery
+     */
+    public function setSheet(\AppBundle\Entity\Sheet $sheet = null)
+    {
+        $this->sheet = $sheet;
+
+        return $this;
+    }
+
+    /**
+     * Get sheet.
+     *
+     * @return \AppBundle\Entity\Sheet|null
+     */
+    public function getSheet()
+    {
+        return $this->sheet;
     }
 }

@@ -30,5 +30,9 @@ AppBundle\Entity\Sheet:
             joinColumn:
                 name: sheetdev_id
                 referencedColumnName: id
+    oneToMany:
+        delivery:
+            targetEntity: AppBundle\Entity\Delivery
+            mappedBy: sheet
 
     lifecycleCallbacks: {  }

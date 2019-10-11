@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des livraisons en cours</h1>
+
+
+    <div class="icons align-center">
+        <a href="{{ path('sheet_new') }}" class="favorite styled">Générer un bon de commande Excel</a>
+    </div>
+
+    <table id="table_id" class="display text">
+        <thead>
+        <tr>
+            <th class="align-center">Bon de livraison</th>
+            <th class="align-center">Bon de commande</th>
+            <th class="align-center">Devis</th>
+            <th class="align-center">Validation</th>
+            <th class="align-center">Date</th>
+            <th class="align-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for delivery in deliveries %}
+            <tr>
+                <td class="align-center">{{ delivery.sheetdev.society.societyName }}-{{ delivery.years }}BL00{{ delivery.id }}</td>
+                <td class="align-center">{{ delivery.sheetdev.sheet. }}/00{{ delivery.s }}</td>
+                <td class="align-center">{{ sheet.provider.provider }}-{{ sheet.years }}/00{{ sheet.id }}</td>
+                <td class="align-center">{{ sheet.sheetdev.society.societyName }}-{{ sheet.sheetdev.years }}D00{{ sheet.sheetdev.id }}</td>
+                <td class="align-center">{% if sheet.facture %}Commandée{% else %}{% endif %}</td>
+                <td class="align-center">{% if sheet.date %}{{ sheet.date|date('d-m-Y') }}{% endif %}</td>
+                <td>
+                    <ul class="align-center list-type">
+                        <li>
+                            {% if sheet.facture %}
+                            {% else %}
+                                <a href="{{ path('sheet_edit', { 'id': sheet.id }) }}" class="favorite styled">Valider</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Delivery</th>
+                <th>Date</th>
+                <th>Years</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for delivery in deliveries %}
+            <tr>
+                <td><a href="{{ path('delivery_show', { 'id': delivery.id }) }}">{{ delivery.id }}</a></td>
+                <td>{% if delivery.delivery %}Yes{% else %}No{% endif %}</td>
+                <td>{% if delivery.date %}{{ delivery.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ delivery.years }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('delivery_show', { 'id': delivery.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('delivery_edit', { 'id': delivery.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('delivery_new') }}">Create a new delivery</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+{% endblock %}

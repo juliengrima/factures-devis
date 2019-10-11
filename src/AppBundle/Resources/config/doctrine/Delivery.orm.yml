@@ -24,4 +24,10 @@ AppBundle\Entity\Delivery:
             joinColumn:
                 name: sheetdev_id
                 referencedColumnName: id
+        sheet:
+            targetEntity: AppBundle\Entity\Sheet
+            inversedBy: delivery
+            joinColumn:
+                name: sheet_id
+                referencedColumnName: id
     lifecycleCallbacks: {  }
