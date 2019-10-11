@@ -109,4 +109,33 @@ class Delivery
     {
         return $this->years;
     }
+    /**
+     * @var \AppBundle\Entity\SheetDev
+     */
+    private $sheetdev;
+
+
+    /**
+     * Set sheetdev.
+     *
+     * @param \AppBundle\Entity\SheetDev|null $sheetdev
+     *
+     * @return Delivery
+     */
+    public function setSheetdev(\AppBundle\Entity\SheetDev $sheetdev = null)
+    {
+        $this->sheetdev = $sheetdev;
+
+        return $this;
+    }
+
+    /**
+     * Get sheetdev.
+     *
+     * @return \AppBundle\Entity\SheetDev|null
+     */
+    public function getSheetdev()
+    {
+        return $this->sheetdev;
+    }
 }
