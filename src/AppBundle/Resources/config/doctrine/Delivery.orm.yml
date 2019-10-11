@@ -18,12 +18,6 @@ AppBundle\Entity\Delivery:
             type: string
             length: 2
     manyToOne:
-        sheetdev:
-            targetEntity: AppBundle\Entity\SheetDev
-            inversedBy: delivery
-            joinColumn:
-                name: sheetdev_id
-                referencedColumnName: id
         sheet:
             targetEntity: AppBundle\Entity\Sheet
             inversedBy: delivery

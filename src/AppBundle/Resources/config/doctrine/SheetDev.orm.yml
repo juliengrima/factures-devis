@@ -28,8 +28,5 @@ AppBundle\Entity\SheetDev:
         sheet:
             targetEntity: AppBundle\Entity\Sheet
             mappedBy: years
-        delivery:
-            targetEntity: AppBundle\Entity\Delivery
-            mappedBy: sheetdev
 
     lifecycleCallbacks: {  }

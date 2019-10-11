@@ -7,6 +7,17 @@ namespace AppBundle\Entity;
  */
 class Delivery
 {
+    public function __construct()
+    {
+//        Give date for ticket
+        $this->date = new \DateTime('now');
+    }
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->delivery . $this->sheet . $this->years . $this->id;
+    }
+
     /**
      * @var int
      */
