@@ -1,21 +1,27 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Delivery edit</h1>
+    <h1>Validation de la livraison N° {{ delivery.years }}BL00{{ delivery.id }}</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <section id="one" class="wrapper style2 spotlights">
+        <section>
+            <div class="content">
+                <div class="inner">
+                    <ul class="icons">
+                        <li>Commande effectué :</li>
+                        <li>
+                            {{ form_widget(edit_form.delivery) }}
+                            {{ form_label(edit_form.delivery, 'Validée', {'label_attr': {'for': 'demo-cop'}}) }}
+                            {{ form_errors(edit_form.delivery) }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-    <ul>
-        <li>
-            <a href="{{ path('delivery_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <input type="submit" value="Livraison validée" class="submit-center"/>
+
+    </section>
+    {{ form_end(edit_form) }}
 {% endblock %}

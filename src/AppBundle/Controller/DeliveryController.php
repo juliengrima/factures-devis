@@ -67,14 +67,14 @@ class DeliveryController extends Controller
 
         $sheetYears = $delivery->getSheet()->getYears();
         $sheetId = $delivery->getSheet()->getId();
-        $sheetDevYears = $delivery->getSheetdev()->getYears();
-        $sheetDevId = $delivery->getSheetdev()->getId();
+        $sheetDevYears = $delivery->getSheet()->getSheetdev()->getYears();
+        $sheetDevId = $delivery->getSheet()->getSheetdev()->getId();
 
-        $societyId = $delivery->getSheetdev()->getSociety()->getId();
-        $societyName = $delivery->getSheetdev()->getSociety()->getSocietyName();
-        $societyAddress = $delivery->getSheetdev()->getSociety()->getAddress();
-        $societyZipCode = $delivery->getSheetdev()->getSociety()->getZipcode();
-        $societyCity = $delivery->getSheetdev()->getSociety()->getCity();
+        $societyId = $delivery->getSheet()->getSheetdev()->getSociety()->getId();
+        $societyName = $delivery->getSheet()->getSheetdev()->getSociety()->getSocietyName();
+        $societyAddress = $delivery->getSheet()->getSheetdev()->getSociety()->getAddress();
+        $societyZipCode = $delivery->getSheet()->getSheetdev()->getSociety()->getZipcode();
+        $societyCity = $delivery->getSheet()->getSheetdev()->getSociety()->getCity();
 
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
         $years = $delivery->getYears();
@@ -90,7 +90,7 @@ class DeliveryController extends Controller
         $sheetName = $societyName.$deliveryNumber;
 
         //            Loading template
-        $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/bl-template.xlsx';
+        $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/bl-template.xls';
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
 
         //            GENERATING XLSX FILE
@@ -203,13 +203,13 @@ class DeliveryController extends Controller
     public function editAction(Request $request, Delivery $delivery)
     {
         $deleteForm = $this->createDeleteForm($delivery);
-        $editForm = $this->createForm('AppBundle\Form\DeliveryType', $delivery);
+        $editForm = $this->createForm('AppBundle\Form\DeliveryEditType', $delivery);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('delivery_edit', array('id' => $delivery->getId()));
+            return $this->redirectToRoute('delivery_index', array('id' => $delivery->getId()));
         }
 
         return $this->render('delivery/edit.html.twig', array(

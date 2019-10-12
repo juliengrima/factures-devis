@@ -22,17 +22,17 @@
         <tbody>
         {% for delivery in deliveries %}
             <tr>
-                <td class="align-center">{{ delivery.sheetdev.society.societyName }}-{{ delivery.sheetdev.years }}D00{{ delivery.sheetdev.id }}</td>
+                <td class="align-center">{{ delivery.sheet.sheetdev.society.societyName }}-{{ delivery.sheet.sheetdev.years }}D00{{ delivery.sheet.sheetdev.id }}</td>
                 <td class="align-center">{{ delivery.sheet.years }}/00{{ delivery.sheet.id }}</td>
                 <td class="align-center">{{ delivery.years }}BL00{{ delivery.id }}</td>
-                <td class="align-center">{% if delivery.delivery %}livré{% else %}{% endif %}</td>
-                <td class="align-center">{% if sheet.date %}{{ sheet.date|date('d-m-Y') }}{% endif %}</td>
+                <td class="align-center">{% if delivery.delivery %}livrée{% else %}{% endif %}</td>
+                <td class="align-center">{% if delivery.date %}{{ delivery.date|date('d-m-Y') }}{% endif %}</td>
                 <td>
                     <ul class="align-center list-type">
                         <li>
-                            {% if sheet.facture %}
+                            {% if delivery.delivery %}
                             {% else %}
-                                <a href="{{ path('sheet_edit', { 'id': sheet.id }) }}" class="favorite styled">Valider</a>
+                                <a href="{{ path('delivery_edit', { 'id': delivery.id }) }}" class="favorite styled">Valider</a>
                             {% endif %}
                         </li>
                     </ul>

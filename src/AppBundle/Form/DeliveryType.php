@@ -28,13 +28,6 @@ class DeliveryType extends AbstractType
                                                                    ->getYears().'D00'.$sheet->getSheetdev()
                                                                                             ->getId().' ----> '.$sheet->getYears().'/00'.$sheet->getId();
                     },
-//                    'group_by' => static function($sheet){
-//                        return rand(0, 1) == 1 ? $sheet->getSheetdev()
-//                                                        ->getSociety()
-//                                                        ->getSocietyName().'-'.$sheet->getSheetdev()
-//                                                                                     ->getYears().'D00'.$sheet->getSheetdev()
-//                                                                                                              ->getId() : '';
-//                    }
                 ])
                 ->add('years', EntityType::class, [
                     // looks for choices from this entity
