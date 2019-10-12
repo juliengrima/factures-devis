@@ -178,7 +178,7 @@ class DeliveryController extends Controller
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
-        return $this->redirectToRoute('sheetdev_index');
+        return $this->redirectToRoute('delivery_index');
 
     }
 
