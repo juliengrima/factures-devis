@@ -49,7 +49,7 @@ class DeliveryController extends Controller
             $em->persist($delivery);
             $em->flush();
 
-            return $this->redirectToRoute('delivery_show', array('id' => $delivery->getId()));
+            return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
         }
 
         return $this->render('delivery/new.html.twig', array(
