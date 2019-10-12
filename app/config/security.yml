@@ -42,4 +42,11 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: ROLE_ADMIN }
+        - { path: ^/society, role: ROLE_ADMIN }
+        - { path: ^/sheet, role: ROLE_ADMIN }
+        - { path: ^/link, role: ROLE_ADMIN }
+        - { path: ^/sheetdev, role: ROLE_ADMIN }
+        - { path: ^/years, role: ROLE_ADMIN }
+        - { path: ^/provider, role: ROLE_ADMIN }
+        - { path: ^/delivery, role: ROLE_ADMIN }
        

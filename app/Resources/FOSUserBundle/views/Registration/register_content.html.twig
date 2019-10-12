@@ -2,22 +2,17 @@
 
 {% block login %}
 
-    <div class="container">
-        <div class="row center">
-            <div class="col s12">
-                <h1>REGISTER</h1>
-            </div>
-        </div>
+        <h1>Enregistrer un utilisateur</h1>
 
 {% trans_default_domain 'FOSUserBundle' %}
 
 
-        <div class="row m-bottom">
-            <div class="col s12">
+        <section id="one" class="wrapper style2 spotlights">
+            <section>
 
-                {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
 
-                <div class="left">
+                <div class="">
                     <label for="username">nom d'utilisateur</label>
                     {#<label for="username">{{ 'security.login.username'|trans }}</label>#}
                     {{ form_widget(form.username, { 'attr': {'class': 'input-size'}}) }}
@@ -25,31 +20,29 @@
                     <label for="username">E-mail</label>
                     {{ form_widget(form.email, { 'attr': {'class': 'input-size'}}) }}
                 </div>
-                <div class="right m-right">
+                <div class="">
                     {{ form_widget(form.plainPassword, { 'attr': {'class': 'input-size'}}) }}
                 </div>
-            </div>
-        </div>
-        <div class="row m-top">
-            <div class="col s12 center m-top">
 
-                <button class="btn-floating btn-large waves-effect waves-light green darken-1 tooltipped"
-                        type="submit"
-                        id="_submit"
-                        name="_submit"
-                        value="{{ 'registration.submit'|trans }}"
-                        data-position="bottom"
-                        data-delay="50"
-                        data-tooltip="Enregistrer">
-                    <i class="material-icons">check</i>
-                </button>
-            </div>
-        </div>
+                <div class="">
+                    <div class="col s12 center m-top">
 
-                {{ form_end(form) }}
+                        <button class=""
+                                type="submit"
+                                id="_submit"
+                                name="_submit"
+                                value="{{ 'registration.submit'|trans }}"
+                                data-position="bottom"
+                                data-delay="50"
+                                data-tooltip="Enregistrer">
+                            <i class="material-icons">Enregistrer</i>
+                        </button>
+                    </div>
+                </div>
 
+            </section>
+        </section>
 
-
-    </div>
+            {{ form_end(form) }}
 
 {% endblock %}

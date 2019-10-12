@@ -18,22 +18,22 @@
                         {% endblock fos_user_content %}
                     </div>
 
-                    <div class="right">
+                    <div class="align-center">
                         <div class="center-align">
-                            <ul>
+                            <ul class="icons">
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                     <li>
-                                        <a href="{{ path('fos_user_security_logout') }}" class="waves-effect waves-light btn orange darken-4">
+                                        <a href="{{ path('fos_user_security_logout') }}" class="favorite styled">
                                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                         </a>
                                     </li>
                                 {% else %}
-                                    <li>
-                                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                                    </li>
+{#                                    <li>#}
+{#                                        <a href="{{ path('fos_user_security_login') }}" class="favorite styled">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+{#                                    </li>#}
                                 {% endif %}
                                 <li>
-                                    <a class="waves-effect waves-light btn red darken-4" href="{{ path('fos_user_registration_register') }}">
+                                    <a class="favorite styled" href="{{ path('fos_user_registration_register') }}">
                                         S'enregistrer
                                     </a>
                                 </li>
