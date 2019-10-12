@@ -81,7 +81,7 @@ class DeliveryController extends Controller
 
         $deliveryNumber = $years.'BL00'.$deliveryId;
         $sheet = $sheetYears.'/00'.$sheetId;
-        $sheetDev = $sheetYears.'D00'.$sheetId;
+        $sheetDev = $sheetDevYears.'D00'.$sheetDevId;
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
