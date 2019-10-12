@@ -2,15 +2,22 @@
 
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
+
 /**
  * User
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
      */
-    private $id;
+    protected $id;
+
+    public function __construct()
+    {
+        parent::__construct ();
+    }
 
 
     /**

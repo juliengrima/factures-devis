@@ -1,0 +1,11 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }} <br> <br> <a href="{{ path('homepage') }}">Start using Maintenance ticket</a></p>
+    {% if targetUrl %}
+    {#<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>#}
+    {#<p><a href="{{ path('homepage') }}">Start using Maintenance ticket</a></p>#}
+    {% endif %}
+{% endblock fos_user_content %}

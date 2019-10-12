@@ -16,4 +16,12 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig');
     }
+
+    /**
+     * @Route("/", name="password")
+     */
+    public function loginAction()
+    {
+        return $this->render('@FOSUser/Security/login.html.twig');
+    }
 }
