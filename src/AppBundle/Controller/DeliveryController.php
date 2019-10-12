@@ -60,28 +60,37 @@ class DeliveryController extends Controller
 
     public function spreadSheetDelAction(Delivery $delivery)
     {
-        $sheetId = $sheetDev->getId();
-        $sheetDate = $sheetDev->getDate();
-        $sheetDateStr = $sheetDate->format('dmY');
-        $sheetDateStrDev = $sheetDate->format('d-m-Y');
-        $societyId = $sheetDev->getSociety()->getId();
-        $societyName = $sheetDev->getSociety()->getSocietyName();
-        $societyAddress = $sheetDev->getSociety()->getAddress();
-        $societyZipCode = $sheetDev->getSociety()->getZipcode();
-        $societyCity = $sheetDev->getSociety()->getCity();
-        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
-        $years = $sheetDev->getYears();
+        $deliveryId = $delivery->getId();
+        $deliveryDate = $delivery->getDate();
+        $deliveryDateStr = $deliveryDate->format('dmY');
+        $deliveryDateStrDev = $deliveryDate->format('d-m-Y');
 
-        $sheetDevNumber = $years.'D00'.$sheetId;
+        $sheetYears = $delivery->getSheet()->getYears();
+        $sheetId = $delivery->getSheet()->getId();
+        $sheetDevYears = $delivery->getSheetdev()->getYears();
+        $sheetDevId = $delivery->getSheetdev()->getId();
+
+        $societyId = $delivery->getSheetdev()->getSociety()->getId();
+        $societyName = $delivery->getSheetdev()->getSociety()->getSocietyName();
+        $societyAddress = $delivery->getSheetdev()->getSociety()->getAddress();
+        $societyZipCode = $delivery->getSheetdev()->getSociety()->getZipcode();
+        $societyCity = $delivery->getSheetdev()->getSociety()->getCity();
+
+        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
+        $years = $delivery->getYears();
+
+        $deliveryNumber = $years.'BL00'.$deliveryId;
+        $sheet = $sheetYears.'/00'.$sheetId;
+        $sheetDev = $sheetYears.'D00'.$sheetId;
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
-        $sheetName = $societyName.$sheetDevNumber;
+        $sheetName = $societyName.$deliveryNumber;
 
         //            Loading template
-        $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/dev-template.xlsx';
+        $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/bl-template.xlsx';
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templateDirectory);
 
         //            GENERATING XLSX FILE
@@ -98,19 +107,25 @@ class DeliveryController extends Controller
         /* @var $sheet Worksheet */
         try {
             $worksheet = $spreadsheet->getActiveSheet();
-            $worksheet->setCellValue('G2', $sheetDateStrDev);
-            $worksheet->setCellValue('E7', $societyName);
-            $worksheet->setCellValue('E8', $societyAddress);
-            $worksheet->setCellValue('E9', $societyZipCode);
-            $worksheet->setCellValue('F9', $societyCity);
-            $worksheet->setCellValue('B14', $sheetDevNumber);
+            $worksheet->setCellValue('E5', $deliveryDateStrDev);
+            $worksheet->setCellValue('H7', $sheetDev);
+            $worksheet->setCellValue('H8', $sheet);
+            $worksheet->setCellValue('C7', $deliveryNumber);
+            $worksheet->setCellValue('B18', $societyName);
+            $worksheet->setCellValue('B19', $societyAddress);
+            $worksheet->setCellValue('B20', $societyZipCode);
+            $worksheet->setCellValue('B21', $societyCity);
+            $worksheet->setCellValue('G18', $societyName);
+            $worksheet->setCellValue('G19', $societyAddress);
+            $worksheet->setCellValue('G20', $societyZipCode);
+            $worksheet->setCellValue('G21', $societyCity);
 
             $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
             $sheeti->setName('acces');
             $sheeti->setDescription('logo');
             $sheeti->setPath($imagePath);
             $sheeti->setHeight(90);
-            $sheeti->setCoordinates("A1");
+            $sheeti->setCoordinates("B1");
             $sheeti->setOffsetX(0);
             $sheeti->setOffsetY(0);
             $sheeti->setWorksheet($worksheet);
@@ -124,7 +139,7 @@ class DeliveryController extends Controller
         header('Cache-Control: max-age=1');
 
 // If you're serving to IE over SSL, then the following may be needed
-        header('Expires: '.$sheetDateStr); // Date in the past
+        header('Expires: '.$deliveryDateStr); // Date in the past
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
         header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
         header('Pragma: public'); // HTTP/1.0
@@ -133,9 +148,9 @@ class DeliveryController extends Controller
         $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-        $fileName = $sheetDevNumber.'.xls';
+        $fileName = $deliveryNumber.'.xls';
 //
-        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
+        $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/livraisons';
 //             e.g /var/www/project/public/my_first_excel_symfony4.xls
         $excelFilepath = $publicDirectory . '/' . $fileName;
 
@@ -149,11 +164,12 @@ class DeliveryController extends Controller
         }
 
         $sheetLink = 0;
+        $sheetDevLink = 0;
 
         $link = new Link();
         $link->setLinkname($fileName);
         $link->setLink('media/documents/devis/'.$fileName);
-        $link->setSheetdev($sheetId);
+        $link->setSheetdev($sheetDevLink);
         $link->setSheet($sheetLink);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($link);

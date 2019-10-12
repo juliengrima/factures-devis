@@ -68,7 +68,7 @@ class SheetController extends Controller
         $providerId = $sheet->getProvider()->getId();
         $providerName = $sheet->getProvider()->getProvider();
         $providerContact = $sheet->getProvider()->getContact();
-        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
         $sheetYears = $sheet->getYears();
 
         $sheetNumber = $sheetYears.'/00'.$sheetId;
