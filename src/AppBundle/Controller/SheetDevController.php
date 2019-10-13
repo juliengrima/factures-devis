@@ -114,7 +114,7 @@ class SheetDevController extends Controller
                 $sheeti->setName('acces');
                 $sheeti->setDescription('logo');
                 $sheeti->setPath($imagePath);
-                $sheeti->setHeight(90);
+                $sheeti->setHeight(80);
                 $sheeti->setCoordinates("A1");
                 $sheeti->setOffsetX(0);
                 $sheeti->setOffsetY(0);

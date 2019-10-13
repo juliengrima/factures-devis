@@ -102,7 +102,7 @@ class SheetController extends Controller
         try {
             $worksheet = $spreadsheet->getActiveSheet();
             $worksheet->setCellValue('G2', $sheetDateStrDev);
-            $worksheet->setCellValue('G11', $userId);
+            $worksheet->setCellValue('B11', $userId);
             $worksheet->setCellValue('C14', $providerName);
             $worksheet->setCellValue('H14', $providerContact);
             $worksheet->setCellValue('C15', $sheetNumber);
@@ -112,7 +112,7 @@ class SheetController extends Controller
             $sheeti->setName('acces');
             $sheeti->setDescription('logo');
             $sheeti->setPath($imagePath);
-            $sheeti->setHeight(90);
+            $sheeti->setHeight(80);
             $sheeti->setCoordinates("A1");
             $sheeti->setOffsetX(0);
             $sheeti->setOffsetY(0);
