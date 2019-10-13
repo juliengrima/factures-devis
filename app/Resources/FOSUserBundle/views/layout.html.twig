@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+
+                    <div class="center-align">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <h3>{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</h3>
+                        {% else %}
+                            <p>non connecté</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {% block fos_user_content %}
+                        {% endblock fos_user_content %}
+                    </div>
+
+                    <div class="align-center">
+                        <div class="center-align">
+                            <ul class="icons">
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}" class="favorite styled">
+                                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                        </a>
+                                    </li>
+                                {% else %}
+{#                                    <li>#}
+{#                                        <a href="{{ path('fos_user_security_login') }}" class="favorite styled">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+{#                                    </li>#}
+                                {% endif %}
+                                <li>
+                                    <a class="favorite styled" href="{{ path('fos_user_registration_register') }}">
+                                        S'enregistrer
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% block button %}
+                        {% endblock %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+{% endblock %}
+

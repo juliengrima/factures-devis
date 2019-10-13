@@ -65,11 +65,13 @@ class SheetController extends Controller
         $sheetDevYears = $sheet->getSheetdev()->getYears();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrDev = $sheetDate->format('d-m-Y');
+
         $providerId = $sheet->getProvider()->getId();
         $providerName = $sheet->getProvider()->getProvider();
         $providerContact = $sheet->getProvider()->getContact();
-        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
         $sheetYears = $sheet->getYears();
+        $userId = $this->getUser()->getEmail();
 
         $sheetNumber = $sheetYears.'/00'.$sheetId;
         $sheetDevNumber = $sheetDevYears.'D00'.$sheetDevId;
@@ -100,6 +102,7 @@ class SheetController extends Controller
         try {
             $worksheet = $spreadsheet->getActiveSheet();
             $worksheet->setCellValue('G2', $sheetDateStrDev);
+            $worksheet->setCellValue('B11', $userId);
             $worksheet->setCellValue('C14', $providerName);
             $worksheet->setCellValue('H14', $providerContact);
             $worksheet->setCellValue('C15', $sheetNumber);
@@ -109,7 +112,7 @@ class SheetController extends Controller
             $sheeti->setName('acces');
             $sheeti->setDescription('logo');
             $sheeti->setPath($imagePath);
-            $sheeti->setHeight(90);
+            $sheeti->setHeight(80);
             $sheeti->setCoordinates("A1");
             $sheeti->setOffsetX(0);
             $sheeti->setOffsetY(0);

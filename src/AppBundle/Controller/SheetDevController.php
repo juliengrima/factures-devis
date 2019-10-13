@@ -63,13 +63,17 @@ class SheetDevController extends Controller
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrDev = $sheetDate->format('d-m-Y');
+
         $societyId = $sheetDev->getSociety()->getId();
         $societyName = $sheetDev->getSociety()->getSocietyName();
         $societyAddress = $sheetDev->getSociety()->getAddress();
         $societyZipCode = $sheetDev->getSociety()->getZipcode();
         $societyCity = $sheetDev->getSociety()->getCity();
-        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces.png';
+        $societyContact = $sheetDev->getSociety()->getContact();
+
+        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
         $years = $sheetDev->getYears();
+        $userId = $this->getUser()->getEmail();
 
         $sheetDevNumber = $years.'D00'.$sheetId;
 
@@ -98,17 +102,19 @@ class SheetDevController extends Controller
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
                 $worksheet->setCellValue('G2', $sheetDateStrDev);
+                $worksheet->setCellValue('G11', $societyContact);
                 $worksheet->setCellValue('E7', $societyName);
                 $worksheet->setCellValue('E8', $societyAddress);
                 $worksheet->setCellValue('E9', $societyZipCode);
                 $worksheet->setCellValue('F9', $societyCity);
                 $worksheet->setCellValue('B14', $sheetDevNumber);
+                $worksheet->setCellValue('B11', $userId);
 
                 $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                 $sheeti->setName('acces');
                 $sheeti->setDescription('logo');
                 $sheeti->setPath($imagePath);
-                $sheeti->setHeight(90);
+                $sheeti->setHeight(80);
                 $sheeti->setCoordinates("A1");
                 $sheeti->setOffsetX(0);
                 $sheeti->setOffsetY(0);
@@ -239,4 +245,6 @@ class SheetDevController extends Controller
             ->getForm()
         ;
     }
+
+//    PLAYELDRAINE
 }

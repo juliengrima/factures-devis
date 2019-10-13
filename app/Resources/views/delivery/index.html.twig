@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des livraisons en cours</h1>
+
+
+    <div class="icons align-center">
+        <a href="{{ path('delivery_new') }}" class="favorite styled">Générer un bon de livraison</a>
+    </div>
+
+    <table id="table_id" class="display text">
+        <thead>
+        <tr>
+            <th class="align-center">Devis</th>
+            <th class="align-center">Bon de commande</th>
+            <th class="align-center">Bon de livraison</th>
+            <th class="align-center">Validation</th>
+            <th class="align-center">Date</th>
+            <th class="align-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for delivery in deliveries %}
+            <tr>
+                <td class="align-center">{{ delivery.sheet.sheetdev.society.societyName }}-{{ delivery.sheet.sheetdev.years }}D00{{ delivery.sheet.sheetdev.id }}</td>
+                <td class="align-center">{{ delivery.sheet.years }}/00{{ delivery.sheet.id }}</td>
+                <td class="align-center">{{ delivery.years }}BL00{{ delivery.id }}</td>
+                <td class="align-center">{% if delivery.delivery %}livrée{% else %}{% endif %}</td>
+                <td class="align-center">{% if delivery.date %}{{ delivery.date|date('d-m-Y') }}{% endif %}</td>
+                <td>
+                    <ul class="align-center list-type">
+                        <li>
+                            {% if delivery.delivery %}
+                            {% else %}
+                                <a href="{{ path('delivery_edit', { 'id': delivery.id }) }}" class="favorite styled">Valider</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+{% endblock %}

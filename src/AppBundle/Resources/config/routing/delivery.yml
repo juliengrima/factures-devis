@@ -1,0 +1,29 @@
+delivery_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Delivery:index" }
+    methods:  GET
+
+delivery_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Delivery:show" }
+    methods:  GET
+
+delivery_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Delivery:new" }
+    methods:  [GET, POST]
+    
+sheetdel_spread:
+    path:     /{id}/spreaddelivery
+    defaults: { _controller: "AppBundle:Delivery:spreadSheetDel" }
+    methods:  [GET, POST]
+
+delivery_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Delivery:edit" }
+    methods:  [GET, POST]
+
+delivery_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Delivery:delete" }
+    methods:  DELETE

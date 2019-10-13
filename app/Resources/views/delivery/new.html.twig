@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Génération d'un bon de livraison</h1>
+
+    {{ form_start(form) }}
+    <!-- One -->
+    <section id="one" class="style2">
+        <section>
+            <div class="content">
+                <div class="inner">
+                    <div>
+                        <p>Sélectionner les devis et bon de commande associé :</p>
+                        {{ form_widget(form.sheet, {'attr': {'type': 'list', 'class': ''}}) }}
+                        {{ form_errors(form.sheet) }}
+                    </div>
+                    <div class="disp">
+                        <p>Année en cours</p>
+                        {{ form_widget(form.years) }}
+                        {{ form_errors(form.years) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <input type="submit" value="Générer le document" class="submit-center"/>
+
+    </section>
+    {{ form_end(form) }}
+
+{% endblock %}

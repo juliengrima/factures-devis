@@ -189,4 +189,45 @@ class SheetDev
     {
         return $this->society;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $delivery;
+
+
+    /**
+     * Add delivery.
+     *
+     * @param \AppBundle\Entity\Delivery $delivery
+     *
+     * @return SheetDev
+     */
+    public function addDelivery(\AppBundle\Entity\Delivery $delivery)
+    {
+        $this->delivery[] = $delivery;
+
+        return $this;
+    }
+
+    /**
+     * Remove delivery.
+     *
+     * @param \AppBundle\Entity\Delivery $delivery
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeDelivery(\AppBundle\Entity\Delivery $delivery)
+    {
+        return $this->delivery->removeElement($delivery);
+    }
+
+    /**
+     * Get delivery.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDelivery()
+    {
+        return $this->delivery;
+    }
 }

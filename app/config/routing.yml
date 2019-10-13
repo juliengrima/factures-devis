@@ -25,3 +25,10 @@ app_years:
 app_provider:
   resource: "@AppBundle/Resources/config/routing/provider.yml"
   prefix:   /provider
+
+app_delivery:
+  resource: "@AppBundle/Resources/config/routing/delivery.yml"
+  prefix:   /delivery
+  
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

@@ -2,25 +2,59 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 26 sep. 2019 à 10:53
--- Version du serveur :  5.7.26
--- Version de PHP :  7.2.18
+-- Hôte : localhost:3306
+-- Généré le :  Dim 13 oct. 2019 à 08:28
+-- Version du serveur :  5.7.23
+-- Version de PHP :  7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
+--
+-- Base de données :  `factures&devis`
+--
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- --------------------------------------------------------
 
 --
--- Base de données :  `factures`
+-- Structure de la table `delivery`
 --
+
+CREATE TABLE `delivery` (
+  `id` int(11) NOT NULL,
+  `delivery` tinyint(1) DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `years` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `sheet_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fos_user`
+--
+
+CREATE TABLE `fos_user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `username_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `email_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `salt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `confirmation_token` varchar(180) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password_requested_at` datetime DEFAULT NULL,
+  `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `fos_user`
+--
+
+INSERT INTO `fos_user` (`id`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `confirmation_token`, `password_requested_at`, `roles`) VALUES
+(1, 'admin', 'admin', 'julien@ecotoner.fr', 'julien@ecotoner.fr', 1, NULL, '$2y$13$5mb885.IpMrKUX9LZ1jWUu9JWsTs6.2Chk57hq82SpFn3xWUDQrVO', NULL, NULL, NULL, 'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}');
 
 -- --------------------------------------------------------
 
@@ -28,14 +62,12 @@ SET time_zone = "+00:00";
 -- Structure de la table `link`
 --
 
-DROP TABLE IF EXISTS `link`;
-CREATE TABLE IF NOT EXISTS `link` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `linkname` varchar(70) COLLATE utf8_unicode_ci DEFAULT NULL,
+CREATE TABLE `link` (
+  `id` int(11) NOT NULL,
   `link` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `linkname` varchar(70) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sheet` int(11) DEFAULT NULL,
-  `sheetdev` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `sheetdev` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -44,13 +76,11 @@ CREATE TABLE IF NOT EXISTS `link` (
 -- Structure de la table `provider`
 --
 
-DROP TABLE IF EXISTS `provider`;
-CREATE TABLE IF NOT EXISTS `provider` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `provider` (
+  `id` int(11) NOT NULL,
   `provider` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `contact` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `contact` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -59,17 +89,13 @@ CREATE TABLE IF NOT EXISTS `provider` (
 -- Structure de la table `sheet`
 --
 
-DROP TABLE IF EXISTS `sheet`;
-CREATE TABLE IF NOT EXISTS `sheet` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sheet` (
+  `id` int(11) NOT NULL,
   `provider_id` int(11) DEFAULT NULL,
   `facture` tinyint(1) DEFAULT NULL,
   `date` datetime NOT NULL,
   `sheetdev_id` int(11) DEFAULT NULL,
-  `years` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_873C91E2A53A8AA` (`provider_id`),
-  KEY `IDX_873C91E24D4C0985` (`sheetdev_id`)
+  `years` varchar(2) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -78,15 +104,12 @@ CREATE TABLE IF NOT EXISTS `sheet` (
 -- Structure de la table `sheet_dev`
 --
 
-DROP TABLE IF EXISTS `sheet_dev`;
-CREATE TABLE IF NOT EXISTS `sheet_dev` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sheet_dev` (
+  `id` int(11) NOT NULL,
   `society_id` int(11) DEFAULT NULL,
   `devis` tinyint(1) DEFAULT NULL,
   `date` datetime NOT NULL,
-  `years` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_DC90DCF7E6389D24` (`society_id`)
+  `years` varchar(2) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -95,15 +118,13 @@ CREATE TABLE IF NOT EXISTS `sheet_dev` (
 -- Structure de la table `society`
 --
 
-DROP TABLE IF EXISTS `society`;
-CREATE TABLE IF NOT EXISTS `society` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `society` (
+  `id` int(11) NOT NULL,
   `society_name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `zipcode` int(11) NOT NULL,
   `city` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `contact` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `contact` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -112,13 +133,10 @@ CREATE TABLE IF NOT EXISTS `society` (
 -- Structure de la table `years`
 --
 
-DROP TABLE IF EXISTS `years`;
-CREATE TABLE IF NOT EXISTS `years` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `years` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_A308E877A308E877` (`years`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `years` (
+  `id` int(11) NOT NULL,
+  `years` varchar(2) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `years`
@@ -128,8 +146,126 @@ INSERT INTO `years` (`id`, `years`) VALUES
 (1, '90');
 
 --
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `delivery`
+--
+ALTER TABLE `delivery`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_3781EC108B1206A5` (`sheet_id`);
+
+--
+-- Index pour la table `fos_user`
+--
+ALTER TABLE `fos_user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_957A647992FC23A8` (`username_canonical`),
+  ADD UNIQUE KEY `UNIQ_957A6479A0D96FBF` (`email_canonical`),
+  ADD UNIQUE KEY `UNIQ_957A6479C05FB297` (`confirmation_token`);
+
+--
+-- Index pour la table `link`
+--
+ALTER TABLE `link`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `provider`
+--
+ALTER TABLE `provider`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `sheet`
+--
+ALTER TABLE `sheet`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_873C91E2A53A8AA` (`provider_id`),
+  ADD KEY `IDX_873C91E24D4C0985` (`sheetdev_id`);
+
+--
+-- Index pour la table `sheet_dev`
+--
+ALTER TABLE `sheet_dev`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_DC90DCF7E6389D24` (`society_id`);
+
+--
+-- Index pour la table `society`
+--
+ALTER TABLE `society`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `years`
+--
+ALTER TABLE `years`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_A308E877A308E877` (`years`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `delivery`
+--
+ALTER TABLE `delivery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `fos_user`
+--
+ALTER TABLE `fos_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `link`
+--
+ALTER TABLE `link`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `provider`
+--
+ALTER TABLE `provider`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `sheet`
+--
+ALTER TABLE `sheet`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `sheet_dev`
+--
+ALTER TABLE `sheet_dev`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `society`
+--
+ALTER TABLE `society`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `years`
+--
+ALTER TABLE `years`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `delivery`
+--
+ALTER TABLE `delivery`
+  ADD CONSTRAINT `FK_3781EC108B1206A5` FOREIGN KEY (`sheet_id`) REFERENCES `sheet` (`id`);
 
 --
 -- Contraintes pour la table `sheet`
@@ -143,8 +279,3 @@ ALTER TABLE `sheet`
 --
 ALTER TABLE `sheet_dev`
   ADD CONSTRAINT `FK_DC90DCF7E6389D24` FOREIGN KEY (`society_id`) REFERENCES `society` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

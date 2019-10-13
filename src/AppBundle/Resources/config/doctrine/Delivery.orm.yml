@@ -1,0 +1,27 @@
+AppBundle\Entity\Delivery:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\DeliveryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        delivery:
+            type: boolean
+            nullable: true
+        date:
+            type: datetime
+        years:
+            type: string
+            length: 2
+    manyToOne:
+        sheet:
+            targetEntity: AppBundle\Entity\Sheet
+            inversedBy: delivery
+            joinColumn:
+                name: sheet_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }
