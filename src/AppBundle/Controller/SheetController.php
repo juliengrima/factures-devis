@@ -65,11 +65,13 @@ class SheetController extends Controller
         $sheetDevYears = $sheet->getSheetdev()->getYears();
         $sheetDateStr = $sheetDate->format('dmY');
         $sheetDateStrDev = $sheetDate->format('d-m-Y');
+
         $providerId = $sheet->getProvider()->getId();
         $providerName = $sheet->getProvider()->getProvider();
         $providerContact = $sheet->getProvider()->getContact();
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
         $sheetYears = $sheet->getYears();
+        $userId = $this->getUser()->getEmail();
 
         $sheetNumber = $sheetYears.'/00'.$sheetId;
         $sheetDevNumber = $sheetDevYears.'D00'.$sheetDevId;
@@ -100,6 +102,7 @@ class SheetController extends Controller
         try {
             $worksheet = $spreadsheet->getActiveSheet();
             $worksheet->setCellValue('G2', $sheetDateStrDev);
+            $worksheet->setCellValue('G11', $userId);
             $worksheet->setCellValue('C14', $providerName);
             $worksheet->setCellValue('H14', $providerContact);
             $worksheet->setCellValue('C15', $sheetNumber);

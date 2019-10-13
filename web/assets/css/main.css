@@ -3969,3 +3969,18 @@ input, select, textarea {
 .zip-code{
 	color: #3c2c62;
 }
+
+.size{
+	width: 700px;
+}
+.size-in{
+	width: 300px;
+}
+
+.right{
+	float: right;
+}
+
+.left{
+	float: left;
+}

@@ -78,6 +78,7 @@ class DeliveryController extends Controller
 
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
         $years = $delivery->getYears();
+        $userId = $this->getUser()->getEmail();
 
         $deliveryNumber = $years.'BL00'.$deliveryId;
         $sheet = $sheetYears.'/00'.$sheetId;
@@ -108,6 +109,7 @@ class DeliveryController extends Controller
         try {
             $worksheet = $spreadsheet->getActiveSheet();
             $worksheet->setCellValue('E5', $deliveryDateStrDev);
+            $worksheet->setCellValue('H4', $userId);
             $worksheet->setCellValue('H7', $sheetDev);
             $worksheet->setCellValue('H8', $sheet);
             $worksheet->setCellValue('C7', $deliveryNumber);
