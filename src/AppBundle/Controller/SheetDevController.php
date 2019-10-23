@@ -74,6 +74,7 @@ class SheetDevController extends Controller
         $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
         $years = $sheetDev->getYears();
         $userId = $this->getUser()->getEmail();
+        $userName = $this->getUser()->getUserName();
 
         $sheetDevNumber = $years.'D00'.$sheetId;
 
@@ -109,6 +110,7 @@ class SheetDevController extends Controller
                 $worksheet->setCellValue('F9', $societyCity);
                 $worksheet->setCellValue('B14', $sheetDevNumber);
                 $worksheet->setCellValue('B11', $userId);
+                $worksheet->setCellValue('C45', $userName);
 
                 $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                 $sheeti->setName('acces');
