@@ -69,14 +69,15 @@ class SheetDevController extends Controller
         $societyAddress = $sheetDev->getSociety()->getAddress();
         $societyZipCode = $sheetDev->getSociety()->getZipcode();
         $societyCity = $sheetDev->getSociety()->getCity();
+        $societyZipCitie = $societyZipCode.'-'.$societyCity;
         $societyContact = $sheetDev->getSociety()->getContact();
 
-        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
+        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces-templates.png';
         $years = $sheetDev->getYears();
         $userId = $this->getUser()->getEmail();
         $userName = $this->getUser()->getUserName();
 
-        $sheetDevNumber = $years.'D00'.$sheetId;
+        $sheetDevNumber = $years.'D000'.$sheetId;
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
@@ -102,25 +103,25 @@ class SheetDevController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('G2', $sheetDateStrDev);
-                $worksheet->setCellValue('G11', $societyContact);
-                $worksheet->setCellValue('E7', $societyName);
-                $worksheet->setCellValue('E8', $societyAddress);
-                $worksheet->setCellValue('E9', $societyZipCode);
-                $worksheet->setCellValue('F9', $societyCity);
-                $worksheet->setCellValue('B14', $sheetDevNumber);
-                $worksheet->setCellValue('B11', $userId);
-                $worksheet->setCellValue('C45', $userName);
+                $worksheet->setCellValue('G4', $sheetDateStrDev);
+                $worksheet->setCellValue('F13', $societyContact);
+                $worksheet->setCellValue('E9', $societyName);
+                $worksheet->setCellValue('E10', $societyAddress);
+                $worksheet->setCellValue('E11', $societyZipCitie);
+//                $worksheet->setCellValue('F9', $societyCity);
+                $worksheet->setCellValue('B16', $sheetDevNumber);
+                $worksheet->setCellValue('B13', $userId);
+//                $worksheet->setCellValue('C45', $userName);
 
-                $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-                $sheeti->setName('acces');
-                $sheeti->setDescription('logo');
-                $sheeti->setPath($imagePath);
-                $sheeti->setHeight(80);
-                $sheeti->setCoordinates("A1");
-                $sheeti->setOffsetX(0);
-                $sheeti->setOffsetY(0);
-                $sheeti->setWorksheet($worksheet);
+//                $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+//                $sheeti->setName('acces');
+//                $sheeti->setDescription('logo');
+//                $sheeti->setPath($imagePath);
+//                $sheeti->setHeight(80);
+//                $sheeti->setCoordinates("A1");
+//                $sheeti->setOffsetX(0);
+//                $sheeti->setOffsetY(0);
+//                $sheeti->setWorksheet($worksheet);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
             // Redirect output to a client’s web browser (Xlsx)
