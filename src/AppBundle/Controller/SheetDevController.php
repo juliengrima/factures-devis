@@ -156,21 +156,27 @@ class SheetDevController extends Controller
             } catch (Exception $e) {
             }
 
-            $sheetLink = 0;
+            $spreadsheet->disconnectWorksheets();
+            unset($spreadsheet);
 
-            $link = new Link();
-            $link->setLinkname($fileName);
-            $link->setLink('media/documents/devis/'.$fileName);
-            $link->setSheetdev($sheetId);
-            $link->setSheet($sheetLink);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($link);
-            $entityManager->flush();
+            $sheetLink = 1;
+            $sheetDatas = array($fileName, $sheetId, $sheetLink);
+//            $newLink = $this->container->get('link.service')->newLink($sheetDatas);
+            return $this->redirectToRoute('link_new', array('sheetDatas' => $sheetDatas));
 
-        $spreadsheet->disconnectWorksheets();
-        unset($spreadsheet);
+//            $link = new Link();
+//            $link->setLinkname($fileName);
+//            $link->setLink('media/documents/devis/'.$fileName);
+//            $link->setSheetdev1($sheetId);
+////            $link->setSheet($sheetLink);
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->persist($link);
+//            $entityManager->flush();
 
-        return $this->redirectToRoute('sheetdev_index');
+
+//        $spreadsheet->disconnectWorksheets();
+//        unset($spreadsheet);
+//        return $this->redirectToRoute('sheetdev_index');
 
     }
 

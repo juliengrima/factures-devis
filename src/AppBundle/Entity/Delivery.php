@@ -178,4 +178,33 @@ class Delivery
     {
         return $this->sheet;
     }
+    /**
+     * @var \AppBundle\Entity\Link
+     */
+    private $link3;
+
+
+    /**
+     * Set link3.
+     *
+     * @param \AppBundle\Entity\Link|null $link3
+     *
+     * @return Delivery
+     */
+    public function setLink3(\AppBundle\Entity\Link $link3 = null)
+    {
+        $this->link3 = $link3;
+
+        return $this;
+    }
+
+    /**
+     * Get link3.
+     *
+     * @return \AppBundle\Entity\Link|null
+     */
+    public function getLink3()
+    {
+        return $this->link3;
+    }
 }

@@ -7,26 +7,14 @@ namespace AppBundle\Entity;
  */
 class Link
 {
-    private $file;
-
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    public function setFile($picture)
-    {
-        $this->file = $picture;
-        return $this;
-    }
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $linkname;
 
@@ -36,15 +24,25 @@ class Link
     private $link;
 
     /**
-     * @var integer
+     * @var \AppBundle\Entity\SheetDev
      */
-    private $sheet;
+    private $sheetdev1;
+
+    /**
+     * @var \AppBundle\Entity\Sheet
+     */
+    private $sheet1;
+
+    /**
+     * @var \AppBundle\Entity\Delivery
+     */
+    private $delivery1;
 
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -52,13 +50,13 @@ class Link
     }
 
     /**
-     * Set linkname
+     * Set linkname.
      *
-     * @param string $linkname
+     * @param string|null $linkname
      *
      * @return Link
      */
-    public function setLinkname($linkname)
+    public function setLinkname($linkname = null)
     {
         $this->linkname = $linkname;
 
@@ -66,9 +64,9 @@ class Link
     }
 
     /**
-     * Get linkname
+     * Get linkname.
      *
-     * @return string
+     * @return string|null
      */
     public function getLinkname()
     {
@@ -76,7 +74,7 @@ class Link
     }
 
     /**
-     * Set link
+     * Set link.
      *
      * @param string $link
      *
@@ -90,7 +88,7 @@ class Link
     }
 
     /**
-     * Get link
+     * Get link.
      *
      * @return string
      */
@@ -100,55 +98,74 @@ class Link
     }
 
     /**
-     * Set sheet
+     * Set sheetdev1.
      *
-     * @param integer $sheet
+     * @param \AppBundle\Entity\SheetDev|null $sheetdev1
      *
      * @return Link
      */
-    public function setSheet($sheet)
+    public function setSheetdev1(\AppBundle\Entity\SheetDev $sheetdev1 = null)
     {
-        $this->sheet = $sheet;
+        $this->sheetdev1 = $sheetdev1;
 
         return $this;
     }
 
     /**
-     * Get sheet
+     * Get sheetdev1.
      *
-     * @return integer
+     * @return \AppBundle\Entity\SheetDev|null
      */
-    public function getSheet()
+    public function getSheetdev1()
     {
-        return $this->sheet;
+        return $this->sheetdev1;
     }
-    /**
-     * @var integer
-     */
-    private $sheetdev;
-
 
     /**
-     * Set sheetdev
+     * Set sheet1.
      *
-     * @param integer $sheetdev
+     * @param \AppBundle\Entity\Sheet|null $sheet1
      *
      * @return Link
      */
-    public function setSheetdev($sheetdev)
+    public function setSheet1(\AppBundle\Entity\Sheet $sheet1 = null)
     {
-        $this->sheetdev = $sheetdev;
+        $this->sheet1 = $sheet1;
 
         return $this;
     }
 
     /**
-     * Get sheetdev
+     * Get sheet1.
      *
-     * @return integer
+     * @return \AppBundle\Entity\Sheet|null
      */
-    public function getSheetdev()
+    public function getSheet1()
     {
-        return $this->sheetdev;
+        return $this->sheet1;
+    }
+
+    /**
+     * Set delivery1.
+     *
+     * @param \AppBundle\Entity\Delivery|null $delivery1
+     *
+     * @return Link
+     */
+    public function setDelivery1(\AppBundle\Entity\Delivery $delivery1 = null)
+    {
+        $this->delivery1 = $delivery1;
+
+        return $this;
+    }
+
+    /**
+     * Get delivery1.
+     *
+     * @return \AppBundle\Entity\Delivery|null
+     */
+    public function getDelivery1()
+    {
+        return $this->delivery1;
     }
 }

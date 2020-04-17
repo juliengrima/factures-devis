@@ -20,12 +20,12 @@ class SheetDev
     }
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var boolean
+     * @var bool|null
      */
     private $devis;
 
@@ -35,9 +35,14 @@ class SheetDev
     private $date;
 
     /**
-     * @var integer
+     * @var string
      */
     private $years;
+
+    /**
+     * @var \AppBundle\Entity\Link
+     */
+    private $link1;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -51,9 +56,9 @@ class SheetDev
 
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -61,13 +66,13 @@ class SheetDev
     }
 
     /**
-     * Set devis
+     * Set devis.
      *
-     * @param boolean $devis
+     * @param bool|null $devis
      *
      * @return SheetDev
      */
-    public function setDevis($devis)
+    public function setDevis($devis = null)
     {
         $this->devis = $devis;
 
@@ -75,9 +80,9 @@ class SheetDev
     }
 
     /**
-     * Get devis
+     * Get devis.
      *
-     * @return boolean
+     * @return bool|null
      */
     public function getDevis()
     {
@@ -85,7 +90,7 @@ class SheetDev
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
      *
@@ -99,7 +104,7 @@ class SheetDev
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -109,9 +114,9 @@ class SheetDev
     }
 
     /**
-     * Set years
+     * Set years.
      *
-     * @param integer $years
+     * @param string $years
      *
      * @return SheetDev
      */
@@ -123,9 +128,9 @@ class SheetDev
     }
 
     /**
-     * Get years
+     * Get years.
      *
-     * @return integer
+     * @return string
      */
     public function getYears()
     {
@@ -133,7 +138,31 @@ class SheetDev
     }
 
     /**
-     * Add sheet
+     * Set link1.
+     *
+     * @param \AppBundle\Entity\Link|null $link1
+     *
+     * @return SheetDev
+     */
+    public function setLink1(\AppBundle\Entity\Link $link1 = null)
+    {
+        $this->link1 = $link1;
+
+        return $this;
+    }
+
+    /**
+     * Get link1.
+     *
+     * @return \AppBundle\Entity\Link|null
+     */
+    public function getLink1()
+    {
+        return $this->link1;
+    }
+
+    /**
+     * Add sheet.
      *
      * @param \AppBundle\Entity\Sheet $sheet
      *
@@ -147,17 +176,19 @@ class SheetDev
     }
 
     /**
-     * Remove sheet
+     * Remove sheet.
      *
      * @param \AppBundle\Entity\Sheet $sheet
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
     public function removeSheet(\AppBundle\Entity\Sheet $sheet)
     {
-        $this->sheet->removeElement($sheet);
+        return $this->sheet->removeElement($sheet);
     }
 
     /**
-     * Get sheet
+     * Get sheet.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -167,9 +198,9 @@ class SheetDev
     }
 
     /**
-     * Set society
+     * Set society.
      *
-     * @param \AppBundle\Entity\society $society
+     * @param \AppBundle\Entity\society|null $society
      *
      * @return SheetDev
      */
@@ -181,53 +212,12 @@ class SheetDev
     }
 
     /**
-     * Get society
+     * Get society.
      *
-     * @return \AppBundle\Entity\society
+     * @return \AppBundle\Entity\society|null
      */
     public function getSociety()
     {
         return $this->society;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $delivery;
-
-
-    /**
-     * Add delivery.
-     *
-     * @param \AppBundle\Entity\Delivery $delivery
-     *
-     * @return SheetDev
-     */
-    public function addDelivery(\AppBundle\Entity\Delivery $delivery)
-    {
-        $this->delivery[] = $delivery;
-
-        return $this;
-    }
-
-    /**
-     * Remove delivery.
-     *
-     * @param \AppBundle\Entity\Delivery $delivery
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeDelivery(\AppBundle\Entity\Delivery $delivery)
-    {
-        return $this->delivery->removeElement($delivery);
-    }
-
-    /**
-     * Get delivery.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDelivery()
-    {
-        return $this->delivery;
     }
 }
