@@ -55,36 +55,14 @@ class LinkController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $publicDevDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
-            $publicFacDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/commandes';
-            // e.g /var/www/project/public/my_first_excel_symfony4.xls
-            $excelDevFilepath = $publicDevDirectory . '/' . $filename;
-            $excelFacFilepath = $publicFacDirectory . '/' . $filename;
-
-            $rest = substr($filename, 0, 2);
-
-//       Deleting files
-            if($rest != 'dev'){
-                unlink($excelFacFilepath);
-                $link->setLink(null);
-            }
-            else{
-                unlink($excelDevFilepath);
-                $link->setLink(null);
-            }
+            unlink($this->container->getParameter('link_directory') . '/' . $filename);
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($link);
             $em->flush();
         }
 
-        if($rest == 'dev'){
-            return $this->redirectToRoute('sheetdev_delete', array('id' => $sheet));
-        }
-        else{
-            return $this->redirectToRoute('sheet_delete', array('id' => $sheet));
-        }
-
+            return $this->redirectToRoute('homepage');
     }
 
     /**
