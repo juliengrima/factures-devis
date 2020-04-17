@@ -56,6 +56,10 @@ class LinkController extends Controller
             return $this->redirectToRoute('sheetdev_index');
         }
         elseif ($sheetLink == 2){
+
+            $em= $this->getDoctrine()->getManager()->getRepository('AppBundle:Sheet');
+            $sheetId = $em->find($sheetId);
+
             $link = new Link();
             $link->setLinkname($fileName);
             $link->setLink('media/documents/devis/'.$fileName);
@@ -67,10 +71,14 @@ class LinkController extends Controller
             return $this->redirectToRoute('sheet_index');
         }
         else{
+
+            $em= $this->getDoctrine()->getManager()->getRepository('AppBundle:Delivery');
+            $delivery = $em->find($sheetId);
+
             $link = new Link();
             $link->setLinkname($fileName);
             $link->setLink('media/documents/devis/'.$fileName);
-            $link->setDelivery1($sheetId);
+            $link->setDelivery1($delivery);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
             $entityManager->flush();

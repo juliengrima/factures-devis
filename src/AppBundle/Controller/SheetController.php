@@ -154,21 +154,13 @@ class SheetController extends Controller
         } catch (Exception $e) {
         }
 
-        $sheetLink = 0;
-
-        $link = new Link();
-        $link->setLinkname($fileName);
-        $link->setLink('media/documents/commandes/'.$fileName);
-        $link->setSheetdev($sheetLink);
-        $link->setSheet($sheetId);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($link);
-        $entityManager->flush();
-
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
-        return $this->redirectToRoute('sheet_index');
+        $sheetLink = 2;
+        $sheetDatas = array($fileName, $sheetId, $sheetLink);
+        return $this->redirectToRoute('link_new', array('sheetDatas' => $sheetDatas));
+
     }
 
     /**

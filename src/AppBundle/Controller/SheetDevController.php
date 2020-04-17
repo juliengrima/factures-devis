@@ -108,20 +108,9 @@ class SheetDevController extends Controller
                 $worksheet->setCellValue('E9', $societyName);
                 $worksheet->setCellValue('E10', $societyAddress);
                 $worksheet->setCellValue('E11', $societyZipCitie);
-//                $worksheet->setCellValue('F9', $societyCity);
                 $worksheet->setCellValue('B16', $sheetDevNumber);
                 $worksheet->setCellValue('B13', $userId);
-//                $worksheet->setCellValue('C45', $userName);
 
-//                $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-//                $sheeti->setName('acces');
-//                $sheeti->setDescription('logo');
-//                $sheeti->setPath($imagePath);
-//                $sheeti->setHeight(80);
-//                $sheeti->setCoordinates("A1");
-//                $sheeti->setOffsetX(0);
-//                $sheeti->setOffsetY(0);
-//                $sheeti->setWorksheet($worksheet);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
             // Redirect output to a client’s web browser (Xlsx)
@@ -161,22 +150,7 @@ class SheetDevController extends Controller
 
             $sheetLink = 1;
             $sheetDatas = array($fileName, $sheetId, $sheetLink);
-//            $newLink = $this->container->get('link.service')->newLink($sheetDatas);
             return $this->redirectToRoute('link_new', array('sheetDatas' => $sheetDatas));
-
-//            $link = new Link();
-//            $link->setLinkname($fileName);
-//            $link->setLink('media/documents/devis/'.$fileName);
-//            $link->setSheetdev1($sheetId);
-////            $link->setSheet($sheetLink);
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($link);
-//            $entityManager->flush();
-
-
-//        $spreadsheet->disconnectWorksheets();
-//        unset($spreadsheet);
-//        return $this->redirectToRoute('sheetdev_index');
 
     }
 
