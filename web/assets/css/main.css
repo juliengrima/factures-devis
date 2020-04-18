@@ -2659,6 +2659,14 @@ input, select, textarea {
 					border-top: 0;
 					padding-top: 0;
 				}
+	.li-new-dev{
+		margin-left: -4%;
+		list-style: none;
+		width: 45% !important;
+	}
+	.input-pages{
+		width: 50%;
+	}
 
 	dl {
 		margin: 0 0 2em 0;

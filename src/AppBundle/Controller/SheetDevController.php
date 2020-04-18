@@ -44,11 +44,15 @@ class SheetDevController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pages = $request->request->get('pages');
+            echo $pages;
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($sheetDev);
             $em->flush();
 
-            return $this->redirectToRoute('sheetdev_spread', array('id' => $sheetDev->getId()));
+            return $this->redirectToRoute('sheetdev_spread', array('id' => $sheetDev->getId(), 'pages' => $pages));
         }
 
         return $this->render('sheetdev/new.html.twig', array(
@@ -57,8 +61,11 @@ class SheetDevController extends Controller
         ));
     }
 
-    public function spreadSheetDevAction(sheetDev $sheetDev)
+    public function spreadSheetDevAction(sheetDev $sheetDev, Request $request)
     {
+//        $pages = $request->request->get('pages');
+        $pages = $_GET['pages'];
+
         $sheetId = $sheetDev->getId();
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
@@ -83,7 +90,17 @@ class SheetDevController extends Controller
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
+        for ($i = 0; $i <= $pages; $i++) {
+
             $sheetName = $societyName.$sheetDevNumber;
+            $iUp = $i + 1;
+            if ($pages != null){
+                $pagesUp = $pages + 1;
+            }
+            else{
+                $pagesUp = 1;
+            }
+            $autoIncrementPages = $iUp.'/'.$pagesUp;
 
             //            Loading template
             $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/dev-template.xlsx';
@@ -110,6 +127,8 @@ class SheetDevController extends Controller
                 $worksheet->setCellValue('E11', $societyZipCitie);
                 $worksheet->setCellValue('B16', $sheetDevNumber);
                 $worksheet->setCellValue('B13', $userId);
+                $worksheet->setCellValue('H57', $autoIncrementPages);
+
 
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
@@ -130,20 +149,37 @@ class SheetDevController extends Controller
             $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-            $fileName = $sheetDevNumber.'.xls';
+            if ($pages != null){
+                $sheetDevNumberLoop = $sheetDevNumber.'_'.$iUp;
+                $fileName = $sheetDevNumberLoop.'.xls';
+            }
+            else{
+//                $sheetDevNumberLoop = $sheetDevNumber.'_'.$iUp;
+                $fileName = $sheetDevNumber.'.xls';
+            }
 //
             $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
 //             e.g /var/www/project/public/my_first_excel_symfony4.xls
             $excelFilepath = $publicDirectory . '/' . $fileName;
 
-            try {
-                $writer = IOFactory::createWriter($spreadsheet, 'Xls');
-            } catch (Exception $e) {
-            }
-            try {
-                $writer->save($excelFilepath);
-            } catch (Exception $e) {
-            }
+                try {
+                    $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+                } catch (Exception $e) {
+                }
+                try {
+                    $writer->save($excelFilepath);
+                } catch (Exception $e) {
+                }
+        }
+
+//            try {
+//                $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+//            } catch (Exception $e) {
+//            }
+//            try {
+//                $writer->save($excelFilepath);
+//            } catch (Exception $e) {
+//            }
 
             $spreadsheet->disconnectWorksheets();
             unset($spreadsheet);
