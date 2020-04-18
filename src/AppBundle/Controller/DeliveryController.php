@@ -45,11 +45,14 @@ class DeliveryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($delivery);
-            $em->flush();
 
-            return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
+            if ($sheetDev = $delivery->getSheetdev() != null || $sheet = $delivery->getSheet() != null) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($delivery);
+                $em->flush();
+
+                return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
+            }
         }
 
         return $this->render('delivery/new.html.twig', array(
@@ -169,25 +172,8 @@ class DeliveryController extends Controller
         unset($spreadsheet);
 
         $sheetLink = 3;
-        $sheetDatas = array($fileName, $sheetId, $sheetLink);
+        $sheetDatas = array($fileName, $deliveryId, $sheetLink);
         return $this->redirectToRoute('link_new', array('sheetDatas' => $sheetDatas));
-
-//        $sheetLink = 0;
-//        $sheetDevLink = 0;
-//
-//        $link = new Link();
-//        $link->setLinkname($fileName);
-//        $link->setLink('media/documents/devis/'.$fileName);
-//        $link->setSheetdev($sheetDevLink);
-//        $link->setSheet($sheetLink);
-//        $entityManager = $this->getDoctrine()->getManager();
-//        $entityManager->persist($link);
-//        $entityManager->flush();
-//
-//        $spreadsheet->disconnectWorksheets();
-//        unset($spreadsheet);
-//
-//        return $this->redirectToRoute('delivery_index');
 
     }
 

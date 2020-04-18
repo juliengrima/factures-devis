@@ -45,14 +45,17 @@ class SheetDevController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $pages = $request->request->get('pages');
-            echo $pages;
+            if ($society = $sheetDev->getSociety() != null){
+                $pages = $request->request->get('pages');
+                echo $pages;
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($sheetDev);
-            $em->flush();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($sheetDev);
+                $em->flush();
 
-            return $this->redirectToRoute('sheetdev_spread', array('id' => $sheetDev->getId(), 'pages' => $pages));
+                return $this->redirectToRoute('sheetdev_spread', array('id' => $sheetDev->getId(), 'pages' => $pages));
+            }
+
         }
 
         return $this->render('sheetdev/new.html.twig', array(
@@ -171,15 +174,6 @@ class SheetDevController extends Controller
                 } catch (Exception $e) {
                 }
         }
-
-//            try {
-//                $writer = IOFactory::createWriter($spreadsheet, 'Xls');
-//            } catch (Exception $e) {
-//            }
-//            try {
-//                $writer->save($excelFilepath);
-//            } catch (Exception $e) {
-//            }
 
             $spreadsheet->disconnectWorksheets();
             unset($spreadsheet);
