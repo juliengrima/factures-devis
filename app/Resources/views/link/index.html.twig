@@ -6,7 +6,7 @@
             <table id="table_id" class="display text">
                 <thead>
                     <tr>
-                        <th class="align-center">Identifiant</th>
+                        <th class="align-center">Client/Fournisseur</th>
                         <th>Fichiers</th>
                         <th>Actions</th>
                     </tr>
@@ -14,7 +14,16 @@
                 <tbody>
                 {% for link in links %}
                     <tr>
-                        <td class="align-center">{{ link.id }}</td>
+                        <td class="align-center">
+                            {% if link.sheetdev1 is defined and not link.sheet1 and not link.delivery1 %}
+                                {{ link.sheetdev1.society.societyname }}
+                            {% elseif link.sheet1 is defined and not link.delivery1 and not link.sheetdev1 %}
+                                {{ link.sheet1.provider.provider }}
+                            {% elseif link.delivery1 is defined and not link.sheet1 and not link.sheetdev1 %}
+                                {{ link.delivery1.sheet.sheetdev.society.societyname }} /
+                                {{ link.delivery1.sheet.provider.provider }}
+                            {% endif %}
+                        </td>
                         <td><a href="{{ asset(link.link) }}" target="_blank">{{ link.linkname }}</a></td>
                         <td>
                             <ul class="icons">

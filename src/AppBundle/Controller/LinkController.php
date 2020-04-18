@@ -24,9 +24,19 @@ class LinkController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $links = $em->getRepository('AppBundle:Link')->findAll();
+        $sheetdev = $em->getRepository('AppBundle:SheetDev')->findBy(array('id' => $links));
+        $sheet = $em->getRepository('AppBundle:Sheet')->findBy(array('id' => $links));
+        $delivery = $em->getRepository('AppBundle:Delivery')->findBy(array('id' => $links));
+        $sheetdevdel = $em->getRepository('AppBundle:SheetDev')->findBy(array('id' => $delivery));
+        $society = $em->getRepository('AppBundle:society')->findBy(array('id' => $sheetdevdel));
 
         return $this->render('link/index.html.twig', array(
             'links' => $links,
+            'sheetdev' => $sheetdev,
+            'sheet' => $sheet,
+            'delivery' => $delivery,
+            'sheetdevdel' => $sheetdevdel,
+            'society' => $society
         ));
     }
 
@@ -73,12 +83,12 @@ class LinkController extends Controller
         else{
 
             $em= $this->getDoctrine()->getManager()->getRepository('AppBundle:Delivery');
-            $delivery = $em->find($sheetId);
+            $deliveryId = $em->find($sheetId);
 
             $link = new Link();
             $link->setLinkname($fileName);
             $link->setLink('media/documents/devis/'.$fileName);
-            $link->setDelivery1($delivery);
+            $link->setDelivery1($deliveryId);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
             $entityManager->flush();
