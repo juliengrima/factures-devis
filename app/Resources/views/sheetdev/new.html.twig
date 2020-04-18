@@ -11,6 +11,14 @@
                     <div class="inner">
                         <h2 class="align-center">Génération du devis</h2>
                         <div>
+                            <ul class="li-new-dev">
+                                <li class="li-nav li-border">Nombre de pages suplémentaires</li>
+                                <li class="li-nav li-border">
+                                    <input type="number" name="pages">
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
                             <p>Sélectionner la société :</p>
                             {{ form_widget(form.society) }}
                             {{ form_errors(form.society) }}

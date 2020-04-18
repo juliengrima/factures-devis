@@ -28,5 +28,9 @@ AppBundle\Entity\SheetDev:
         sheet:
             targetEntity: AppBundle\Entity\Sheet
             mappedBy: years
+    oneToOne:
+        link1:
+            targetEntity: AppBundle\Entity\Link
+            mappedBy: sheetdev1
 
     lifecycleCallbacks: {  }

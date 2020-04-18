@@ -44,11 +44,15 @@ class SheetDevController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pages = $request->request->get('pages');
+            echo $pages;
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($sheetDev);
             $em->flush();
 
-            return $this->redirectToRoute('sheetdev_spread', array('id' => $sheetDev->getId()));
+            return $this->redirectToRoute('sheetdev_spread', array('id' => $sheetDev->getId(), 'pages' => $pages));
         }
 
         return $this->render('sheetdev/new.html.twig', array(
@@ -57,8 +61,11 @@ class SheetDevController extends Controller
         ));
     }
 
-    public function spreadSheetDevAction(sheetDev $sheetDev)
+    public function spreadSheetDevAction(sheetDev $sheetDev, Request $request)
     {
+//        $pages = $request->request->get('pages');
+        $pages = $_GET['pages'];
+
         $sheetId = $sheetDev->getId();
         $sheetDate = $sheetDev->getDate();
         $sheetDateStr = $sheetDate->format('dmY');
@@ -69,19 +76,31 @@ class SheetDevController extends Controller
         $societyAddress = $sheetDev->getSociety()->getAddress();
         $societyZipCode = $sheetDev->getSociety()->getZipcode();
         $societyCity = $sheetDev->getSociety()->getCity();
+        $societyZipCitie = $societyZipCode.'-'.$societyCity;
         $societyContact = $sheetDev->getSociety()->getContact();
 
-        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces2020.png';
+        $imagePath = $this->get('kernel')->getProjectDir() . '/web/media/images/locals/Acces-templates.png';
         $years = $sheetDev->getYears();
         $userId = $this->getUser()->getEmail();
+        $userName = $this->getUser()->getUserName();
 
-        $sheetDevNumber = $years.'D00'.$sheetId;
+        $sheetDevNumber = $years.'D000'.$sheetId;
 
         //            USE ON CACHE
         $cache = new FilesystemCache();
         \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
 
+        for ($i = 0; $i <= $pages; $i++) {
+
             $sheetName = $societyName.$sheetDevNumber;
+            $iUp = $i + 1;
+            if ($pages != null){
+                $pagesUp = $pages + 1;
+            }
+            else{
+                $pagesUp = 1;
+            }
+            $autoIncrementPages = $iUp.'/'.$pagesUp;
 
             //            Loading template
             $templateDirectory = $this->get('kernel')->getProjectDir() . '/web/media/templates/dev-template.xlsx';
@@ -101,24 +120,16 @@ class SheetDevController extends Controller
             /* @var $sheet Worksheet */
             try {
                 $worksheet = $spreadsheet->getActiveSheet();
-                $worksheet->setCellValue('G2', $sheetDateStrDev);
-                $worksheet->setCellValue('G11', $societyContact);
-                $worksheet->setCellValue('E7', $societyName);
-                $worksheet->setCellValue('E8', $societyAddress);
-                $worksheet->setCellValue('E9', $societyZipCode);
-                $worksheet->setCellValue('F9', $societyCity);
-                $worksheet->setCellValue('B14', $sheetDevNumber);
-                $worksheet->setCellValue('B11', $userId);
+                $worksheet->setCellValue('G4', $sheetDateStrDev);
+                $worksheet->setCellValue('F13', $societyContact);
+                $worksheet->setCellValue('E9', $societyName);
+                $worksheet->setCellValue('E10', $societyAddress);
+                $worksheet->setCellValue('E11', $societyZipCitie);
+                $worksheet->setCellValue('B16', $sheetDevNumber);
+                $worksheet->setCellValue('B13', $userId);
+                $worksheet->setCellValue('H57', $autoIncrementPages);
 
-                $sheeti = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-                $sheeti->setName('acces');
-                $sheeti->setDescription('logo');
-                $sheeti->setPath($imagePath);
-                $sheeti->setHeight(80);
-                $sheeti->setCoordinates("A1");
-                $sheeti->setOffsetX(0);
-                $sheeti->setOffsetY(0);
-                $sheeti->setWorksheet($worksheet);
+
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
             // Redirect output to a client’s web browser (Xlsx)
@@ -138,36 +149,44 @@ class SheetDevController extends Controller
             $writer = new Xlsx($spreadsheet);
 
 //            Create a Temporary file in the system USE THE $Society AND TESTING THE ID
-            $fileName = $sheetDevNumber.'.xls';
+            if ($pages != null){
+                $sheetDevNumberLoop = $sheetDevNumber.'_'.$iUp;
+                $fileName = $sheetDevNumberLoop.'.xls';
+            }
+            else{
+//                $sheetDevNumberLoop = $sheetDevNumber.'_'.$iUp;
+                $fileName = $sheetDevNumber.'.xls';
+            }
 //
             $publicDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
 //             e.g /var/www/project/public/my_first_excel_symfony4.xls
             $excelFilepath = $publicDirectory . '/' . $fileName;
 
-            try {
-                $writer = IOFactory::createWriter($spreadsheet, 'Xls');
-            } catch (Exception $e) {
-            }
-            try {
-                $writer->save($excelFilepath);
-            } catch (Exception $e) {
-            }
+                try {
+                    $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+                } catch (Exception $e) {
+                }
+                try {
+                    $writer->save($excelFilepath);
+                } catch (Exception $e) {
+                }
+        }
 
-            $sheetLink = 0;
+//            try {
+//                $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+//            } catch (Exception $e) {
+//            }
+//            try {
+//                $writer->save($excelFilepath);
+//            } catch (Exception $e) {
+//            }
 
-            $link = new Link();
-            $link->setLinkname($fileName);
-            $link->setLink('media/documents/devis/'.$fileName);
-            $link->setSheetdev($sheetId);
-            $link->setSheet($sheetLink);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($link);
-            $entityManager->flush();
+            $spreadsheet->disconnectWorksheets();
+            unset($spreadsheet);
 
-        $spreadsheet->disconnectWorksheets();
-        unset($spreadsheet);
-
-        return $this->redirectToRoute('sheetdev_index');
+            $sheetLink = 1;
+            $sheetDatas = array($fileName, $sheetId, $sheetLink);
+            return $this->redirectToRoute('link_new', array('sheetDatas' => $sheetDatas));
 
     }
 

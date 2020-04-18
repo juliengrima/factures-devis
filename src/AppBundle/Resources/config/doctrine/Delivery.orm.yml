@@ -24,4 +24,8 @@ AppBundle\Entity\Delivery:
             joinColumn:
                 name: sheet_id
                 referencedColumnName: id
+    oneToOne:
+        link3:
+            targetEntity: AppBundle\Entity\Link
+            mappedBy: delivery1
     lifecycleCallbacks: {  }

@@ -33,3 +33,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    link.service:
+        class: AppBundle\Services\LinkService
+        arguments: ['@service_container']
+

@@ -16,11 +16,28 @@ AppBundle\Entity\Link:
         link:
             type: string
             length: 255
-        sheet:
-            type: integer
-            nullable: true
-        sheetdev:
-            type: integer
-            nullable: true
+    oneToOne:
+        sheetdev1:
+            targetEntity: AppBundle\Entity\SheetDev
+            inversedBy: link1
+            joinColumn:
+                name: sheetdev_id
+                referencedColumnName: id
+                onDelete: CASCADE
+        sheet1:
+            targetEntity: AppBundle\Entity\Sheet
+            inversedBy: link2
+            joinColumn:
+                name: sheet_id
+                referencedColumnName: id
+                onDelete: CASCADE
+        delivery1:
+            targetEntity: AppBundle\Entity\Delivery
+            inversedBy: link3
+            joinColumn:
+                name: delivery_id
+                referencedColumnName: id
+                onDelete: CASCADE
+                
 
     lifecycleCallbacks: {  }

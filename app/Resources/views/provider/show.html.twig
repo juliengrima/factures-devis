@@ -31,5 +31,10 @@
         <li>
             <a href="{{ path('provider_edit', { 'id': provider.id }) }}" class="button">Modifier</a>
         </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="image" value="Supprimer" class="delete" src="{{ asset('media/images/locals/delete.png') }}">
+            {{ form_end(delete_form) }}
+        </li>
     </ul>
 {% endblock %}

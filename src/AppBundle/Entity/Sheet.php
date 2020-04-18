@@ -21,12 +21,12 @@ class Sheet
     }
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var boolean
+     * @var bool|null
      */
     private $facture;
 
@@ -41,6 +41,16 @@ class Sheet
     private $years;
 
     /**
+     * @var \AppBundle\Entity\Link
+     */
+    private $link2;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $delivery;
+
+    /**
      * @var \AppBundle\Entity\Provider
      */
     private $provider;
@@ -52,9 +62,9 @@ class Sheet
 
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -62,13 +72,13 @@ class Sheet
     }
 
     /**
-     * Set facture
+     * Set facture.
      *
-     * @param boolean $facture
+     * @param bool|null $facture
      *
      * @return Sheet
      */
-    public function setFacture($facture)
+    public function setFacture($facture = null)
     {
         $this->facture = $facture;
 
@@ -76,9 +86,9 @@ class Sheet
     }
 
     /**
-     * Get facture
+     * Get facture.
      *
-     * @return boolean
+     * @return bool|null
      */
     public function getFacture()
     {
@@ -86,7 +96,7 @@ class Sheet
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
      *
@@ -100,7 +110,7 @@ class Sheet
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -110,7 +120,7 @@ class Sheet
     }
 
     /**
-     * Set years
+     * Set years.
      *
      * @param string $years
      *
@@ -124,7 +134,7 @@ class Sheet
     }
 
     /**
-     * Get years
+     * Get years.
      *
      * @return string
      */
@@ -134,57 +144,28 @@ class Sheet
     }
 
     /**
-     * Set provider
+     * Set link2.
      *
-     * @param \AppBundle\Entity\Provider $provider
+     * @param \AppBundle\Entity\Link|null $link2
      *
      * @return Sheet
      */
-    public function setProvider(\AppBundle\Entity\Provider $provider = null)
+    public function setLink2(\AppBundle\Entity\Link $link2 = null)
     {
-        $this->provider = $provider;
+        $this->link2 = $link2;
 
         return $this;
     }
 
     /**
-     * Get provider
+     * Get link2.
      *
-     * @return \AppBundle\Entity\Provider
+     * @return \AppBundle\Entity\Link|null
      */
-    public function getProvider()
+    public function getLink2()
     {
-        return $this->provider;
+        return $this->link2;
     }
-
-    /**
-     * Set sheetdev
-     *
-     * @param \AppBundle\Entity\SheetDev $sheetdev
-     *
-     * @return Sheet
-     */
-    public function setSheetdev(\AppBundle\Entity\SheetDev $sheetdev = null)
-    {
-        $this->sheetdev = $sheetdev;
-
-        return $this;
-    }
-
-    /**
-     * Get sheetdev
-     *
-     * @return \AppBundle\Entity\SheetDev
-     */
-    public function getSheetdev()
-    {
-        return $this->sheetdev;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $delivery;
-
 
     /**
      * Add delivery.
@@ -220,5 +201,53 @@ class Sheet
     public function getDelivery()
     {
         return $this->delivery;
+    }
+
+    /**
+     * Set provider.
+     *
+     * @param \AppBundle\Entity\Provider|null $provider
+     *
+     * @return Sheet
+     */
+    public function setProvider(\AppBundle\Entity\Provider $provider = null)
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+
+    /**
+     * Get provider.
+     *
+     * @return \AppBundle\Entity\Provider|null
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Set sheetdev.
+     *
+     * @param \AppBundle\Entity\SheetDev|null $sheetdev
+     *
+     * @return Sheet
+     */
+    public function setSheetdev(\AppBundle\Entity\SheetDev $sheetdev = null)
+    {
+        $this->sheetdev = $sheetdev;
+
+        return $this;
+    }
+
+    /**
+     * Get sheetdev.
+     *
+     * @return \AppBundle\Entity\SheetDev|null
+     */
+    public function getSheetdev()
+    {
+        return $this->sheetdev;
     }
 }

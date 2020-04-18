@@ -30,9 +30,14 @@ AppBundle\Entity\Sheet:
             joinColumn:
                 name: sheetdev_id
                 referencedColumnName: id
+                cascade: ["persist", "merge"]
     oneToMany:
         delivery:
             targetEntity: AppBundle\Entity\Delivery
             mappedBy: sheet
+    oneToOne:
+        link2:
+            targetEntity: AppBundle\Entity\Link
+            mappedBy: sheet1
 
     lifecycleCallbacks: {  }

@@ -3,6 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Link;
+use AppBundle\Entity\Sheet;
+use AppBundle\Entity\SheetDev;
+use AppBundle\Entity\Delivery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,6 +30,63 @@ class LinkController extends Controller
         ));
     }
 
+    /**
+     * Create a new Link Entity
+     */
+    public function newLinkAction(){
+
+        $sheetPost = $_GET['sheetDatas'];
+        $fileName = $sheetPost[0];
+        $sheetId = $sheetPost[1];
+        $sheetLink = $sheetPost[2];
+
+        if ($sheetLink == 1){
+
+            $em= $this->getDoctrine()->getManager()->getRepository('AppBundle:SheetDev');
+            $sheetDevId = $em->find($sheetId);
+
+            $link = new Link();
+            $link->setLinkname($fileName);
+            $link->setLink('media/documents/devis/'.$fileName);
+            $link->setSheetdev1($sheetDevId);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($link);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('sheetdev_index');
+        }
+        elseif ($sheetLink == 2){
+
+            $em= $this->getDoctrine()->getManager()->getRepository('AppBundle:Sheet');
+            $sheetId = $em->find($sheetId);
+
+            $link = new Link();
+            $link->setLinkname($fileName);
+            $link->setLink('media/documents/devis/'.$fileName);
+            $link->setSheet1($sheetId);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($link);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('sheet_index');
+        }
+        else{
+
+            $em= $this->getDoctrine()->getManager()->getRepository('AppBundle:Delivery');
+            $delivery = $em->find($sheetId);
+
+            $link = new Link();
+            $link->setLinkname($fileName);
+            $link->setLink('media/documents/devis/'.$fileName);
+            $link->setDelivery1($delivery);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($link);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('delivery_index');
+        }
+
+    }
     /**
      * Finds and displays a link entity.
      *
@@ -55,36 +115,14 @@ class LinkController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $publicDevDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/devis';
-            $publicFacDirectory = $this->get('kernel')->getProjectDir() . '/web/media/documents/commandes';
-            // e.g /var/www/project/public/my_first_excel_symfony4.xls
-            $excelDevFilepath = $publicDevDirectory . '/' . $filename;
-            $excelFacFilepath = $publicFacDirectory . '/' . $filename;
-
-            $rest = substr($filename, 0, 2);
-
-//       Deleting files
-            if($rest != 'dev'){
-                unlink($excelFacFilepath);
-                $link->setLink(null);
-            }
-            else{
-                unlink($excelDevFilepath);
-                $link->setLink(null);
-            }
+            unlink($this->container->getParameter('link_directory') . '/' . $filename);
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($link);
             $em->flush();
         }
 
-        if($rest == 'dev'){
-            return $this->redirectToRoute('sheetdev_delete', array('id' => $sheet));
-        }
-        else{
-            return $this->redirectToRoute('sheet_delete', array('id' => $sheet));
-        }
-
+            return $this->redirectToRoute('homepage');
     }
 
     /**

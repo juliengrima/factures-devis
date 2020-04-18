@@ -19,9 +19,17 @@
                 </div>
             </div>
         </section>
-
-        <input type="submit" value="Livraison validée" class="submit-center"/>
-
     </section>
-    {{ form_end(edit_form) }}
+
+    <ul class="icons align-center">
+        <li>
+            <input type="submit" value="Livraison validée" class="submit-center"/>
+            {{ form_end(edit_form) }}
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="image" value="Supprimer" class="delete" src="{{ asset('media/images/locals/delete.png') }}">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
 {% endblock %}

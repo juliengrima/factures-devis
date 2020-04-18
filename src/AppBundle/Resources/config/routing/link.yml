@@ -10,13 +10,13 @@ link_show:
 
 link_new:
     path:     /new
-    defaults: { _controller: "AppBundle:Link:new" }
+    defaults: { _controller: "AppBundle:Link:newLink" }
     methods:  [GET, POST]
 
-link_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "AppBundle:Link:edit" }
-    methods:  [GET, POST]
+#link_edit:
+#    path:     /{id}/edit
+#    defaults: { _controller: "AppBundle:Link:edit" }
+#    methods:  [GET, POST]
 
 link_delete:
     path:     /{id}/delete

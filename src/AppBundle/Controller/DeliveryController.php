@@ -165,22 +165,29 @@ class DeliveryController extends Controller
         } catch (Exception $e) {
         }
 
-        $sheetLink = 0;
-        $sheetDevLink = 0;
-
-        $link = new Link();
-        $link->setLinkname($fileName);
-        $link->setLink('media/documents/devis/'.$fileName);
-        $link->setSheetdev($sheetDevLink);
-        $link->setSheet($sheetLink);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($link);
-        $entityManager->flush();
-
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
-        return $this->redirectToRoute('delivery_index');
+        $sheetLink = 3;
+        $sheetDatas = array($fileName, $sheetId, $sheetLink);
+        return $this->redirectToRoute('link_new', array('sheetDatas' => $sheetDatas));
+
+//        $sheetLink = 0;
+//        $sheetDevLink = 0;
+//
+//        $link = new Link();
+//        $link->setLinkname($fileName);
+//        $link->setLink('media/documents/devis/'.$fileName);
+//        $link->setSheetdev($sheetDevLink);
+//        $link->setSheet($sheetLink);
+//        $entityManager = $this->getDoctrine()->getManager();
+//        $entityManager->persist($link);
+//        $entityManager->flush();
+//
+//        $spreadsheet->disconnectWorksheets();
+//        unset($spreadsheet);
+//
+//        return $this->redirectToRoute('delivery_index');
 
     }
 
