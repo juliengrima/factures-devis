@@ -3998,3 +3998,7 @@ input, select, textarea {
 .left{
 	float: left;
 }
+
+.nbpage{
+	width: 10%!important;
+}
