@@ -44,11 +44,14 @@ class SheetController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($sheet);
-            $em->flush();
 
-            return $this->redirectToRoute('sheet_spread', array('id' => $sheet->getId()));
+            if ($sheet->getProvider() != null) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($sheet);
+                $em->flush();
+
+                return $this->redirectToRoute('sheet_spread', array('id' => $sheet->getId()));
+            }
         }
 
         return $this->render('sheet/new.html.twig', array(
