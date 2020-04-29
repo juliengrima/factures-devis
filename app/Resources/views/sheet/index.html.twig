@@ -20,7 +20,8 @@
         <tbody>
         {% for sheet in sheets %}
             <tr>
-                <td class="align-center">{{ sheet.provider.provider }}-{{ sheet.years }}/00{{ sheet.id }}</td>
+                <td class="align-center">
+                    {{ sheet.provider }}-{{ sheet.years }}/00{{ sheet.id }}</td>
                 <td class="align-center">{{ sheet.sheetdev.society.societyName }}-{{ sheet.sheetdev.years }}D00{{ sheet.sheetdev.id }}</td>
                 <td class="align-center">{% if sheet.facture %}Commandée{% else %}{% endif %}</td>
                 <td class="align-center">{% if sheet.date %}{{ sheet.date|date('d-m-Y') }}{% endif %}</td>
