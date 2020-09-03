@@ -9,14 +9,23 @@
             <section>
                 <div class="content">
                     <div class="inner">
-                        <h2 class="align-center">Génération du devis</h2>
+                        <h2 class="align-center">Génération du devis - {{ count + 1 }}</h2>
                         <div>
-                            <ul class="li-new-dev">
-                                <li class="li-nav li-border">Nombre de pages suplémentaires</li>
-                                <li class="li-nav li-border">
-                                    <input type="number" name="pages">
-                                </li>
-                            </ul>
+                            <table>
+                                {% if count < 100 %}
+                                    <tr>
+                                        <td>Je veux commencer mes devis à : </br>
+                                        <span class="comment-span">*Attention, ceci va générer
+                                            autant de documents</br> dans la base de données
+                                            et prendra un certain temps*</span></td>
+                                        <td><input type="number" name="count"></td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Nombre de pages suplémentaires : </td>
+                                    <td><input type="number" name="pages"></td>
+                                </tr>
+                            </table>
                         </div>
                         <div>
                             <p>Sélectionner la société :</p>

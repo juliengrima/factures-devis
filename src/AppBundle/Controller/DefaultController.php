@@ -15,7 +15,7 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
         $userId = $this->getUser();
-        return $this->render('default/index.html.twig');
+        return $this->render('default/index.html.twig', array('user' => $userId));
     }
 
     /**

@@ -2660,9 +2660,18 @@ input, select, textarea {
 					padding-top: 0;
 				}
 	.li-new-dev{
+		display: inline;
 		margin-left: -4%;
 		list-style: none;
 		width: 45% !important;
+	}
+	.ul-new-sheet-dev{
+		display: inline;
+		list-style: none;
+	}
+	.comment-span{
+		font-size: 0.2;
+		color: darkred;
 	}
 	.input-pages{
 		width: 50%;
