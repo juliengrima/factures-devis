@@ -39,49 +39,46 @@ class SheetDevController extends Controller
     public function newAction(Request $request)
     {
         $sheetDev = new Sheetdev();
-        $countSheetDevId = 0;
         $form = $this->createForm('AppBundle\Form\SheetDevType', $sheetDev);
         $form->handleRequest($request);
+
 // Call to Entities and count entries
         $em = $this->getDoctrine()->getManager();
-//        $countSheetDevIds = $em->getRepository('AppBundle:SheetDev')->findAll(array('id' => 'DESC'));
-        $countSheetDevIds = $em->getRepository('AppBundle:SheetDev')->findAll();
-        foreach ($countSheetDevIds as $countSheetDevId) {
-//            $countSheetDevId = count($countSheetDevId->getId());
-            $countSheetDevId = count(array('id' => $countSheetDevId), COUNT_RECURSIVE);
-        }
-        $newsheetDevId = $request->request->get('count');
-
+        $countSheetDevId = $em->getRepository('AppBundle:SheetDev')->countByDev();
         if ($form->isSubmitted() && $form->isValid()) {
 //            TESTING $newSheetDevID IF is NULL OR NOT
 //            IF IT'S DIFFERENT OF NULL
-            if($newsheetDevId != null){
+            $newsheetDevId = $request->request->get('count');
+            if(isset($newsheetDevId) != null and $sheetDev->getSociety() == null){
 //                TESTING IF COUNT OF ENTRIES IS LESS THAN THE NEW ENTRY
-                if($countSheetDevId < $newsheetDevId){
-//                    MAKE A LOOP WHILE LESS THAN NEW ENTRY
-                    while ($countSheetDevId < $newsheetDevId){
-//                        FORCED DATA FOR AUTOMATIC INSERT
-//                        $devis = $sheetDev->setDevis(1);
-//                        $society = $sheetDev->setSociety(1);
-                        $em = $this->getDoctrine()->getManager();
-                        $em->persist($sheetDev);
-                        $em->flush();
-                    }
-//                      DATAS ARE FLUSHED SO WE DELETE ENTITY
-                    while ($countSheetDevId != null){
-                        $form = $this->createDeleteForm($sheetDev);
-                        $form->handleRequest($request);
-                        $em = $this->getDoctrine()->getManager();
-                        $em->remove($sheetDev);
-                        $em->flush();
-                    }
-//                    LOOP IS FINISHED RETURN TO NEW PAGE
-                    return $this->render('sheetdev/new.html.twig', array(
-                        'sheetDev' => $sheetDev,
-                        'count' => $countSheetDevId,
-                        'form' => $form->createView(),
-                    ));
+//                MAKE A LOOP WHILE LESS THAN NEW ENTRY
+                for($loop = $countSheetDevId; $loop < $newsheetDevId; $loop++){
+                    //                        FORCED DATA FOR AUTOMATIC INSERT
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($sheetDev);
+                    $em->flush();
                 }
+//                    for($loop = $countSheetDevId; $loop < $newsheetDevId; $loop++){
+//                        //                        FORCED DATA FOR AUTOMATIC INSERT
+//                        $form = $this->createDeleteForm($sheetDev);
+//                        $form->handleRequest($request);
+//                        $em = $this->getDoctrine()->getManager();
+//                        $em->remove($sheetDev);
+
+//                    $em->flush();
+//                    LOOP IS FINISHED RETURN TO NEW PAGE
+                return $this->render('sheetdev/new.html.twig', array(
+                    'sheetDev' => $sheetDev,
+                    'count' => $countSheetDevId,
+                    'form' => $form->createView(),
+                ));
+            }
+            elseif (isset($newsheetDevId) != null and $sheetDev->getSociety() != null){
+                return $this->render('sheetdev/new.html.twig', array(
+                    'sheetDev' => $sheetDev,
+                    'count' => $countSheetDevId,
+                    'form' => $form->createView(),
+                ));
             }
 //            ENTRY $newSheetDevId IS NULL SO GENERATE A NEW SHEET
             else{
@@ -101,6 +98,7 @@ class SheetDevController extends Controller
                     'form' => $form->createView(),
                 ));
             }
+
         }
         return $this->render('sheetdev/new.html.twig', array(
             'sheetDev' => $sheetDev,
@@ -131,12 +129,6 @@ class SheetDevController extends Controller
         $years = $sheetDev->getYears();
         $userId = $this->getUser()->getEmail();
         $userName = $this->getUser()->getUserName();
-
-//        $old_reference = 4700;
-//        if($sheetId < $old_reference)
-//            $sheetDevNumber = $years.'D'.$old_reference.'-'.$sheetId;
-//        else
-//            $sheetDevNumber = $years.'D000'.$sheetId;
 
         $sheetDevNumber = $years.'D000'.$sheetId;
 
