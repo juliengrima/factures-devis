@@ -9,16 +9,22 @@
             <section>
                 <div class="content">
                     <div class="inner">
-                        <h2 class="align-center">Génération du devis - {{ count + 1 }}</h2>
+                        <h2 class="align-center">Génération du devis / D000{{ count + 1 }}</h2>
                         <div>
                             <table>
                                 {% if count < 100 %}
                                     <tr>
-                                        <td>Je veux commencer mes devis à : </br>
-                                        <span class="comment-span">*Attention, ceci va générer
-                                            autant de documents</br> dans la base de données
-                                            et prendra un certain temps*</span></td>
-                                        <td><input type="number" name="count"></td>
+                                        <td>
+
+                                            <input id="hide" type="checkbox" class="filled-in">
+                                            <label for="hide" class="dev-label">
+                                                Je veux commencer mes devis au dela de / {{ count + 1 }} :</br>
+                                                <span class="comment-span">* Attention, ceci va générer
+                                            autant de documents dans la base de données et prendra un certain temps.
+                                                 !! Je disparais après 100 générations de documents !!</span>
+                                            </label>
+                                        </td>
+                                        <td><input type="number" name="count" class="upload_file_event"></td>
                                     </tr>
                                 {% endif %}
                                 <tr>
@@ -47,4 +53,18 @@
 
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#hide').click(function () {
+            if (this.checked){
+                $('.upload_file_event').css('display', 'block')
+            }
+            else {
+                $('.upload_file_event').css('display', 'none')
+            }
+        })
+    </script>
 {% endblock %}

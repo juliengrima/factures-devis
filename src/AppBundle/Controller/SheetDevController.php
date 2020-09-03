@@ -39,6 +39,7 @@ class SheetDevController extends Controller
     public function newAction(Request $request)
     {
         $sheetDev = new Sheetdev();
+        $countSheetDevId = 0;
         $form = $this->createForm('AppBundle\Form\SheetDevType', $sheetDev);
         $form->handleRequest($request);
 // Call to Entities and count entries
@@ -56,16 +57,18 @@ class SheetDevController extends Controller
 //            IF IT'S DIFFERENT OF NULL
             if($newsheetDevId != null){
 //                TESTING IF COUNT OF ENTRIES IS LESS THAN THE NEW ENTRY
-                if($countSheetDevId < $newsheetDevId or $countSheetDevId == null){
+                if($countSheetDevId < $newsheetDevId){
 //                    MAKE A LOOP WHILE LESS THAN NEW ENTRY
                     while ($countSheetDevId < $newsheetDevId){
 //                        FORCED DATA FOR AUTOMATIC INSERT
-                        $devis = $sheetDev->setDevis(1);
-                        $society = $sheetDev->setSociety(1);
+//                        $devis = $sheetDev->setDevis(1);
+//                        $society = $sheetDev->setSociety(1);
                         $em = $this->getDoctrine()->getManager();
                         $em->persist($sheetDev);
                         $em->flush();
+                    }
 //                      DATAS ARE FLUSHED SO WE DELETE ENTITY
+                    while ($countSheetDevId != null){
                         $form = $this->createDeleteForm($sheetDev);
                         $form->handleRequest($request);
                         $em = $this->getDoctrine()->getManager();
@@ -104,7 +107,6 @@ class SheetDevController extends Controller
             'count' => $countSheetDevId,
             'form' => $form->createView(),
         ));
-
     }
 
     public function spreadSheetDevAction(sheetDev $sheetDev, Request $request)

@@ -2670,8 +2670,15 @@ input, select, textarea {
 		list-style: none;
 	}
 	.comment-span{
-		font-size: 0.2;
+		font-size: 0.7em!important;
 		color: darkred;
+	}
+	.upload_file_event{
+		display: none;
+		transition: 1.5s;
+	}
+	.dev-label{
+		display: none;
 	}
 	.input-pages{
 		width: 50%;
