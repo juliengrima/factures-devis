@@ -45,38 +45,37 @@ class SheetDevController extends Controller
 // Call to Entities and count entries
         $em = $this->getDoctrine()->getManager();
         $countSheetDevId = $em->getRepository('AppBundle:SheetDev')->countByDev();
+        $hightId = $em->getRepository('AppBundle:SheetDev')->hightId();
+
         if ($form->isSubmitted() && $form->isValid()) {
 //            TESTING $newSheetDevID IF is NULL OR NOT
 //            IF IT'S DIFFERENT OF NULL
             $newsheetDevId = $request->request->get('count');
-            if(isset($newsheetDevId) != null and $sheetDev->getSociety() == null){
+            if(isset($newsheetDevId) != null and $sheetDev->getSociety() == null) {
 //                TESTING IF COUNT OF ENTRIES IS LESS THAN THE NEW ENTRY
 //                MAKE A LOOP WHILE LESS THAN NEW ENTRY
-                for($loop = $countSheetDevId; $loop < $newsheetDevId; $loop++){
-                    //                        FORCED DATA FOR AUTOMATIC INSERT
+                while ($countSheetDevId < $newsheetDevId){
+                    $sheetDev = new SheetDev();
+                    $sheetDev->setYears('90');
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($sheetDev);
-                    $em->flush();
+                    $countSheetDevId++;
                 }
-//                    for($loop = $countSheetDevId; $loop < $newsheetDevId; $loop++){
-//                        //                        FORCED DATA FOR AUTOMATIC INSERT
-//                        $form = $this->createDeleteForm($sheetDev);
-//                        $form->handleRequest($request);
-//                        $em = $this->getDoctrine()->getManager();
-//                        $em->remove($sheetDev);
-
-//                    $em->flush();
+                $em->flush();
+//              FORCED DATA FOR AUTOMATIC REMOVE
+                for($i = 0; $i <= $countSheetDevId; $i++){
+                    $sheetDevs = $em->getRepository('AppBundle:SheetDev')->findBy(array('id' => $i));
+                    foreach ($sheetDevs as $sheetDev){
+                        $em = $this->getDoctrine()->getManager();
+                        $em->remove($sheetDev);
+                    }
+                 }
+                $em->flush();
 //                    LOOP IS FINISHED RETURN TO NEW PAGE
                 return $this->render('sheetdev/new.html.twig', array(
                     'sheetDev' => $sheetDev,
                     'count' => $countSheetDevId,
-                    'form' => $form->createView(),
-                ));
-            }
-            elseif (isset($newsheetDevId) != null and $sheetDev->getSociety() != null){
-                return $this->render('sheetdev/new.html.twig', array(
-                    'sheetDev' => $sheetDev,
-                    'count' => $countSheetDevId,
+                    'hight' => $hightId,
                     'form' => $form->createView(),
                 ));
             }
@@ -84,7 +83,6 @@ class SheetDevController extends Controller
             else{
                 if ($society = $sheetDev->getSociety() != null){
                     $pages = $request->request->get('pages');
-                    echo $pages;
 
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($sheetDev);
@@ -95,6 +93,7 @@ class SheetDevController extends Controller
                 return $this->render('sheetdev/new.html.twig', array(
                     'sheetDev' => $sheetDev,
                     'count' => $countSheetDevId,
+                    'hight' => $hightId,
                     'form' => $form->createView(),
                 ));
             }
@@ -103,6 +102,7 @@ class SheetDevController extends Controller
         return $this->render('sheetdev/new.html.twig', array(
             'sheetDev' => $sheetDev,
             'count' => $countSheetDevId,
+            'hight' => $hightId,
             'form' => $form->createView(),
         ));
     }
