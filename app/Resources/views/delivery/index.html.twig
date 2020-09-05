@@ -21,6 +21,7 @@
         </thead>
         <tbody>
         {% for delivery in deliveries %}
+            {% if delivery.sheet != null %}
             <tr>
                 <td class="align-center">{{ delivery.sheet.sheetdev.society.societyName }}-{{ delivery.sheet.sheetdev.years }}D00{{ delivery.sheet.sheetdev.id }}</td>
                 <td class="align-center">{{ delivery.sheet.years }}/00{{ delivery.sheet.id }}</td>
@@ -38,6 +39,7 @@
                     </ul>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
