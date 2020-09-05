@@ -25,7 +25,6 @@ class SheetController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $sheets = $em->getRepository('AppBundle:Sheet')->findAll();
 
         return $this->render('sheet/index.html.twig', array(
@@ -43,19 +42,65 @@ class SheetController extends Controller
         $form = $this->createForm('AppBundle\Form\SheetType', $sheet);
         $form->handleRequest($request);
 
+//      Call to Entities and count entries
+        $em = $this->getDoctrine()->getManager();
+        $countSheetId = $em->getRepository('AppBundle:Sheet')->countByDev();
+        $hightId = $em->getRepository('AppBundle:Sheet')->hightId();
+
         if ($form->isSubmitted() && $form->isValid()) {
-
-            if ($sheet->getProvider() != null) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($sheet);
+//            TESTING $newSheetDevID IF is NULL OR NOT
+//            IF IT'S DIFFERENT OF NULL
+            $newsheetId = $request->request->get('count');
+            if(isset($newsheetId) != null and $sheet->getProvider() == null) {
+//                TESTING IF COUNT OF ENTRIES IS LESS THAN THE NEW ENTRY
+//                MAKE A LOOP WHILE LESS THAN NEW ENTRY
+                while ($countSheetId < $newsheetId){
+                    $sheet = new Sheet();
+                    $sheet->setYears('90');
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($sheet);
+                    $countSheetId++;
+                }
                 $em->flush();
+//              FORCED DATA FOR AUTOMATIC REMOVE
+                for($i = 0; $i <= $countSheetId; $i++){
+                    $sheets = $em->getRepository('AppBundle:Sheet')->findBy(array('id' => $i));
+                    foreach ($sheets as $sheet){
+                        $em = $this->getDoctrine()->getManager();
+                        $em->remove($sheet);
+                    }
+                }
+                $em->flush();
+//                    LOOP IS FINISHED RETURN TO NEW PAGE
+                return $this->render('sheet/new.html.twig', array(
+                    'sheetDev' => $sheet,
+                    'count' => $countSheetId,
+                    'hight' => $hightId,
+                    'form' => $form->createView(),
+                ));
+            }
+//            ENTRY $newSheetDevId IS NULL SO GENERATE A NEW SHEET
+            else{
+                if ($sheet->getProvider() != null) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($sheet);
+                    $em->flush();
 
-                return $this->redirectToRoute('sheet_spread', array('id' => $sheet->getId()));
+                    return $this->redirectToRoute('sheet_spread', array('id' => $sheet->getId()));
+                }
+                return $this->render('sheet/new.html.twig', array(
+                    'sheetDev' => $sheet,
+                    'count' => $countSheetId,
+                    'hight' => $hightId,
+                    'form' => $form->createView(),
+                ));
             }
         }
 
         return $this->render('sheet/new.html.twig', array(
             'sheet' => $sheet,
+            'count' => $countSheetId,
+            'hight' => $hightId,
             'form' => $form->createView(),
         ));
     }

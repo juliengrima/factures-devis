@@ -19,7 +19,11 @@
         <tbody>
         {% for sheetDev in sheetDevs %}
             <tr>
-                <td class="align-center">{% if sheetDev.society != null %}{{ sheetDev.society.societyName }}{% else %}{% endif %}-{{ sheetDev.years }}D00{{ sheetDev.id }}</td>
+                <td class="align-center">{% if sheetDev.society != null %}
+                                            {{ sheetDev.society.societyName }}
+                                         {% else %}
+                                         {% endif %}
+                                            -{{ sheetDev.years }}D00{{ sheetDev.id }}</td>
                 <td class="align-center">{% if sheetDev.devis %}Accepté{% else %}{% endif %}</td>
                 <td class="align-center">{% if sheetDev.date %}{{ sheetDev.date|date('d-m-Y') }}{% endif %}</td>
                 <td>
