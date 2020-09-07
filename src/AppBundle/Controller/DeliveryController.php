@@ -54,7 +54,22 @@ class DeliveryController extends Controller
 //            IF IT'S DIFFERENT OF NULL
             $newDelivery = $request->request->get('count');
             $check = $request->request->get('check');
-            if($check == 1 and $newDelivery > 100) {
+            if($check == null and $newDelivery == null){
+                if ($sheetDev = $delivery->getSheetdev() != null || $sheet = $delivery->getSheet() != null) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($delivery);
+                    $em->flush();
+
+                    return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
+                }
+                return $this->render('delivery/new.html.twig', array(
+                    'sheetDev' => $sheetDev,
+                    'count' => $countDelivery,
+                    'hight' => $hightId,
+                    'form' => $form->createView(),
+                ));
+            }
+            else{
 //                TESTING IF COUNT OF ENTRIES IS LESS THAN THE NEW ENTRY
 //                MAKE A LOOP WHILE LESS THAN NEW ENTRY
                 while ($countDelivery < $newDelivery){
@@ -75,29 +90,13 @@ class DeliveryController extends Controller
                 }
                 $em->flush();
 //                    LOOP IS FINISHED RETURN TO NEW PAGE
-                return $this->render('delivery/new.html.twig', array(
+                return $this->redirectToRoute('delivery_index', array(
                     'sheetDev' => $delivery,
                     'count' => $countDelivery,
                     'hight' => $hightId,
                     'form' => $form->createView(),
                 ));
             }
-//            ENTRY $newSheetDevId IS NULL SO GENERATE A NEW SHEET
-//            else{
-//                if ($sheetDev = $delivery->getSheetdev() != null || $sheet = $delivery->getSheet() != null) {
-//                    $em = $this->getDoctrine()->getManager();
-//                    $em->persist($delivery);
-//                    $em->flush();
-//
-//                    return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
-//                }
-//                return $this->render('delivery/new.html.twig', array(
-//                    'sheetDev' => $sheetDev,
-//                    'count' => $countSheetDevId,
-//                    'hight' => $hightId,
-//                    'form' => $form->createView(),
-//                ));
-//            }
         }
 
         return $this->render('delivery/new.html.twig', array(

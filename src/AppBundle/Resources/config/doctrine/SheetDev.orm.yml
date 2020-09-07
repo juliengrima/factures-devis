@@ -28,9 +28,11 @@ AppBundle\Entity\SheetDev:
         sheet:
             targetEntity: AppBundle\Entity\Sheet
             mappedBy: years
+            onDelete: CASCADE
     oneToOne:
         link1:
             targetEntity: AppBundle\Entity\Link
             mappedBy: sheetdev1
+            onDelete: CASCADE
 
     lifecycleCallbacks: {  }

@@ -72,7 +72,7 @@ class SheetDevController extends Controller
                  }
                 $em->flush();
 //                    LOOP IS FINISHED RETURN TO NEW PAGE
-                return $this->render('sheetdev/new.html.twig', array(
+                return $this->redirectToRoute('sheetdev_index', array(
                     'sheetDev' => $sheetDev,
                     'count' => $countSheetDevId,
                     'hight' => $hightId,
@@ -255,14 +255,22 @@ class SheetDevController extends Controller
         $editForm = $this->createForm('AppBundle\Form\SheetDevEditType', $sheetDev);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $em = $this->getDoctrine()->getManager();
+        $sheet = $em->getRepository('AppBundle:Sheet')->findBy(array('id' => $sheetDev));
 
-            return $this->redirectToRoute('sheetdev_show', array('id' => $sheetDev->getId()));
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $this->getDoctrine()
+                 ->getManager()
+                 ->flush();
+            return $this->redirectToRoute('sheetdev_show', array(
+                'id' => $sheetDev->getId(),
+            ));
         }
 
         return $this->render('sheetdev/edit.html.twig', array(
             'sheetDev' => $sheetDev,
+            'sheet' => $sheet,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

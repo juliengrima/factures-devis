@@ -72,7 +72,7 @@ class SheetController extends Controller
                 }
                 $em->flush();
 //                    LOOP IS FINISHED RETURN TO NEW PAGE
-                return $this->render('sheet/new.html.twig', array(
+                return $this->redirectToRoute('sheet_index', array(
                     'sheetDev' => $sheet,
                     'count' => $countSheetId,
                     'hight' => $hightId,
