@@ -29,52 +29,41 @@
                 {{ form_end(edit_form) }}
             </li>
             <li>
-                {{ form_start(delete_form) }}
-                <input type="image" value="Supprimer" class="delete" src="{{ asset('media/images/locals/delete.png') }}">
-                {{ form_end(delete_form) }}
+                {#                {{ form_start(delete_form) }}#}
+                {#                  <input type="image" value="Supprimer" class="delete" src="{{ asset('media/images/locals/delete.png') }}">#}
+                {#                <input type="submit" value="Supprimer" rel="modal:open" class="submit-center delete-word">#}
+                <a href="#ex1" rel="modal:open" class="button submit-center delete-word">Supprimer</a>
+                {#                {{ form_end(delete_form) }}#}
             </li>
         </ul>
-
-
+    {#  MODAL  #}
+    <div id="ex1" class="modal">
+        <p>Etes vous sure de vouloir supprimer cet élément ?</p>
+        <p>!! Vous ne pouvez pas supprimer ce devis tant qu'il est associé
+            à un bon de livraison !!</p>
+        <ul class="icons ">
+            <li><a href="#" rel="modal:close" class="button annulation">Annuler</a></li>
+            <li>
+                {% if deliveries != null %}
+                {% else %}
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Supprimer" class="delete-word">
+                    {{ form_end(delete_form) }}
+                {% endif %}
+            </li>
+        </ul>
+    </div>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{#{% extends 'layout.html.twig' %}#}
-
-{#{% block body %}#}
-{#    <h1>Sheet edit</h1>#}
-
-{#    {{ form_start(edit_form) }}#}
-{#        {{ form_widget(edit_form) }}#}
-{#        <input type="submit" value="Edit" />#}
-{#    {{ form_end(edit_form) }}#}
-
-{#    <ul>#}
-{#        <li>#}
-{#            <a href="{{ path('sheet_index') }}">Back to the list</a>#}
-{#        </li>#}
-{#        <li>#}
-{#            {{ form_start(delete_form) }}#}
-{#                <input type="submit" value="Delete">#}
-{#            {{ form_end(delete_form) }}#}
-{#        </li>#}
-{#    </ul>#}
-{#{% endblock %}#}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    {#    <script>#}
+    {#        $("#ex1").modal({#}
+    {#            fadeDuration: 1000#}
+    {#        });#}
+    {#    </script>#}
+{% endblock %}

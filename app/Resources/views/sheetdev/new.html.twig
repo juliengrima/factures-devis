@@ -9,20 +9,28 @@
             <section>
                 <div class="content">
                     <div class="inner">
-                        <h2 class="align-center">Génération du devis - {{ count + 1 }}</h2>
+                        <h2 class="align-center">Génération du devis / D000{{ hight + 1 }}</h2>
                         <div>
                             <table>
-                                {% if count < 100 %}
+                                {% if hight < 100 %}
                                     <tr>
-                                        <td>Je veux commencer mes devis à : </br>
-                                        <span class="comment-span">*Attention, ceci va générer
-                                            autant de documents</br> dans la base de données
-                                            et prendra un certain temps*</span></td>
-                                        <td><input type="number" name="count"></td>
+                                        <td>
+                                            <input id="hide" type="checkbox" class="filled-in">
+                                            <label for="hide" class="dev-label">
+                                                Je veux commencer mes devis au dela de / {{ hight + 1 }} :</br>
+                                                <span class="comment-span">* Attention, ceci va générer et supprimer
+                                                    autant de documents dans la base de données et prendra un certain temps.
+                                                    <span class="attention">ATTENTION, SI DES DOCUMENTS ONT ETE GENERE, ILS SERONT SUPPRIME.
+                                                        <br>!! Je disparais après 100 itérations de documents !!
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </td>
+                                        <td><input type="number" name="count" class="upload_file_event"></td>
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td>Nombre de pages suplémentaires : </td>
+                                    <td>Nombre de pages supplémentaires : </td>
                                     <td><input type="number" name="pages"></td>
                                 </tr>
                             </table>
@@ -47,4 +55,17 @@
 
     {{ form_end(form) }}
 
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#hide').click(function () {
+            if (this.checked){
+                $('.upload_file_event').css('display', 'block')
+            }
+            else {
+                $('.upload_file_event').css('display', 'none')
+            }
+        })
+    </script>
 {% endblock %}
