@@ -31,6 +31,7 @@ AppBundle\Entity\Sheet:
                 name: sheetdev_id
                 referencedColumnName: id
                 cascade: ["persist", "merge"]
+                onDelete: CASCADE
     oneToMany:
         delivery:
             targetEntity: AppBundle\Entity\Delivery

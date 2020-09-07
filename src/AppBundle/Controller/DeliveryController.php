@@ -44,19 +44,65 @@ class DeliveryController extends Controller
         $form = $this->createForm('AppBundle\Form\DeliveryType', $delivery);
         $form->handleRequest($request);
 
+        //      Call to Entities and count entries
+        $em = $this->getDoctrine()->getManager();
+        $countDelivery = $em->getRepository('AppBundle:Delivery')->countByDev();
+        $hightId = $em->getRepository('AppBundle:Delivery')->hightId();
+
         if ($form->isSubmitted() && $form->isValid()) {
+//            TESTING $newSheetDevID IF is NULL OR NOT
+//            IF IT'S DIFFERENT OF NULL
+            $newDelivery = $request->request->get('count');
+            $check = $request->request->get('check');
+            if($check == null and $newDelivery == null){
+                if ($sheetDev = $delivery->getSheetdev() != null || $sheet = $delivery->getSheet() != null) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($delivery);
+                    $em->flush();
 
-            if ($sheetDev = $delivery->getSheetdev() != null || $sheet = $delivery->getSheet() != null) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($delivery);
+                    return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
+                }
+                return $this->render('delivery/new.html.twig', array(
+                    'sheetDev' => $sheetDev,
+                    'count' => $countDelivery,
+                    'hight' => $hightId,
+                    'form' => $form->createView(),
+                ));
+            }
+            else{
+//                TESTING IF COUNT OF ENTRIES IS LESS THAN THE NEW ENTRY
+//                MAKE A LOOP WHILE LESS THAN NEW ENTRY
+                while ($countDelivery < $newDelivery){
+                    $delivery = new Delivery();
+                    $delivery->setYears('90');
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($delivery);
+                    $countDelivery++;
+                }
                 $em->flush();
-
-                return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
+//              FORCED DATA FOR AUTOMATIC REMOVE
+                for($i = 0; $i <= $countDelivery; $i++){
+                    $deliveries = $em->getRepository('AppBundle:Delivery')->findBy(array('id' => $i));
+                    foreach ($deliveries as $delivery){
+                        $em = $this->getDoctrine()->getManager();
+                        $em->remove($delivery);
+                    }
+                }
+                $em->flush();
+//                    LOOP IS FINISHED RETURN TO NEW PAGE
+                return $this->redirectToRoute('delivery_index', array(
+                    'sheetDev' => $delivery,
+                    'count' => $countDelivery,
+                    'hight' => $hightId,
+                    'form' => $form->createView(),
+                ));
             }
         }
 
         return $this->render('delivery/new.html.twig', array(
             'delivery' => $delivery,
+            'count' => $countDelivery,
+            'hight' => $hightId,
             'form' => $form->createView(),
         ));
     }

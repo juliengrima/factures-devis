@@ -38,6 +38,5 @@ AppBundle\Entity\Link:
                 name: delivery_id
                 referencedColumnName: id
                 onDelete: CASCADE
-                
 
     lifecycleCallbacks: {  }
