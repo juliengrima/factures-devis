@@ -46,26 +46,27 @@ class DeliveryController extends Controller
 
         //      Call to Entities and count entries
         $em = $this->getDoctrine()->getManager();
-        $countSheetDevId = $em->getRepository('AppBundle:Delivery')->countByDev();
+        $countDelivery = $em->getRepository('AppBundle:Delivery')->countByDev();
         $hightId = $em->getRepository('AppBundle:Delivery')->hightId();
 
         if ($form->isSubmitted() && $form->isValid()) {
 //            TESTING $newSheetDevID IF is NULL OR NOT
 //            IF IT'S DIFFERENT OF NULL
-            $newsheetDevId = $request->request->get('count');
-            if(isset($newsheetDevId) != null) {
+            $newDelivery = $request->request->get('count');
+            $check = $request->request->get('check');
+            if($check == 1 and $newDelivery > 100) {
 //                TESTING IF COUNT OF ENTRIES IS LESS THAN THE NEW ENTRY
 //                MAKE A LOOP WHILE LESS THAN NEW ENTRY
-                while ($countSheetDevId < $newsheetDevId){
+                while ($countDelivery < $newDelivery){
                     $delivery = new Delivery();
                     $delivery->setYears('90');
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($delivery);
-                    $countSheetDevId++;
+                    $countDelivery++;
                 }
                 $em->flush();
 //              FORCED DATA FOR AUTOMATIC REMOVE
-                for($i = 0; $i <= $countSheetDevId; $i++){
+                for($i = 0; $i <= $countDelivery; $i++){
                     $deliveries = $em->getRepository('AppBundle:Delivery')->findBy(array('id' => $i));
                     foreach ($deliveries as $delivery){
                         $em = $this->getDoctrine()->getManager();
@@ -76,32 +77,32 @@ class DeliveryController extends Controller
 //                    LOOP IS FINISHED RETURN TO NEW PAGE
                 return $this->render('delivery/new.html.twig', array(
                     'sheetDev' => $delivery,
-                    'count' => $countSheetDevId,
+                    'count' => $countDelivery,
                     'hight' => $hightId,
                     'form' => $form->createView(),
                 ));
             }
 //            ENTRY $newSheetDevId IS NULL SO GENERATE A NEW SHEET
-            else{
-                if ($sheetDev = $delivery->getSheetdev() != null || $sheet = $delivery->getSheet() != null) {
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($delivery);
-                    $em->flush();
-
-                    return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
-                }
-                return $this->render('delivery/new.html.twig', array(
-                    'sheetDev' => $sheetDev,
-                    'count' => $countSheetDevId,
-                    'hight' => $hightId,
-                    'form' => $form->createView(),
-                ));
-            }
+//            else{
+//                if ($sheetDev = $delivery->getSheetdev() != null || $sheet = $delivery->getSheet() != null) {
+//                    $em = $this->getDoctrine()->getManager();
+//                    $em->persist($delivery);
+//                    $em->flush();
+//
+//                    return $this->redirectToRoute('sheetdel_spread', array('id' => $delivery->getId()));
+//                }
+//                return $this->render('delivery/new.html.twig', array(
+//                    'sheetDev' => $sheetDev,
+//                    'count' => $countSheetDevId,
+//                    'hight' => $hightId,
+//                    'form' => $form->createView(),
+//                ));
+//            }
         }
 
         return $this->render('delivery/new.html.twig', array(
             'delivery' => $delivery,
-            'count' => $countSheetDevId,
+            'count' => $countDelivery,
             'hight' => $hightId,
             'form' => $form->createView(),
         ));
