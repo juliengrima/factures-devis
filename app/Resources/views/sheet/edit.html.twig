@@ -39,12 +39,17 @@
     {#  MODAL  #}
     <div id="ex1" class="modal">
         <p>Etes vous sure de vouloir supprimer cet élément ?</p>
+        <p>!! Vous ne pouvez pas supprimer ce devis tant qu'il est associé
+            à un bon de livraison !!</p>
         <ul class="icons ">
             <li><a href="#" rel="modal:close" class="button annulation">Annuler</a></li>
             <li>
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Supprimer" class="delete-word">
-                {{ form_end(delete_form) }}
+                {% if deliveries != null %}
+                {% else %}
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Supprimer" class="delete-word">
+                    {{ form_end(delete_form) }}
+                {% endif %}
             </li>
         </ul>
     </div>

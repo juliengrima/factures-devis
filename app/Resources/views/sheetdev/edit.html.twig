@@ -39,16 +39,15 @@
         <p>Etes vous sure de vouloir supprimer cet élément ?</p>
         <p>!! Vous ne pouvez pas supprimer ce devis tant qu'il est associé
             à un bon de commande et/ou un bon de livraison !!</p>
-        <p>{{ sheet }}</p>
+{#        <p>{{ sheet }}</p>#}
         <ul class="icons ">
             <li><a href="#" rel="modal:close" class="button annulation">Annuler</a></li>
             <li>
-                {% if sheet == null %}
+                {% if sheets != null %}
+                {% else %}
                     {{ form_start(delete_form) }}
                     <input type="submit" value="Supprimer" class="delete-word">
                     {{ form_end(delete_form) }}
-                {% else %}
-
                 {% endif %}
             </li>
         </ul>

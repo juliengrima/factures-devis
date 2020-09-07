@@ -256,7 +256,7 @@ class SheetDevController extends Controller
         $editForm->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-        $sheet = $em->getRepository('AppBundle:Sheet')->findBy(array('id' => $sheetDev));
+        $sheet = $em->getRepository('AppBundle:Sheet')->findBy(array('sheetdev' => $sheetDev));
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
@@ -270,7 +270,7 @@ class SheetDevController extends Controller
 
         return $this->render('sheetdev/edit.html.twig', array(
             'sheetDev' => $sheetDev,
-            'sheet' => $sheet,
+            'sheets' => $sheet,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

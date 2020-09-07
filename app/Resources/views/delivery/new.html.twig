@@ -16,10 +16,12 @@
                                 <td>
                                     <input id="hide" type="checkbox" class="filled-in" name="check">
                                     <label for="hide" class="dev-label">
-                                        Je veux commencer mes livraisons au dela de / {{ count + 1 }} :</br>
-                                        <span class="comment-span">* Attention, ceci va générer
+                                        Je veux commencer mes livraisons au dela de / {{ hight + 1 }} :</br>
+                                        <span class="comment-span">* Attention, ceci va générer et supprimer
                                             autant de documents dans la base de données et prendra un certain temps.
-                                            !! Je disparais après 100 itérations de documents !!</span>
+                                            !! Je disparais après 100 itérations de documents !! <br>
+                                            <span class="attention">!! ATTENTION, SI DES DOCUMENTS ONT ETE GENERE, ILS SERONT SUPPRIME !! </span>
+                                        </span>
                                     </label>
                                 </td>
                                 <td><input type="number" name="count" class="upload_file_event"></td>

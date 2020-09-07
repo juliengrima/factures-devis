@@ -221,6 +221,9 @@ class SheetController extends Controller
         $editForm = $this->createForm('AppBundle\Form\SheetTypeEdit', $sheet);
         $editForm->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $delivery = $em->getRepository('AppBundle:Delivery')->findBy(array('sheet' => $sheet));
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -229,6 +232,7 @@ class SheetController extends Controller
 
         return $this->render('sheet/edit.html.twig', array(
             'sheet' => $sheet,
+            'deliveries' => $delivery,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

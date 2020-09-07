@@ -2507,6 +2507,11 @@ input, select, textarea {
 		color: rgba(255, 255, 255, 0.35) !important;
 		opacity: 1.0;
 	}
+	.attention{
+		font-weight: bold;
+		color: darkorange;
+		text-decoration: underline darkorange;
+	}
 
 /* Icon */
 
@@ -2687,7 +2692,7 @@ input, select, textarea {
 	}
 	.comment-span{
 		font-size: 0.7em!important;
-		color: darkred;
+		color: darkorange;
 	}
 	.upload_file_event{
 		display: none;
