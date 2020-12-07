@@ -11640,7 +11640,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "Nombre _MENU_ d'entrées",
 	
 	
 			/**
