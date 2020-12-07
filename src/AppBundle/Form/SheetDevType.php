@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\society;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,7 +18,14 @@ class SheetDevType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('society')
+        $builder->add('society', EntityType::class,[
+                     'class' => society::class,
+
+                     'query_builder' => function(EntityRepository $so){
+                         return $so->createQueryBuilder('s')
+                                   ->orderBy('s.societyName', 'ASC');
+                     }
+        ])
                 ->add('years', EntityType::class, [
                     // looks for choices from this entity
                     'class' => Years::class,
