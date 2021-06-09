@@ -10,8 +10,8 @@
     <table id="table_id" class="display text">
         <thead>
         <tr>
-            <th class="align-center">Commande</th>
-            <th class="align-center">Client</th>
+            <th class="align-center">Commandes</th>
+            <th class="align-center">Devis</th>
             <th class="align-center">Validation</th>
             <th class="align-center">Date</th>
             <th class="align-center">Actions</th>
@@ -20,18 +20,28 @@
         <tbody>
         {% for sheet in sheets %}
             <tr>
-                <td class="align-center">{% if sheet.provider != null %}
-                                            {{ sheet.provider }}
-                                         {% else %}
-                                            NULL
-                                         {% endif %}
-                                            -{{ sheet.years }}/00{{ sheet.id }}</td>
-                <td class="align-center">{% if sheet.sheetdev != null %}
-                                            {{ sheet.sheetdev.society.societyName }}
-                                            {% else %}
-                                                NULL
-                                            {% endif %}
-                                            -{{ sheet.years }}D00{% if sheet.sheetdev != null %}
+                <td class="align-center">
+{#                    {% if sheet.provider != null %}#}
+{#                                            {{ sheet.provider }}#}
+{#                                         {% else %}#}
+{#                                            NULL#}
+{#                                         {% endif %}#}
+                                            -{{ sheet.years }}/00{{ sheet.id }}
+                </td>
+{#                <td class="align-center">#}
+{#                    {% if sheet.provider != null %}#}
+{#                        {{ sheet.provider }}#}
+{#                    {% else %}#}
+{#                        NULL#}
+{#                    {% endif %}#}
+{#                    {{ sheet.years }}/00{{ sheet.id }}</td>#}
+                <td class="align-center">
+{#                    {% if sheet.sheetdev != null %}#}
+{#                                            {{ sheet.sheetdev.society.societyName }}#}
+{#                                            {% else %}#}
+{#                                                NULL#}
+{#                                            {% endif %}#}
+                                            {{ sheet.years }}D00{% if sheet.sheetdev != null %}
                                                                             {{ sheet.sheetdev.id }}
                                                                           {% else %}
                                                                               NULL
