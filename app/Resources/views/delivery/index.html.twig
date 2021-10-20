@@ -12,7 +12,6 @@
         <thead>
         <tr>
             <th class="align-center">Devis</th>
-            <th class="align-center">Société</th>
             <th class="align-center">Bon de commande</th>
             <th class="align-center">Bon de livraison</th>
             <th class="align-center">Validation</th>
@@ -25,8 +24,7 @@
             {% if delivery.sheet != null %}
             <tr>
                 <td class="align-center">{{ delivery.sheet.sheetdev.society.societyName }}-{{ delivery.sheet.sheetdev.years }}D00{{ delivery.sheet.sheetdev.id }}</td>
-                <td class="align-center">{{ delivery.sheet.sheetdev.society.societyName }}-{{ delivery.sheet.sheetdev.years }}D00{{ delivery.sheet.sheetdev.id }}</td>
-                <td class="align-center">{{ delivery.sheet.years }}/00{{ delivery.sheet.id }}</td>
+                <td class="align-center">{{ delivery.sheet.provider.provider }}-{{ delivery.sheet.years }}/00{{ delivery.sheet.id }}</td>
                 <td class="align-center">{{ delivery.years }}BL00{{ delivery.id }}</td>
                 <td class="align-center">{% if delivery.delivery %}livrée{% else %}{% endif %}</td>
                 <td class="align-center">{% if delivery.date %}{{ delivery.date|date('d-m-Y') }}{% endif %}</td>

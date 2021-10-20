@@ -10,6 +10,7 @@
     <table id="table_id" class="display text">
         <thead>
         <tr>
+            <th class="align-center">Société</th>
             <th class="align-center">Commandes</th>
             <th class="align-center">Devis</th>
             <th class="align-center">Validation</th>
@@ -20,6 +21,9 @@
         <tbody>
         {% for sheet in sheets %}
             <tr>
+                <td class="align-center">
+                    {{ sheet.sheetdev.society.societyName }}
+                </td>
                 <td class="align-center">
 {#                    {% if sheet.provider != null %}#}
 {#                                            {{ sheet.provider }}#}
